@@ -4,7 +4,7 @@ import styles from './sidebar.module.css'
 
 const Sidebar = () => {
   return (
-    <div className='lg:shrink-0'>
+    <div className='lg:shrink-0 max-md:hidden'>
       <div className='flex flex-col gap-2 rounded-[15px] bg-white w-[200px] lg:w-[250px] p-2'>
         <div className={`p-4 cursor-pointer hover:bg-gray-300 rounded-lg ${styles.gradient}`}>
           <div className='flex gap-3 items-center'>
