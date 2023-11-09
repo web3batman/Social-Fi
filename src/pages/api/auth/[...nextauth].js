@@ -16,6 +16,7 @@ export default NextAuth({
       return true
     },
     async session(session, user) {
+      if (!session.user) return session;
       session.user = user
       return session
     },
@@ -26,20 +27,5 @@ export default NextAuth({
       return token
     }
   },
-  secret: process.env.NEXTAUTH_SECRET,
-  events: {
-    async signIn(message) { 
-      console.log('signin', message)
-     },
-    async signOut(message) { 
-      console.log('signout', message)
-     },
-    async createUser(message) { /* user created */ },
-    async updateUser(message) { /* user updated - e.g. their email was verified */ },
-    async linkAccount(message) { /* account (e.g. Twitter) linked to a user */ },
-    async session(message) { /* session is active */ },
-  },
-  pages: {
-    signOut: '/'
-  }
+  secret: process.env.NEXTAUTH_SECRET
 });
