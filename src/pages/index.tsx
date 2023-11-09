@@ -20,7 +20,7 @@ export default function Home() {
                 Your digital oasis
               </h1>
               <h2 className='text-primary-1 text-[24px] font-normal leading-8'>
-                Easier to connect with the world of Web3 and community with The Sahara
+                It&apos;s easier to connect with the world of Web3 and community with The Sahara
               </h2>
             </div>
             <div className='flex w-full max-sm:mb-[56px]'>
