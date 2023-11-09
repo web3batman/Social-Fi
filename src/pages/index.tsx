@@ -3,42 +3,11 @@ import Image from 'next/image';
 import LandingHeader from './components/landingheader';
 import Footer from './components/landingfooter';
 
-import { signIn, signOut, useSession } from "next-auth/react"
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/components/navigation';
-// import type Session
 
 export default function Home() {
-  const { data: session } = useSession();
-  const [currentSession, setCurrentSession] = useState(undefined);
-  const [profile, setProfile] = useState(undefined);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (session) {
-      // setCurrentSession(session);
-      console.log('session', session)
-      // router.push('/home');
-    }
-  }, [session])
-  // useEffect(() => {
-  //   if (currentSession) {
-  //     console.log(currentSession)
-  //     setProfile(currentSession.token.token.profile);
-  //   }
-  // }, [currentSession]);
-
-  // useEffect(() => {
-  //   if (profile) {
-
-  //     console.log('profile', profile)
-  //   }
-  // }, [profile])
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <LandingHeader />
-      {/* <TestNav /> */}
       <div className='px-5 md:px-10 flex justify-between items-center max-w-[1240px] w-screen'>
         <div className='flex items-center w-full flex-col sm:flex-row'>
           <div className='flex flex-col gap-[56px] w-[100%] sm:w-[48%]'>
@@ -47,11 +16,11 @@ export default function Home() {
                 Your digital oasis
               </h1>
               <h2 className='text-primary-1 text-[24px] font-normal leading-8'>
-                Easier to connect with the world of Web3 and community with The Sahara
+                It&apos;s asier to connect with the world of Web3 and community with The Sahara
               </h2>
             </div>
             <div className='flex w-full max-sm:mb-[56px]'>
-              <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full' onClick={() => { signIn('twitter') }}>
+              <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full'>
                 <div className='flex gap-4 items-center justify-center sm:justify-start'>
                   <Image src={'/icons/twitter_logo.png'} width={100} height={100} alt='Twitter logo' className='w-[32px] h-[32px]' />
                   <h1 className='text-white font-medium leading-[32px] text-center text-[24px]'>

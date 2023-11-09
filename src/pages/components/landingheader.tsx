@@ -13,20 +13,27 @@ const aclonica = Aclonica({
 
 const LandingHeader = () => {
   const [navshow, setNavshow] = useState(false);
-  const session = useSession();
-  const router = useRouter()
+  const {data: session, status} = useSession();
+  const router = useRouter();
+  const [profile, setProfile] = useState();
 
   useEffect(() => {
-    if (session) {
-      router.push('/home');
+    if (status == 'authenticated') {
+      // @ts-ignore
+      setProfile(session.token.token.profile);
     }
-    console.log(navshow)
-  }, [navshow])
+  }, [navshow, session, router]);
+
+  useEffect(() => {
+    if (profile) {
+      router.push('/home')
+    }
+  }, [profile])
 
   return (
     <div className='px-5 md:px-10 py-4 sm:py-[22px] flex justify-between items-center max-w-[1240px] w-screen flex-wrap'>
       <div className='flex gap-2 items-center justify-center'>
-        <Image src={'/icons/logo.svg'} width={100} height={100} alt='logo' className='w-[43.243px] sm:w-[64.865px] h-8 sm:h-12' />
+        <Image src={'/icons/logo.svg'} width={100} height={100} alt='logo' className='w-[43.243px] sm:w-[64.865px] h-8 sm:h-12' onClick={() => { signOut() }} />
         <h1 className={`text-[14px] sm:text-[18px] font-normal leading-[normal] text-primary ${aclonica.className} w-[73px] sm:w-[94px]`}>
           The sahara
         </h1>
