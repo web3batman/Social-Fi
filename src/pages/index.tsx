@@ -4,36 +4,9 @@ import LandingHeader from './components/landingheader';
 import Footer from './components/landingfooter';
 
 import { signIn, signOut, useSession } from "next-auth/react"
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/dist/client/components/navigation';
 // import type Session
 
 export default function Home() {
-  const { data: session } = useSession();
-  const [currentSession, setCurrentSession] = useState(undefined);
-  const [profile, setProfile] = useState(undefined);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (session) {
-      // setCurrentSession(session);
-      console.log('session', session)
-      // router.push('/home');
-    }
-  }, [session])
-  // useEffect(() => {
-  //   if (currentSession) {
-  //     console.log(currentSession)
-  //     setProfile(currentSession.token.token.profile);
-  //   }
-  // }, [currentSession]);
-
-  // useEffect(() => {
-  //   if (profile) {
-
-  //     console.log('profile', profile)
-  //   }
-  // }, [profile])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
