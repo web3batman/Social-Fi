@@ -18,7 +18,7 @@ const MessageCard = (props: any) => {
           </h2>
         </div>
       </div>
-      <div className='flex flex-col items-end h-full justify-between'>
+      <div className='flex flex-col items-end h-10 justify-between'>
         <h2 className='text-[12px] font-normal leading-[18px]'>24m</h2>
         <div>
           <div className={`w-2 h-2 rounded-full ${active ? 'bg-secondary' : 'bg-white'}`}>

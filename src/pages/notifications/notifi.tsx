@@ -4,46 +4,21 @@ import Image from 'next/image'
 
 const Notification = (props: any) => {
   const { active, username, notitype, time } = props;
-  const [card, setCard] = useState<object>({
-    icon: '/icons/home.svg',
-    time: Date.now,
-    username: '',
-    notitype: '',
-    comment: 'Ready to connect with your community friends? start to follow your best fellow. Here are they!!!'
-  });
+  const [comment, setComment] = useState('');
 
   useEffect(() => {
     switch (notitype) {
       case 'comment':
-        setCard({
-          icon: '/icons/home.svg',
-          time: time,
-          username: username,
-          comment: 'comment on your post'
-        })
+        setComment('comment on your post');
         break;
       case 'star':
-        setCard({
-          icon: '/icons/home.svg',
-          time: time,
-          username: username,
-          comment: 'star your post'
-        })
+        setComment('star your post')
         break;
       case 'follow':
-        setCard({
-          icon: '/icons/home.svg',
-          time: time,
-          username: username,
-          comment: 'follow you'
-        })
+        setComment('follow now')
         break;
       default:
-        setCard({
-          icon: '/icons/home.svg',
-          time: Date.now,
-          comment: 'Ready to connect with your community friends? start to follow your best fellow. Here are they!!!'
-        })
+        setComment('Ready to connect with your community friends? start to follow your best fellow. Here are they!!!')
         break;
     }
   }, [])
@@ -57,7 +32,7 @@ const Notification = (props: any) => {
         <div className='flex flex-col pr-2'>
           <h1 className='text-[16px] font-semibold leading-6'>
             {username}
-            <span className='font-normal'> {card.comment}</span>
+            <span className='font-normal'> {comment}</span>
           </h1>
           <h2 className='text-[12px] font-normal leading-[18px] text-grey-2'>
             {time}
