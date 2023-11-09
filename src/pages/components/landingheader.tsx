@@ -21,7 +21,7 @@ const LandingHeader = () => {
       router.push('/home');
     }
     console.log(navshow)
-  }, [navshow])
+  }, [navshow, session, router])
 
   return (
     <div className='px-5 md:px-10 py-4 sm:py-[22px] flex justify-between items-center max-w-[1240px] w-screen flex-wrap'>
