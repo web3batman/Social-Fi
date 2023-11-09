@@ -1,0 +1,22 @@
+.active {
+  @apply border border-[#9E2D2F] border-solid;
+  background: linear-gradient(210deg,
+      rgba(251, 208, 78, 0.08) 12.62%,
+      rgba(245, 99, 40, 0.08) 45.99%,
+      rgba(161, 45, 48, 0.08) 72.19%);
+}
+
+.active_card {
+  background: linear-gradient(210deg,
+      rgba(251, 208, 78, 0.08) 12.62%,
+      rgba(245, 99, 40, 0.08) 45.99%,
+      rgba(161, 45, 48, 0.08) 72.19%);
+}
+
+.common_card {
+  @apply mix-blend-luminosity;
+  background: linear-gradient(210deg,
+      rgba(251, 208, 78, 0.08) 12.62%,
+      rgba(245, 99, 40, 0.08) 45.99%,
+      rgba(161, 45, 48, 0.08) 72.19%);
+}
