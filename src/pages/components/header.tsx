@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
 import styles from './header.module.css';
-import {signOut} from 'next-auth/react'
+import {signOut, useSession} from 'next-auth/react'
 import { useRouter } from 'next/router';
 
 const aclonica = Aclonica({
@@ -13,11 +13,29 @@ const aclonica = Aclonica({
 
 
 const Header = () => {
+  const {data: session, status} = useSession();
   const router = useRouter();
   const [navshow, setNavshow] = useState(false);
+  const [profile, setProfile] = useState();
+  const [avatar, setAvatar] = useState('/avatars/default.svg');
+  const [username, setName] = useState();
+
   useEffect(() => {
-    console.log(navshow)
-  }, [navshow])
+    if (status == 'authenticated') {
+      console.log('session', session)
+      // @ts-ignore
+      setProfile(session.token.token.profile);
+    }
+  }, [session])
+
+  useEffect(() => {
+    if (profile) {
+      //@ts-ignore
+      setAvatar(profile.profile_image_url_https)
+      //@ts-ignore
+      setName(profile.name)
+    }
+  }, [profile])
 
   return (
     <div className='w-full'>
@@ -34,7 +52,7 @@ const Header = () => {
             <Image src={'/icons/cardano.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
             <span className='text-center text-base not-italic font-semibold leading-6 text-primary'>200</span>
           </span>
-          <Image src={'/avatars/default.svg'} width={'100'} height={'100'} alt='Default avatar' className='w-10 h-10 rounded-full border-2 border-solid border-[#E7EAF0] cursor-pointer' />
+          <Image src={avatar} width={'100'} height={'100'} alt='Default avatar' className='w-10 h-10 rounded-full border-2 border-solid border-[#E7EAF0] cursor-pointer' />
         </div>
       </div>
     </div>

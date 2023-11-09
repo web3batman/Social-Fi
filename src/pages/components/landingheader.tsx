@@ -14,9 +14,9 @@ const aclonica = Aclonica({
 const LandingHeader = () => {
   const {data: session, status} = useSession();
   const [navshow, setNavshow] = useState(false);
-  const [profile, setProfile] = useState<object>({});
-  const [avatar, setAvatar] = useState<string>('');
-  const [username, setName] = useState<string>('');
+  const [profile, setProfile] = useState();
+  const [avatar, setAvatar] = useState('/avatars/default.svg');
+  const [username, setName] = useState();
   const router = useRouter();
 
   useEffect(() => {
@@ -28,11 +28,12 @@ const LandingHeader = () => {
   }, [session])
 
   useEffect(() => {
-    console.log('profile', profile)
-    //@ts-ignore
-    setAvatar(profile.profile_image_url_https)
-    //@ts-ignore
-    setAvatar(profile.name)
+    if (profile) {
+      //@ts-ignore
+      setAvatar(profile.profile_image_url_https)
+      //@ts-ignore
+      setName(profile.name)
+    }
   }, [profile])
 
   return (
@@ -71,7 +72,7 @@ const LandingHeader = () => {
               </button>
             </div>
           ):(
-          <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { signIn('twitter') }}>
+          <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { signIn('twitter', {callbackUrl: '/home'}) }}>
             <div className='flex gap-2 items-center'>
               <Image src={'/icons/twitter_logo.png'} width={100} height={100} alt='Twitter logo' className='w-[12px] sm:w-[24px] h-[12px] sm:h-[24px]' />
               <h1 className='text-white font-medium leading-6 text-center text-[12px] sm:text-base'>
