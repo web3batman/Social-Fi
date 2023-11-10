@@ -15,13 +15,14 @@ const saira = Saira({
   subsets: ['latin']
 })
 
-export default function Modal(props: { show: boolean; closeModal: any; openModal: any }) {
+export default function Modal(props: { show: boolean; closeModal: any; openModal: any; }) {
   const { show, closeModal, openModal } = props;
+
   const [selected, setSelected] = useState(people[0])
 
   return (
     <>
-      <Transition appear show={show} as={Fragment}>
+      <Transition appear show={show || false} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}

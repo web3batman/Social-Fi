@@ -5,7 +5,7 @@ import WalletSatus from './walletstatus';
 import Modal from '../components/modal';
 
 const WalletInfo = () => {
-  const [modalshow, setModal] = useState(false);
+  const [modalshow, setModal] = useState<true | false>(false);
   function closeModal() {
     setModal(false)
   }
