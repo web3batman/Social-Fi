@@ -38,7 +38,7 @@ const PostCard = () => {
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>1,456</h3>
           </div>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image src={'/icons/post_star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>790</h3>
           </div>
           <div className='flex gap-1 items-center'>
