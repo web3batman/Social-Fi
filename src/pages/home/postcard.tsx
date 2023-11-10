@@ -27,31 +27,31 @@ const PostCard = () => {
           ⛔ My fees right now at 1.4 ADA🔺️Buy the ticket and wait for your revenue share.🔺️
         </h3>
       </div>
-      <div className='flex justify-between gap-4'>
+      <div className='flex justify-between gap-4 max-sm:flex-col'>
         <div className='flex gap-4'>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/search.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>384</h3>
           </div>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/search.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>1,456</h3>
           </div>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/search.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image src={'/icons/star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>790</h3>
           </div>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/search.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>201</h3>
           </div>
         </div>
         <div className="flex gap-4">
           <div className='flex gap-1 items-center'>
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>384</h3>
-            <Image src={'/icons/search.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
           </div>
-          <Image src={'/icons/search.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+          <Image src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' />
         </div>
       </div>
     </div>

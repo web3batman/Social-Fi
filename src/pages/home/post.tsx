@@ -10,8 +10,8 @@ const Post = () => {
       </div>
       <div className='flex justify-between items-center'>
         <div className='flex gap-2'>
-          <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
-          <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
+          <Image src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
+          <Image src={'/icons/photograph.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
         </div>
         <div className='flex gap-4 items-center'>
           <div className='flex gap-2 items-center max-[875px]:hidden'>
