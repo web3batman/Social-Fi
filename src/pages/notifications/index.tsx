@@ -4,10 +4,15 @@ import Sidebar from '../components/sidebar';
 import SideBarRight from '../components/sidebar_right';
 import NotificationGroup from './notification_group';
 import BottomNav from '../components/bottom_nav';
+import { Saira, Aclonica } from 'next/font/google';
+const saira = Saira({
+  weight: '400',
+  subsets: ['latin']
+})
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className={saira.className}>
       <Header />
       <div className='w-full bg-main-bg-color'>
         <div className='px-5 pt-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>

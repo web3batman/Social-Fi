@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MessageCard from './walletcard';
 import Image from 'next/image';
 import WalletSatus from './walletstatus';
+import Modal from '../components/modal';
 
 const WalletInfo = () => {
+  const [modalshow, setModal] = useState(false);
+  function closeModal() {
+    setModal(false)
+  }
+
+  function openModal() {
+    setModal(true)
+  }
   return (
     <div className='flex flex-col gap-4 w-full'>
       <MessageCard />
@@ -13,19 +22,20 @@ const WalletInfo = () => {
         <WalletSatus title={'Portofolio Value'} amount={'23,980.80'} />
       </div>
       <div className='flex justify-between gap-4'>
-        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white border border-border-color w-1/2">
+        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white border border-border-color w-1/2 cursor-pointer hover:bg-slate-300">
           <Image src={'/icons/plus-circle.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
           <h3 className='text-primary leading-[24px] font-semibold text-base'>
             Deposit
           </h3>
         </div>
-        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white border border-border-color w-1/2">
+        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white border border-border-color w-1/2 cursor-pointer hover:bg-slate-300" onClick={() => { setModal(true) }}>
           <Image src={'/icons/paper-airplane.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
           <h3 className='text-primary leading-[24px] font-semibold text-base'>
             Withdraw
           </h3>
         </div>
       </div>
+      <Modal show={modalshow} closeModal={closeModal} openModal={openModal} />
     </div>
   )
 }
