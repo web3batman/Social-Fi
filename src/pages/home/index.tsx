@@ -18,7 +18,7 @@ const Home = () => {
       <div className='bg-main-bg-color'>
         <div className='px-5 pt-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
           <Sidebar />
-          <div className='flex flex-col gap-4 max-lg:grow max-md:mb-28 min-h-screen'>
+          <div className='flex flex-col gap-4 max-lg:grow max-md:mb-28'>
             <Post />
             <PostCard />
             <PostCard />

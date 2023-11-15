@@ -4,6 +4,13 @@ const nextConfig = {
   images: {
     domains: ['pbs.twimg.com'],
   },
+  webpack: function (config, options) {
+    config.experiments = {
+      asyncWebAssembly: true,
+      layers: true,
+    };
+    return config;
+  },
 }
 
 module.exports = nextConfig

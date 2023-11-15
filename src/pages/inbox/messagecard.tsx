@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const MessageCard = (props: any) => {
   const { active, username, time, avatar } = props;
+  const router = useRouter()
 
   return (
-    <div className="p-4 rounded-lg flex justify-between items-center bg-white">
+    <div className="p-4 rounded-lg flex justify-between items-center bg-white cursor-pointer hover:bg-slate-100" onClick={() => {router.push('/inbox/1')}}>
       <div className='flex gap-4 items-center'>
         <Image src={'/avatars/default.svg'} width={100} height={100} alt='Icon' className='w-10 rounded-full' />
         <div className='flex flex-col'>

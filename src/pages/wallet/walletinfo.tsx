@@ -4,14 +4,32 @@ import Image from 'next/image';
 import WalletSatus from './walletstatus';
 import Modal from '../components/modal';
 
-const WalletInfo = () => {
+import type { NextPage } from 'next';
+import {useWallet} from '@meshsdk/react';
+import {CardanoWallet} from '@meshsdk/react';
+
+
+const WalletInfo: NextPage = () => {
   const [modalshow, setModal] = useState<true | false>(false);
+  const {connected, wallet} = useWallet();
+  const [assets, setAssets] = useState<null | any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getAssets = async () => {
+    if (wallet) {
+      setLoading(true);
+      const _assets = await wallet.getAssets();
+      setAssets(_assets);
+      setLoading(false);
+    }
+  }
+  
   function closeModal() {
-    setModal(false)
+    setModal(false);
   }
 
   function openModal() {
-    setModal(true)
+    setModal(true);
   }
   return (
     <div className='flex flex-col gap-4 w-full'>
@@ -35,6 +53,31 @@ const WalletInfo = () => {
           </h3>
         </div>
       </div>
+      <CardanoWallet />
+      {connected && (
+        <>
+          <h1>Get Wallet Assets</h1>
+          {assets ? (
+            <pre>
+              <code className="language-js">
+                {JSON.stringify(assets, null, 2)}
+              </code>
+            </pre>
+          ) : (
+            <button
+              type="button"
+              onClick={() => getAssets()}
+              disabled={loading}
+              style={{
+                margin: "8px",
+                backgroundColor: loading ? "orange" : "grey",
+              }}
+            >
+              Get Wallet Assets
+            </button>
+          )}
+        </>
+      )}
       <Modal show={modalshow} closeModal={closeModal} openModal={openModal} />
     </div>
   )
