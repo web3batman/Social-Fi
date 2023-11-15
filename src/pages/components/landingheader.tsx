@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
 import { signIn, getSession, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const aclonica = Aclonica({
   weight: '400',
@@ -45,17 +46,17 @@ const LandingHeader = () => {
         </h1>
       </div>
       <div className='flex gap-6 max-sm:hidden'>
-        <h1 className='text-primary font-medium leading-6 text-center cursor-pointer'>
+        <Link href={'/home'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
           Home
-        </h1>
+        </Link>
         <span>.</span>
-        <h1 className='text-primary font-medium leading-6 text-center cursor-pointer'>
+        <Link href={'/about'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
           About
-        </h1>
+        </Link>
         <span>.</span>
-        <h1 className='text-primary font-medium leading-6 text-center text-base cursor-pointer'>
+        <Link href={'/inbox'} className='text-primary font-medium leading-6 text-center text-base cursor-pointer'>
           Community
-        </h1>
+        </Link>
       </div>
       <div className='flex gap-2'>
         {
@@ -88,15 +89,15 @@ const LandingHeader = () => {
         </span>
       </div>
       <div className={`flex flex-col w-full sm:hidden mt-4 border-t-[2px] duration-100 ${!navshow ? 'opacity-0' : 'opacity-100'}`}>
-        <h1 className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
+        <Link href={'/home'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
           Home
-        </h1>
-        <h1 className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
+        </Link>
+        <Link href={'/about'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
           About
-        </h1>
-        <h1 className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
+        </Link>
+        <Link href={'/inbox'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
           Community
-        </h1>
+        </Link>
       </div>
     </div>
   )
