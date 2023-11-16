@@ -48,7 +48,7 @@ const ChatInbox = () => {
   socket.on("received_message", (data) => {
     // Append to message list
     setMessageList([...messageList, data]);
-    scrollToBottom()
+    // scrollToBottom()
   });
 
 
@@ -58,10 +58,6 @@ const ChatInbox = () => {
       setNickName(nick)
     }
   }, [nickName])
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messageList, message]);
 
   return (
     <div className={saira.className}>

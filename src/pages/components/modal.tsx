@@ -118,7 +118,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                     </h1>
                     <div className='flex justify-between py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
                       <h1 className='font-medium truncate ...'>
-                        0xjhasdgdaw9gsasda8fhasda9g1109d80idjahsad
+                      addradfasdfasdf...adsfadfasdf
                       </h1>
                       <Image src={'/icons/duplicate.svg'} width={100} height={100} alt='Duplicate' className='w-[24px] h-[24px] cursor-pointer' />
                     </div>

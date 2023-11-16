@@ -16,9 +16,9 @@ const Dashboard = () => {
     <div className={saira.className}>
       <Header />
       <div className='w-full bg-main-bg-color'>
-        <div className='px-5 pt-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
+        <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
           <Sidebar />
-          <div className='flex flex-col gap-4 max-lg:grow max-md:mb-28 min-h-screen w-full'>
+          <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
             <SearchNav />
             <CardGroup />
           </div>
