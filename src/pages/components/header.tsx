@@ -13,10 +13,8 @@ const aclonica = Aclonica({
 
 
 const Header = () => {
-  const [navshow, setNavshow] = useState(false);
   const router = useRouter()
   const {data: session, status} = useSession()
-  const [profile, setProfile] = useState();
   
   useEffect(() => {
     console.log('current session', session)
@@ -24,13 +22,6 @@ const Header = () => {
       router.push('/')
     }
   }, [status])
-
-  useEffect(() => {
-    if (session) {
-      // @ts-ignore
-      setProfile(session.token.token.profile);
-    }
-  }, [navshow, session, router]);
 
   return (
     <div className='w-full'>
