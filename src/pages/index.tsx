@@ -3,8 +3,11 @@ import Image from 'next/image';
 import LandingHeader from './components/landingheader';
 import Footer from './components/landingfooter';
 
+import { signIn, signOut, useSession } from "next-auth/react"
+// import type Session
 
 export default function Home() {
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <LandingHeader />
@@ -16,7 +19,7 @@ export default function Home() {
                 Your digital oasis
               </h1>
               <h2 className='text-primary-1 text-[24px] font-normal leading-8'>
-                It&apos;s asier to connect with the world of Web3 and community with The Sahara
+                It&apos;s easier to connect with the world of Web3 and community with The Sahara
               </h2>
             </div>
             <div className='flex w-full max-sm:mb-[56px]'>

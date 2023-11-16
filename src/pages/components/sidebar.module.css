@@ -1,4 +1,5 @@
-.gradient {
+.active {
+  @apply text-secondary;
   background: linear-gradient(210deg,
       rgba(251, 208, 78, 0.08) 12.62%,
       rgba(245, 99, 40, 0.08) 45.99%,

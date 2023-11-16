@@ -10,11 +10,11 @@ const Post = () => {
       </div>
       <div className='flex justify-between items-center'>
         <div className='flex gap-2'>
-          <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
-          <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
+          <Image src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
+          <Image src={'/icons/photograph.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
         </div>
         <div className='flex gap-4 items-center'>
-          <div className='flex gap-2 items-center max-md:hidden'>
+          <div className='flex gap-2 items-center max-[875px]:hidden'>
             <h3 className='text-grey-4 text-[12px] font-normal leading-[18px]'>Share to</h3>
             <select name="share" className='px-2 py-1 rounded-lg bg-grey-3 text-grey-2 font-normal text-[12px] leading-[16px]'>
               <option value="all">Everyone</option>

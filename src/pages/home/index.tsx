@@ -1,30 +1,35 @@
 import React from 'react'
 import Header from '../components/header';
-import Image from 'next/image';
 import Sidebar from '../components/sidebar';
 import SideBarRight from '../components/sidebar_right';
 import Post from './post';
 import PostCard from './postcard';
+import BottomNav from '../components/bottom_nav';
+import { Saira } from 'next/font/google';
+const saira = Saira({
+  weight: '400',
+  subsets: ['latin']
+})
 
-const Dashboard = () => {
+const Home = () => {
   return (
-    <div>
+    <div className={saira.className}>
       <Header />
-      <div className='w-full bg-[#D9D9D9]'>
-        <div className='px-5 md:px-10 pt-6 flex max-w-[1240px] w-screen mx-auto justify-between gap-4 max-md:flex-col'>
+      <div className='bg-main-bg-color'>
+        <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
           <Sidebar />
-          <div className='flex flex-col gap-4 max-lg:grow'>
+          <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] '>
             <Post />
             <PostCard />
             <PostCard />
             <PostCard />
-
           </div>
           <SideBarRight />
         </div>
+        <BottomNav />
       </div>
     </div>
   )
 }
 
-export default Dashboard;
+export default Home;

@@ -20,7 +20,10 @@ const config: Config = {
         'grey-1': '#687481',
         'grey-2': '#738290',
         'grey-3': '#F9FAFC',
-        'grey-4': '#A2AEB8'
+        'grey-4': '#A2AEB8',
+        'grey-5': '#2D3748',
+        'border-color': '#E7EAF0',
+        'main-bg-color': '#F9FAFC'
       }
     },
   },
