@@ -1,10 +1,11 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
 import { signIn, getSession, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { UserContext } from '../../contexts/UserProvider';
 
 const aclonica = Aclonica({
   weight: '400',
@@ -19,6 +20,7 @@ const LandingHeader = () => {
   const [avatar, setAvatar] = useState('/avatars/default.svg');
   const [username, setName] = useState();
   const router = useRouter();
+  const Fulldata = useContext(UserContext);
 
   useEffect(() => {
     if (status == 'authenticated') {
@@ -34,6 +36,7 @@ const LandingHeader = () => {
       setAvatar(profile.profile_image_url_https)
       //@ts-ignore
       setName(profile.name)
+      Fulldata?.setMyProfile(profile);
     }
   }, [profile])
 
