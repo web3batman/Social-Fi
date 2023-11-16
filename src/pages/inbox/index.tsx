@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
 import Message from './message';
@@ -11,6 +11,23 @@ const saira = Saira({
 })
 
 const Inbox = () => {
+
+  useEffect(() => {
+    function genRandonString(length: number) {
+        var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+        var charLength = chars.length;
+        var result = '';
+        for ( var i = 0; i < length; i++ ) {
+          result += chars.charAt(Math.floor(Math.random() * charLength));
+        }
+        return result;
+    }
+    
+    if (!localStorage.getItem('nickName')) {
+      localStorage.setItem('nickName', genRandonString(10));
+    }
+  }, [])
+
   return (
     <div className={saira.className}>
       <Header />

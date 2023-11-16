@@ -5,10 +5,14 @@ import { useRouter } from 'next/router'
 
 const Sidebar = () => {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState<string>();
+  const [currentPage, setCurrentPage] = useState<string | null>();
 
   useEffect(() => {
-    setCurrentPage(router.asPath)
+    if (router.asPath.indexOf('/inbox') > -1) {
+      setCurrentPage('/inbox');
+    } else {
+      setCurrentPage(router.asPath)
+    }
   }, [])
 
   return (
@@ -34,7 +38,7 @@ const Sidebar = () => {
         </div>
         <div className={`p-4 cursor-pointer hover:bg-gray-300 rounded-lg ${currentPage == '/inbox' ? styles.active : 'text-grey-1'}`} onClick={() => router.push('/inbox')}>
           <div className='flex gap-3 items-center'>
-            <Image src={currentPage != '/inbox' ? '/icons/side_inbox.svg' : '/icons/side_inbox_active.svg'} width={100} height={100} alt='Inbox' className='w-6 h-6' />
+            <Image src={currentPage?.indexOf('/inbox') ? '/icons/side_inbox.svg' : '/icons/side_inbox_active.svg'} width={100} height={100} alt='Inbox' className='w-6 h-6' />
             <h3 className='font-semibold leading-[14px] text-[18px]'>Inbox</h3>
           </div>
         </div>
