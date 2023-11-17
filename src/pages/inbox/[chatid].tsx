@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
 import Message from './message';
@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from './index.module.css'
 import { io } from "socket.io-client";
+import { UserContext } from '../../contexts/UserProvider';
 
 
 const saira = Saira({
@@ -21,6 +22,10 @@ const ChatInbox = () => {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState<object[]>([]);
   const [nickName, setNickName] = useState<string | null>();
+
+  //@ts-ignore
+  const { myProfile } = useContext(UserContext);
+
 
   // Connect with server
   const socket = io("http://localhost:5000");
@@ -51,12 +56,13 @@ const ChatInbox = () => {
     // scrollToBottom()
   });
 
+  
+  useEffect(() => {
+    setNickName(myProfile.screen_name);
+  }, [myProfile]);
 
   useEffect(() => {
-    if (localStorage.getItem('nickName')) {
-      const nick = localStorage.getItem('nickName');
-      setNickName(nick)
-    }
+    console.log('nickname', nickName)
   }, [nickName])
 
   return (
@@ -142,7 +148,7 @@ const ChatInbox = () => {
               <div ref={messagesEndRef} />
             </div>
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color flex gap-4 justify-between items-center'>
-              <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={(e) => setMessage(e.target.value)}  onKeyDown={(event) => {
+              <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={(e) => setMessage(e.target.value)} autoFocus onKeyDown={(event) => {
                 if (event.key == 'Enter') {
                   handleSendMessage()
                 }

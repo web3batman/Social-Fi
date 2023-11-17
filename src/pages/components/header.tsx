@@ -1,10 +1,11 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
 import styles from './header.module.css';
 import {signOut, useSession} from 'next-auth/react'
 import { useRouter } from 'next/router';
+import { UserContext } from '../../contexts/UserProvider';
 
 const aclonica = Aclonica({
   weight: '400',
@@ -14,6 +15,7 @@ const aclonica = Aclonica({
 
 const Header = () => {
   const {data: session, status} = useSession();
+  const Fulldata = useContext(UserContext)
   const router = useRouter();
   const [navshow, setNavshow] = useState(false);
   const [profile, setProfile] = useState();
@@ -23,7 +25,6 @@ const Header = () => {
 
   useEffect(() => {
     if (status == 'authenticated') {
-      console.log('session', session)
       // @ts-ignore
       setProfile(session.token.token.profile);
     }
@@ -36,7 +37,8 @@ const Header = () => {
       //@ts-ignore
       setName(profile.name)
       //@ts-ignore
-      setScreenName(profile.screen_name);
+      setName(profile.name)
+      Fulldata?.setMyProfile(profile);
     }
   }, [profile])
 

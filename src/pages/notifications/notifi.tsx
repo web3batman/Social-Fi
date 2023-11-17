@@ -28,7 +28,6 @@ const Notification = (props: any) => {
         const today = new Date(timeElapsed);
         today.toDateString();
         time = today.toString();
-        console.log('time', time)
         break;
     }
   }, [])
