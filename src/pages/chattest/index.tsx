@@ -11,6 +11,7 @@ export default function Home() {
   const [userName, setUserName] = useState('')
 
   // Connect with server
+  
   const socket = io("http://localhost:5000");
 
   // Send input message to server
