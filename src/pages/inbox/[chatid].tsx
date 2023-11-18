@@ -28,7 +28,7 @@ const ChatInbox = () => {
 
 
   // Connect with server
-  const socket = io("http://localhost:5000");
+  const socket = io(`${process.env.NEXT_PUBLIC_SERVER_URL}`);
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
