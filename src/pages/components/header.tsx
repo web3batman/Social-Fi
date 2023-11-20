@@ -6,6 +6,8 @@ import styles from './header.module.css';
 import {signOut, useSession} from 'next-auth/react'
 import { useRouter } from 'next/router';
 import { UserContext } from '../../contexts/UserProvider';
+import { BrowserWallet } from '@meshsdk/core';
+
 
 const aclonica = Aclonica({
   weight: '400',
@@ -14,14 +16,48 @@ const aclonica = Aclonica({
 
 
 const Header = () => {
+  
+  // Get profile info
   const {data: session, status} = useSession();
   const Fulldata = useContext(UserContext)
   const router = useRouter();
-  const [navshow, setNavshow] = useState(false);
   const [profile, setProfile] = useState();
   const [avatar, setAvatar] = useState('/avatars/default.svg');
-  const [username, setName] = useState();
-  const [screenName, setScreenName] = useState();
+
+  // Get wallet info
+
+  const [wallets, setWallets] = useState([Object]);
+  const [mywallet, setWallet] = useState<object>();
+  const [ballance, setBallance] = useState<string>();
+  const [walletshow, setWalletShow] = useState(false);
+
+  const getWallets = () => {
+      const wallets = BrowserWallet.getInstalledWallets();
+      setWallets(wallets);
+  }
+
+  const walletConnect = async (walletName: string) => {
+      BrowserWallet.enable(walletName).then(
+        wallet => {
+          setWallet(wallet);
+          wallet.getBalance().then(
+            ballance => {
+              setBallance(ballance[0].quantity);
+            }
+          )
+        }
+      ).catch(error => console.log("Please create your wallet."))
+  }
+
+  const walletDisconnect = () => {
+    //@ts-ignore
+    setWallet()
+    setBallance('');
+  }
+
+  useEffect(() => {
+      getWallets()
+  }, [])
 
   useEffect(() => {
     if (status == 'authenticated') {
@@ -34,10 +70,6 @@ const Header = () => {
     if (profile) {
       //@ts-ignore
       setAvatar(profile.profile_image_url_https)
-      //@ts-ignore
-      setName(profile.name)
-      //@ts-ignore
-      setName(profile.name)
       Fulldata?.setMyProfile(profile);
     }
   }, [profile])
@@ -51,12 +83,35 @@ const Header = () => {
             The sahara
           </h1>
         </div>
-        <div className='flex gap-2'>
+        <div className='flex gap-2 items-center'>
           <input type="text" className={`max-md:hidden w-[300px] border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC]  bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' />
-          <span className='flex w-[120px] items-center gap-2 border pl-2 pr-4 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC] cursor-pointer' onClick={() => {signOut({callbackUrl: '/'})}}>
+          <div className='relative flex w-[120px] items-center gap-2 border pl-2 pr-4 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC] cursor-pointer' onMouseOver={() => {setWalletShow(true)}} onMouseLeave={() => {setWalletShow(false)}}>
             <Image src={'/icons/cardano.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
-            <span className='text-center text-base not-italic font-semibold leading-6 text-primary'>200</span>
-          </span>
+            <span className='text-center text-base not-italic font-semibold leading-6 text-primary'>
+              {
+                ballance ?  (ballance + ' ₳') : 'Connect'
+              }
+            </span>
+            <div className='absolute bottom-0 translate-y-full w-4/5 left-1/2 translate-x-[-50%]'>
+              {
+                wallets && wallets.map((wallet, index) => {
+                  if (mywallet) {
+                    return (
+                      <h1 key={index} className={`text-center bg-slate-700 opacity-50 text-white px-2 py-1 rounded-lg ${walletshow?'':'hidden'}`} onClick={walletDisconnect}>
+                        Disconnect
+                      </h1>
+                    )
+                  } else {
+                    return (
+                      <h1 key={index} className={`text-center bg-slate-700 opacity-50 text-white px-2 py-1 rounded-lg ${walletshow?'':'hidden'}`} onClick={() => {walletConnect(wallet.name)} }>
+                        { wallet.name }
+                      </h1>
+                    )
+                  }
+                })
+              }
+            </div>
+          </div>
           <Image src={avatar} width={'100'} height={'100'} alt='Default avatar' className='w-10 h-10 rounded-full border-2 border-solid border-[#E7EAF0] cursor-pointer' />
         </div>
       </div>

@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import styles from './index.module.css'
 import { io } from "socket.io-client";
 import { UserContext } from '../../contexts/UserProvider';
+import { SocketContext } from '@/contexts/SocketProvider';
 
 
 const saira = Saira({
@@ -21,14 +22,15 @@ const ChatInbox = () => {
 
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState<object[]>([]);
-  const [nickName, setNickName] = useState<string | null>();
-
   //@ts-ignore
   const { myProfile } = useContext(UserContext);
+  //@ts-ignore
+  const {socket} = useContext(SocketContext);
+  // const [nickName, setNickName] = useState<string | null>(myProfile.screen_name);
 
 
   // Connect with server
-  const socket = io(`${process.env.NEXT_PUBLIC_SERVER_URL}`);
+  
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -38,32 +40,38 @@ const ChatInbox = () => {
 
   // Send input message to server
   const handleSendMessage = () => {
-    // Send to server
-    socket.emit("send_message", {
-      message: message,
-      sender: nickName,
-      createdAt: Date.now()
-    });
-
-    // Reset input after send
-    setMessage("");
+    if (message != "") {      
+      // Send to server
+      socket.emit("send_message", {
+        message: message,
+        sender: myProfile.screen_name,
+      });
+  
+      // Reset input after send
+      setMessage("");
+    }
   };
 
   // Receive message from server
-  socket.on("received_message", (data) => {
+  socket.on("received_message", (data: object) => {
     // Append to message list
     setMessageList([...messageList, data]);
     // scrollToBottom()
   });
 
   
-  useEffect(() => {
-    setNickName(myProfile.screen_name);
-  }, [myProfile]);
+  // useEffect(() => {
+  //   setNickName(myProfile.screen_name);
+  // }, [myProfile]);
+
+  // useEffect(() => {
+  //   console.log('nickname', nickName)
+  // }, [nickName])
 
   useEffect(() => {
-    console.log('nickname', nickName)
-  }, [nickName])
+    console.log("Refresh");
+  })
+
 
   return (
     <div className={saira.className}>
@@ -104,10 +112,10 @@ const ChatInbox = () => {
               </div>
             </div>
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-scroll flex flex-col gap-4 text-[14px] text-grey-5'>
-              {messageList.map((chat: any) => {
-                if (chat.sender == nickName) {
+              {messageList.map((chat: any, index) => {
+                if (chat.sender == myProfile.screen_name) {
                   return (
-                    <div className='flex gap-4 flex-col' key={chat.index}>
+                    <div className='flex gap-4 flex-col' key={index}>
                       <div className='flex flex-col gap-2'>
                         <div className='flex gap-4 items-center flex-row-reverse'>
                           <span className='p-3 rounded-[10px] bg-secondary text-white'>
@@ -119,7 +127,7 @@ const ChatInbox = () => {
                   )
                 } else {
                   return (
-                    <div className='flex gap-4 flex-col' key={chat.mmessage}>
+                    <div className='flex gap-4 flex-col' key={index}>
                       <div className='flex flex-col gap-2'>
                         <div className='flex gap-4 items-center'>
                           <span className='p-3 rounded-[10px] bg-[#F5F6F8]'>
