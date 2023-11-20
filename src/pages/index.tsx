@@ -9,9 +9,9 @@ import { signIn, signOut, useSession } from "next-auth/react"
 export default function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-between scrollbar-thumb-gray-900 scrollbar-track-gray-100 scrollbar-thin">
       <LandingHeader />
-      <div className='px-5 md:px-10 flex justify-between items-center max-w-[1240px] w-screen'>
+      <div className='px-5 md:px-10 flex justify-between items-center max-w-[1240px] w-full'>
         <div className='flex items-center w-full flex-col sm:flex-row'>
           <div className='flex flex-col gap-[56px] w-[100%] sm:w-[48%]'>
             <div className='flex flex-col gap-4'>

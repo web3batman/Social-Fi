@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useEffect, useRef, useContext, useCallback } from 'react'
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
 import Message from './message';
@@ -20,22 +20,49 @@ const saira = Saira({
 const ChatInbox = () => {
   const router = useRouter();
 
-  const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState<object[]>([]);
   //@ts-ignore
   const { myProfile } = useContext(UserContext);
   //@ts-ignore
   const {socket} = useContext(SocketContext);
   // const [nickName, setNickName] = useState<string | null>(myProfile.screen_name);
-
-
-  // Connect with server
+  
+  // When scroll is at the bottom of element
+  const [scrollbottom, setScrollbottom] = useState(true);
   
   const messagesEndRef = useRef(null)
+  
+  // New message and is typing state.
+  const [message, setMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const [otherTyping, setOtherTyping] = useState(false);
 
+  let typingTimeout: string | number | NodeJS.Timeout | undefined;
+
+
+  // When user is typing new message.
+  const handleTyping = (e: any) => {
+    setMessage(e.target.value); 
+    setScrollbottom(true)
+
+    if (!isTyping) {
+      setIsTyping(true);
+      socket.emit('typing', { user: myProfile.screen_name, typing: true });
+    }
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(() => {
+      setIsTyping(false);
+      socket.emit('typing', { user: myProfile.screen_name, typing: false });
+    }, 3000);
+  }
+
+  // Scroll moving function
   const scrollToBottom = () => {
-    //@ts-ignore
-    messagesEndRef.current?.scrollIntoView({ })
+    const element = messagesEndRef.current;
+    if (element) {
+      //@ts-ignore
+      element.scrollTop  = element.scrollHeight;
+    }
   }
 
   // Send input message to server
@@ -56,22 +83,67 @@ const ChatInbox = () => {
   socket.on("received_message", (data: object) => {
     // Append to message list
     setMessageList([...messageList, data]);
-    // scrollToBottom()
   });
 
-  
-  // useEffect(() => {
-  //   setNickName(myProfile.screen_name);
-  // }, [myProfile]);
+  // Identify if scroll is at the end of element or not
+  const isScrollAtBottom = useCallback(() => {
+    const current = messagesEndRef.current;
+    if (!current) {
+      return false;
+    }
+    // When the sum of scrollTop and clientHeight is equal (or greater, to handle some edge cases) to the scrollHeight, we're at the bottom
+    //@ts-ignore
+    return current.scrollTop + current.clientHeight >= current.scrollHeight;
+  }, []);
 
-  // useEffect(() => {
-  //   console.log('nickname', nickName)
-  // }, [nickName])
+  // When the scroll is at the end of element or not
+  useEffect(() => {
+    const scrollContainer = messagesEndRef.current; // step 2
+
+    const handleScroll = () => {
+      if (isScrollAtBottom()) {
+        setScrollbottom(true);
+      } else {
+        setScrollbottom(false);
+      }
+    };
+
+    // step 4
+    // @ts-ignore
+    scrollContainer.addEventListener('scroll', handleScroll);
+
+    // step 5
+    return () => {
+      // @ts-ignore
+      scrollContainer.removeEventListener('scroll', handleScroll);
+    };
+  }, [isScrollAtBottom]);
+
+  // Scroll to the bottom of element
+  useEffect(() => {
+    if (scrollbottom) {
+      scrollToBottom()
+    }
+  }, [messageList])
 
   useEffect(() => {
-    console.log("Refresh");
-  })
+    return () => {
+      clearTimeout(typingTimeout);
+    };
+  }, []);
 
+  useEffect(() => {
+    socket.on('typing', (data: { user:string, typing: boolean }) => {
+      console.log('is typing', data)
+      if (data.user != myProfile.screen_name) {
+        if (data.typing) {
+          setOtherTyping(true);
+        } else {
+          setOtherTyping(false);
+        }
+      }
+    });
+  }, [])
 
   return (
     <div className={saira.className}>
@@ -111,63 +183,60 @@ const ChatInbox = () => {
                 </div>
               </div>
             </div>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-scroll flex flex-col gap-4 text-[14px] text-grey-5'>
-              {messageList.map((chat: any, index) => {
-                if (chat.sender == myProfile.screen_name) {
-                  return (
-                    <div className='flex gap-4 flex-col' key={index}>
-                      <div className='flex flex-col gap-2'>
-                        <div className='flex gap-4 items-center flex-row-reverse'>
-                          <span className='p-3 rounded-[10px] bg-secondary text-white'>
-                            {chat.message}
-                          </span>
+            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-scroll' ref={messagesEndRef}>
+              <div className='flex flex-col gap-4 text-[14px] text-grey-5'>
+                {messageList.map((chat: any, index) => {
+                  if (chat.sender == myProfile.screen_name) {
+                    return (
+                      <div className='flex gap-4 flex-col' key={index}>
+                        <div className='flex flex-col gap-2'>
+                          <div className='flex gap-4 items-center flex-row-reverse'>
+                            <span className='p-3 rounded-[10px] bg-secondary text-white'>
+                              {chat.message}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )
-                } else {
-                  return (
-                    <div className='flex gap-4 flex-col' key={index}>
-                      <div className='flex flex-col gap-2'>
-                        <div className='flex gap-4 items-center'>
-                          <span className='p-3 rounded-[10px] bg-[#F5F6F8]'>
-                            {chat.message}
-                          </span>
+                    )
+                  } else {
+                    return (
+                      <div className='flex gap-4 flex-col' key={index}>
+                        <div className='flex flex-col gap-2'>
+                          <div className='flex gap-4 items-center'>
+                            <span className='p-3 rounded-[10px] bg-[#F5F6F8]'>
+                              {chat.message}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )
+                    )
+                  }
                 }
-                // if (chat.sender == nickName) {
-                //   return (
-                //     <div className={styles.chatArea} key={chat.message}>
-                //       { chat.sender + "->"}{chat.message}
-                //     </div>
-                //   )
-                // } else {
-                //   return (
-                //     <div className={styles.chatArea} key={chat.message}>
-                //       { chat.sender + "->"}{chat.message}
-                //     </div>
-                //   )
-                // }
-              }
-              )}
-              <div ref={messagesEndRef} />
+                )}
+              </div>
             </div>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color flex gap-4 justify-between items-center'>
-              <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={(e) => setMessage(e.target.value)} autoFocus onKeyDown={(event) => {
-                if (event.key == 'Enter') {
-                  handleSendMessage()
-                }
-              }}/>
-              <button className='px-5 py-3 rounded-lg bg-secondary max-sm:w-full' onClick={handleSendMessage}>
-                <div className='flex gap-4 items-center justify-center sm:justify-start'>
-                  <h1 className='text-white font-medium leading-[24px] text-center text-base'>
-                    Send
-                  </h1>
-                </div>
-              </button>
+            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color flex flex-col gap-2 font-base text-primary leading-[24px]'>
+
+              <div className='flex gap-4 justify-between items-center'>
+                <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => {
+                  if (event.key == 'Enter') {
+                    handleSendMessage()
+                  }
+                }}/>
+                <button className='px-5 py-3 rounded-lg bg-secondary max-sm:w-full' onClick={handleSendMessage}>
+                  <div className='flex gap-4 items-center justify-center sm:justify-start'>
+                    <h1 className='text-white font-medium leading-[24px] text-center text-base'>
+                      Send
+                    </h1>
+                  </div>
+                </button>
+              </div>
+
+              {
+                otherTyping && (
+                  <h1>is typing...</h1>
+                )
+              }
             </div>
           </div>
         </div>
