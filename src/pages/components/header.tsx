@@ -84,7 +84,10 @@ const Header = () => {
           </h1>
         </div>
         <div className='flex gap-2 items-center'>
-          <input type="text" className={`max-md:hidden w-[300px] border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC]  bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' />
+          <input type="text" className={`max-md:hidden w-[300px] border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC] bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' />
+          <div className='md:hidden p-2 bg-main-bg-color border border-border-color rounded-full'>
+            <Image src={'/icons/side_ring.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
+          </div>
           <div className='relative flex w-[120px] items-center gap-2 border pl-2 pr-4 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC] cursor-pointer' onMouseOver={() => {setWalletShow(true)}} onMouseLeave={() => {setWalletShow(false)}}>
             <Image src={'/icons/cardano.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
             <span className='text-center text-base not-italic font-semibold leading-6 text-primary'>
