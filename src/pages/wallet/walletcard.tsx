@@ -14,7 +14,7 @@ const WalletCard = (props: any) => {
             Irvan Wibowo
           </h1>
           <h2 className='text-[12px] font-normal leading-[18px] text-grey-2 line-clamp-1 flex gap-1'>
-            <span>0xsad6as9d...98asdka</span>
+            <span>addrsad6as9d...98asdka</span>
             <Image src={'/icons/duplicate.svg'} width={100} height={100} alt='Icon' className='w-4 h-4' />
           </h2>
         </div>
