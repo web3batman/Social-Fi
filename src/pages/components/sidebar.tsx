@@ -32,7 +32,7 @@ const Sidebar = () => {
         </div>
         <div className={`p-4 cursor-pointer hover:bg-gray-300 rounded-lg ${currentPage == '/keys' ? styles.active : 'text-grey-1'}`} onClick={() => router.push('/keys')}>
           <div className='flex gap-3 items-center'>
-            <Image src={currentPage != '/keys' ? '/icons/side_search.svg' : '/icons/side_search_active.svg'} width={100} height={100} alt='Keys' className='w-6 h-6' />
+            <Image src={currentPage != '/keys' ? '/icons/Keys.svg' : '/icons/Keys_active.svg'} width={100} height={100} alt='Keys' className='w-6 h-6' />
             <h3 className='font-semibold leading-[14px] text-[18px]'>Keys</h3>
           </div>
         </div>
