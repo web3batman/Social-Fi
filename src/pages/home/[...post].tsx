@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Header from '../components/header';
 import Sidebar from '../components/sidebar';
-import SideBarRight from '../components/sidebar_right';
-import Post from './post';
 import PostCard from './postcard';
 import BottomNav from '../components/bottom_nav';
 import { Saira } from 'next/font/google';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const saira = Saira({
@@ -13,7 +12,7 @@ const saira = Saira({
   subsets: ['latin']
 })
 
-const Home = () => {
+const OpenPost = () => {
 
   const [posts, setPosts] = useState<{
     display_name: string, 
@@ -65,18 +64,21 @@ const Home = () => {
         <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
           <Sidebar />
           <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
-            <Post addpost={addNewPost} />
+            <Link href={'/home'} className='border border-[#E7EAF0] rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white'>
+                <Image src={'/icons/arrow-left.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 opacity-90' />
+                <h2 className='text-primary font-medium text-base leading-[24px]'>
+                    Back
+                </h2>
+            </Link>
             {
               posts && posts.map((post, index) => {
                 return (
-                  <Link href={'/home/post/1'} key={index}>
-                    <PostCard display_name={post.display_name} username={post.username} avatar={post.avatar} created={post.created} content={post.content} reply={post.reply} exchange={post.exchange} star={post.star} bookmark={post.bookmark} price={post.price} />
-                  </Link>
+                  <PostCard display_name={post.display_name} username={post.username} avatar={post.avatar} created={post.created} content={post.content} reply={post.reply} exchange={post.exchange} star={post.star} bookmark={post.bookmark} price={post.price} key={index} />
                 )
               })
             }
           </div>
-          <SideBarRight />
+          {/* <SideBarRight /> */}
         </div>
         <BottomNav />
       </div>
@@ -84,4 +86,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default OpenPost;
