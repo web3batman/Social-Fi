@@ -25,15 +25,9 @@ const BottomNav = () => {
             <h3 className='font-semibold leading-[14px] text-base'>Search</h3>
           </div>
         </div>
-        {/* <div className={`p-4 cursor-pointer hover:bg-gray-300 rounded-x-lg w-1/5 ${currentPage == '/notifications' ? styles.active : 'text-grey-1'}`} onClick={() => router.push('/notifications')}>
-          <div className='flex flex-col items-center gap-2'>
-            <Image src={currentPage != '/notifications' ? '/icons/side_ring.svg' : '/icons/side_ring_active.svg'} width={100} height={100} alt='Home' className='w-6 h-6' />
-            <h3 className='font-semibold leading-[14px] text-base max-w-full overflow-hidden'>Notification</h3>
-          </div>
-        </div> */}
         <div className={`p-4 cursor-pointer hover:bg-gray-300 rounded-x-lg w-1/5 ${currentPage == '/keys' ? styles.active : 'text-grey-1'}`} onClick={() => router.push('/keys')}>
           <div className='flex flex-col items-center gap-2'>
-            <Image src={currentPage != '/keys' ? '/icons/side_ring.svg' : '/icons/side_ring_active.svg'} width={100} height={100} alt='Home' className='w-6 h-6' />
+            <Image src={currentPage != '/keys' ? '/icons/Keys.svg' : '/icons/Keys_active.svg'} width={100} height={100} alt='Home' className='w-6 h-6' />
             <h3 className='font-semibold leading-[14px] text-base max-w-full overflow-hidden'>Keys</h3>
           </div>
         </div>
