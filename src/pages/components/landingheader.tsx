@@ -14,30 +14,44 @@ const aclonica = Aclonica({
 
 
 const LandingHeader = () => {
-  const { data: session, status } = useSession();
-  const [navshow, setNavshow] = useState(false);
-  const [profile, setProfile] = useState();
-  const [avatar, setAvatar] = useState('/avatars/default.svg');
-  const [username, setName] = useState();
   const router = useRouter();
-  const Fulldata = useContext(UserContext);
+  const [navshow, setNavshow] = useState(false);
+
+  // @ts-ignore
+  const {myProfile, setMyProfile} = useContext(UserContext);
+
 
   useEffect(() => {
-    if (status == 'authenticated') {
-      // @ts-ignore
-      setProfile(session.token.token.profile);
-    }
-  }, [session])
+    // @ts-ignore
+    const token = localStorage.getItem('token')
 
-  useEffect(() => {
-    if (profile) {
-      //@ts-ignore
-      setAvatar(profile.profile_image_url_https)
-      //@ts-ignore
-      setName(profile.name)
-      Fulldata?.setMyProfile(profile);
+    if (token) {
+      router.push('/home')
     }
-  }, [profile])
+  }, [])
+
+  // const { data: session, status } = useSession();
+  // const [profile, setProfile] = useState();
+  // const [avatar, setAvatar] = useState('/avatars/default.svg');
+  // const [username, setName] = useState();
+  // const Fulldata = useContext(UserContext);
+
+  // useEffect(() => {
+  //   if (status == 'authenticated') {
+  //     // @ts-ignore
+  //     setProfile(session.token.token.profile);
+  //   }
+  // }, [session])
+
+  // useEffect(() => {
+  //   if (profile) {
+  //     //@ts-ignore
+  //     setAvatar(profile.profile_image_url_https)
+  //     //@ts-ignore
+  //     setName(profile.name)
+  //     Fulldata?.setMyProfile(profile);
+  //   }
+  // }, [profile])
 
   return (
     <div className='px-5 md:px-10 py-4 sm:py-[22px] flex justify-between items-center max-w-[1240px] w-full flex-wrap'>
@@ -61,7 +75,7 @@ const LandingHeader = () => {
         </Link>
       </div>
       <div className='flex gap-2'>
-        {
+        {/* {
           profile ? (
             <div className='flex gap-1 items-center'>
               <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { router.push('/home') }}>
@@ -74,7 +88,7 @@ const LandingHeader = () => {
                 </div>
               </button>
             </div>
-          ) : (
+          ) : ( */}
             <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { signIn('twitter', { callbackUrl: '/home' }) }}>
               {/* <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { router.push('/home') }}> */}
               <div className='flex gap-2 items-center'>
@@ -84,8 +98,8 @@ const LandingHeader = () => {
                 </h1>
               </div>
             </button>
-          )
-        }
+          {/* )
+        } */}
         <span className='w-9 h-9 rounded-full flex justify-center items-center border border-[#E7EAF0] bg-[#F9FAFC] cursor-pointer sm:hidden' onClick={() => { setNavshow(!navshow) }}>
           <Image src={'/icons/dropdown.svg'} width={100} height={100} alt='Twitter logo' className='w-5 h-5' />
         </span>
