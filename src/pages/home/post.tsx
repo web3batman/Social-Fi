@@ -16,20 +16,19 @@ const Post = (props: {addpost: Function}) => {
   }
 
   const postNewContent = () => {
-    const newData = {
-      display_name: 'Elisabeth Olson',
-      username: '@elisabetholson',
-      avatar: '/avatars/default.svg',
-      created: 'Just now',
-      content: postcontent,
-      reply: 384,
-      exchange: 1456,
-      star: 790,
-      bookmark: 201,
-      price: 0.25
+    if (postcontent != '') {
+      const newData = {
+        poster_id: myProfile._id,
+        content: postcontent,
+        reply: 384,
+        exchange: 1456,
+        star: 790,
+        bookmark: 201,
+        price: 0.25
+      }
+      addpost(newData);
+      setPostcontent('');
     }
-    addpost(newData);
-    setPostcontent('');
   }
 
   useEffect(() => {

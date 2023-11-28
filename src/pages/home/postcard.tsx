@@ -5,15 +5,15 @@ const PostCard = (props: {
   display_name: string, 
   username: string, 
   avatar: string, 
-  created: string, 
+  created_at: string, 
   content: string, 
-  reply: number, 
-  exchange: number, 
-  star: number, 
-  bookmark: number, 
-  price: number
+  // reply: number, 
+  // exchange: number, 
+  // star: number, 
+  // bookmark: number, 
+  // price: number
 }) => {
-  const { display_name, username, avatar, created, content, reply, exchange, star, bookmark, price } = props;
+  const { display_name, username, avatar, created_at, content } = props;
 
   return (
     <div className='bg-white p-4 rounded-[15px] flex flex-col gap-4'>
@@ -23,13 +23,13 @@ const PostCard = (props: {
             <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
             <div className='flex flex-col'>
               <h1 className='text-base font-bold leading-[24px]'>{ display_name }</h1>
-              <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
+              <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                 <div className="flex gap-2">
-                  <span>{username}</span>
+                  <span>@{username}</span>
                   <span>-</span>
-                  <span>{created}</span>
+                  <span>{created_at}</span>
                 </div>
-              </h2>
+              </div>
             </div>
           </div>
         </div>
@@ -41,24 +41,29 @@ const PostCard = (props: {
         <div className='flex gap-4'>
           <div className='flex gap-1 items-center'>
             <Image src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{reply}</h3>
+            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
+            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{reply}</h3> */}
           </div>
           <div className='flex gap-1 items-center'>
             <Image src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3>
+            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
+            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
           </div>
           <div className='flex gap-1 items-center'>
             <Image src={'/icons/post_star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{star}</h3>
+            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{star}</h3> */}
+            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
           </div>
           <div className='flex gap-1 items-center'>
             <Image src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{bookmark}</h3>
+            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{bookmark}</h3> */}
+            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
           </div>
         </div>
         <div className="flex gap-4">
           <div className='flex gap-1 items-center'>
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3>
+            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3> */}
+            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
             <Image src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
           </div>
           <Image src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' />
