@@ -13,18 +13,15 @@ const saira = Saira({
 const Inbox = () => {
 
   return (
-    <div className={saira.className}>
-      <Header />
-      <div className='w-full bg-main-bg-color'>
-        <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
-          <Sidebar />
-          <div className='flex flex-col gap-4 w-full max-md:mb-[110px] min-h-[calc(100vh-140px)] '>
-            <h2 className='font-medium text-[24px] leading-[32px]'>Messages</h2>
-            <Message />
-          </div>
+    <div className='w-full bg-main-bg-color'>
+      <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
+        <Sidebar />
+        <div className='flex flex-col gap-4 w-full max-md:mb-[110px] min-h-[calc(100vh-140px)] '>
+          <h2 className='font-medium text-[24px] leading-[32px]'>Messages</h2>
+          <Message />
         </div>
-        <BottomNav />
       </div>
+      <BottomNav />
     </div>
   )
 }

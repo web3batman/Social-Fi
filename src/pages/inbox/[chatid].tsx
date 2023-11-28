@@ -134,7 +134,6 @@ const ChatInbox = () => {
 
   useEffect(() => {
     socket.on('typing', (data: { user:string, typing: boolean }) => {
-      console.log('is typing', data)
       if (data.user != myProfile.screen_name) {
         if (data.typing) {
           setOtherTyping(true);
