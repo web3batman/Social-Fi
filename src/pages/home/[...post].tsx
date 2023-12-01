@@ -1,18 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react'
-import Sidebar from '../components/sidebar';
-import SideBarRight from '../components/sidebar_right';
+import Sidebar from '@/components/sidebar';
+import SideBarRight from '@/components/sidebar_right';
 import PostCard from './postcard';
-import BottomNav from '../components/bottom_nav';
-import { Saira } from 'next/font/google';
+import BottomNav from '@/components/bottom_nav';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
 import api from '../api/auth';
 import Image from 'next/image'
-
-const saira = Saira({
-  weight: '400',
-  subsets: ['latin']
-})
 
 const OpenPost = () => {
   const [posts, setPosts] = useState<{

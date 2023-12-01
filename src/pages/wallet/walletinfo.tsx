@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MessageCard from './walletcard';
 import Image from 'next/image';
 import WalletSatus from './walletstatus';
-import Modal from '../components/modal';
+import Modal from '@/components/modal';
 
 import type { NextPage } from 'next';
 

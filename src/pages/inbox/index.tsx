@@ -1,14 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import Header from '../components/header';
-import Sidebar from '../components/sidebar';
+import Sidebar from '@/components/sidebar';
 import Message from './message';
-import BottomNav from '../components/bottom_nav';
-import { Saira } from 'next/font/google';
-
-const saira = Saira({
-  weight: '400',
-  subsets: ['latin']
-})
+import BottomNav from '@/components/bottom_nav';
 
 const Inbox = () => {
 
