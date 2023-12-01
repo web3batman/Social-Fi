@@ -5,7 +5,7 @@ import { Aclonica } from 'next/font/google';
 import { signIn, getSession, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { UserContext } from '../../contexts/UserProvider';
+import { UserContext } from '@/contexts/UserProvider';
 
 const aclonica = Aclonica({
   weight: '400',

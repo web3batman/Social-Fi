@@ -1,10 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
-import Header from '../components/header';
-import Sidebar from '../components/sidebar';
-import SideBarRight from '../components/sidebar_right';
+import Sidebar from '@/components/sidebar';
+import SideBarRight from '@/components/sidebar_right';
 import Post from './post';
 import PostCard from './postcard';
-import BottomNav from '../components/bottom_nav';
+import BottomNav from '@/components/bottom_nav';
 import { Saira } from 'next/font/google';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';

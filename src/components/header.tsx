@@ -5,10 +5,10 @@ import { Aclonica } from 'next/font/google';
 import styles from './header.module.css';
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
-import { UserContext } from '../../contexts/UserProvider';
+import { UserContext } from '@/contexts/UserProvider';
 import { BrowserWallet } from '@meshsdk/core';
-import api from '../api/auth';
-import setAuthToken from '../api/setAuthToken';
+import api from '@/pages/api/auth';
+import setAuthToken from '@/pages/api/setAuthToken';
 import { jwtDecode } from 'jwt-decode';
 
 const aclonica = Aclonica({

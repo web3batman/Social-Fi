@@ -1,9 +1,5 @@
 'use client'
 import Image from 'next/image';
-import LandingHeader from './components/landingheader';
-import Footer from './components/landingfooter';
-
-import { signIn, signOut, useSession } from "next-auth/react"
 // import type Session
 
 export default function Home() {

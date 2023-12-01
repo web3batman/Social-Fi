@@ -1,15 +1,8 @@
 import React, {useContext, useEffect} from 'react'
-import Header from '../components/header';
-import Sidebar from '../components/sidebar';
-import BottomNav from '../components/bottom_nav';
+import Sidebar from '@/components/sidebar';
+import BottomNav from '@/components/bottom_nav';
 import WalletInfo from './walletinfo';
-import { Saira } from 'next/font/google';
-import { UserContext } from '../../contexts/UserProvider';
-
-const saira = Saira({
-  weight: '400',
-  subsets: ['latin']
-})
+import { UserContext } from '@/contexts/UserProvider';
 
 const Inbox = () => {
 

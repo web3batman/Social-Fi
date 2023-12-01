@@ -1,21 +1,13 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from 'react'
-import Header from '../components/header';
-import Sidebar from '../components/sidebar';
+import Sidebar from '@/components/sidebar';
 import Message from './message';
-import BottomNav from '../components/bottom_nav';
-import { Saira } from 'next/font/google';
+import BottomNav from '@/components/bottom_nav';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import styles from './index.module.css'
-import { io } from "socket.io-client";
-import { UserContext } from '../../contexts/UserProvider';
+import { UserContext } from '@/contexts/UserProvider';
 import { SocketContext } from '@/contexts/SocketProvider';
 
-
-const saira = Saira({
-  weight: '400',
-  subsets: ['latin']
-})
 
 const ChatInbox = () => {
   const router = useRouter();
