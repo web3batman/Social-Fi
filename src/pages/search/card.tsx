@@ -5,7 +5,7 @@ const Card = () => {
   return (
     <div className='p-4 bg-white flex justify-between items-center rounded-lg w-full'>
       <div className='flex gap-4 items-center'>
-        <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+        <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
         <div className='flex flex-col'>
           <h1 className='text-base font-bold leading-[24px]'>Trader Joe</h1>
           <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
