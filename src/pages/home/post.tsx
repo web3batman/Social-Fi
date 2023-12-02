@@ -7,6 +7,7 @@ const Post = (props: {addpost: Function}) => {
 
   const [postcontent, setPostcontent] = useState('');
   const newPostRef = useRef(null);
+  const [avatar, setAvatar] = useState('/avatars/default_profile_normal.png');
 
   // @ts-ignore
   const {myProfile} = useContext(UserContext)
@@ -44,7 +45,7 @@ const Post = (props: {addpost: Function}) => {
   return (
     <div className='bg-white p-4 rounded-[15px] flex flex-col gap-2'>
       <div className='flex gap-4 w-full'>
-        <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-[35px] h-[35px] rounded-full' />
+        <Image src={myProfile.avatar || avatar} width={100} height={100} alt='Default avatar' className='w-[35px] h-[35px] rounded-full' />
         <textarea className='text-grey-2 font-normal text-[14px] leading-[20px] bg-grey-3 w-full rounded-lg p-2 resize-none' value={postcontent} ref={newPostRef} onChange={handleChange} autoFocus/>
       </div>
       <div className='flex justify-between items-center'>

@@ -8,7 +8,7 @@ const WalletCard = (props: any) => {
   return (
     <div className="p-4 rounded-lg flex justify-between items-center bg-white border border-border-color">
       <div className='flex gap-4 items-center'>
-        <Image src={'/avatars/default.svg'} width={100} height={100} alt='Icon' className='w-10 rounded-full' />
+        <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 rounded-full' />
         <div className='flex flex-col'>
           <h1 className='text-[16px] leading-6 font-bold'>
             Irvan Wibowo

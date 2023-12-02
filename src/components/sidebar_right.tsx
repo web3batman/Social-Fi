@@ -8,7 +8,7 @@ const SideBarRight = () => {
         <h1 className='text-primary text-base leading-[24px] font-semibold'>Fellow to follow</h1>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+            <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
             <div className='flex flex-col items-center'>
               <h1 className='text-base font-bold leading-[24px]'>Trader Joe</h1>
               <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>@traderJoy_xyz</h2>
@@ -20,7 +20,7 @@ const SideBarRight = () => {
         </div>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+            <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
             <div className='flex flex-col items-center'>
               <h1 className='text-base font-bold leading-[24px]'>Trader Joe</h1>
               <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>@traderJoy_xyz</h2>
@@ -32,7 +32,7 @@ const SideBarRight = () => {
         </div>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+            <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
             <div className='flex flex-col items-center'>
               <h1 className='text-base font-bold leading-[24px]'>Trader Joe</h1>
               <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>@traderJoy_xyz</h2>
@@ -44,7 +44,7 @@ const SideBarRight = () => {
         </div>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+            <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
             <div className='flex flex-col items-center'>
               <h1 className='text-base font-bold leading-[24px]'>Trader Joe</h1>
               <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>@traderJoy_xyz</h2>

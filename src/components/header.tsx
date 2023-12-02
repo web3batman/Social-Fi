@@ -7,9 +7,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import { UserContext } from '@/contexts/UserProvider';
 import { BrowserWallet } from '@meshsdk/core';
-import api from '@/pages/api/auth';
 import setAuthToken from '@/pages/api/setAuthToken';
-import { jwtDecode } from 'jwt-decode';
 
 const aclonica = Aclonica({
   weight: '400',
@@ -18,12 +16,10 @@ const aclonica = Aclonica({
 
 const Header = () => {
 
-  // Get profile info
-  const { data: session, status } = useSession();
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
   const router = useRouter();
-  const [avatar, setAvatar] = useState('/avatars/default.svg');
+  const [avatar, setAvatar] = useState('/avatars/default_profile_normal.png');
 
   // Get wallet info
   const [wallets, setWallets] = useState([Object]);
@@ -36,46 +32,6 @@ const Header = () => {
   useEffect(() => {
     getWallets()
   }, [])
-
-  useEffect(() => {
-    if (status == 'authenticated') {
-      // @ts-ignore
-      const profile = session.token.token.profile;
-      const userinfo = localStorage.getItem('token');
-
-      if (!userinfo) {
-        if (profile) {
-          api.post('/users', { profile: profile }).then((res: { data: { token: any }; }) => {
-            setAuthToken(res.data.token);
-            const decoded: { user: object } = jwtDecode(res.data.token);
-            setMyProfile(decoded.user);
-          }).catch((err: any) => {
-            console.log('register error', err);
-          })
-        } else {
-          router.push('/');
-        }
-      } else {
-        setAuthToken(userinfo);
-        api.get('/users').then((res) => {
-          if (res.data.user) {
-            const decoded: { user: object } = jwtDecode(userinfo);
-            setMyProfile(decoded.user);
-          } else {
-            setAuthToken(false);
-            router.push('/');
-          }
-        }).catch(
-          err => {
-            setAuthToken(false);
-            router.push('/');
-          }
-        )
-      }
-    } else {
-      router.push('/');
-    }
-  }, [status])
 
   const getWallets = () => {
     const wallets = BrowserWallet.getInstalledWallets();
@@ -110,7 +66,7 @@ const Header = () => {
   const logout = () => {
     signOut();
     setAuthToken(false);
-    router.push('/');
+    // router.push('/');
   }
 
   return (
@@ -124,7 +80,7 @@ const Header = () => {
         </div>
         <div className='flex gap-2 items-center'>
           <input type="text" className={`max-md:hidden w-[300px] border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC] bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' />
-          <div className='md:hidden p-2 bg-main-bg-color border border-border-color rounded-full cursor-pointer hover:bg-border-color' onClick={() => {router.push('/notifications')}}>
+          <div className='md:hidden p-2 bg-main-bg-color border border-border-color rounded-full cursor-pointer hover:bg-border-color' onClick={() => { router.push('/notifications') }}>
             <Image src={'/icons/side_ring.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 cursor-pointer hover:border' />
           </div>
           <div className='relative flex items-center gap-2 border pl-2 pr-4 py-2 rounded-[100px] border-solid border-[#E7EAF0] bg-[#F9FAFC] cursor-pointer' onMouseOver={() => { setWalletShow(true) }} onMouseLeave={() => { setWalletShow(false) }}>
@@ -155,8 +111,8 @@ const Header = () => {
             </div>
           </div>
           <div className='relative' onMouseOver={() => { setProper(true) }} onMouseLeave={() => { setProper(false) }}>
-            <Image src={myProfile.avatar || avatar} width={'100'} height={'100'} alt='Default avatar' className='w-10 h-10 rounded-full border-2 border-solid border-[#E7EAF0] cursor-pointer' />
-            <div className={`absolute bottom-0 bg-slate-50 translate-y-full -translate-x-[60%] ${proper ? "":"hidden"}`}>
+            <Image src={myProfile.avatar ? myProfile.avatar : avatar} width={'100'} height={'100'} alt='Default avatar' className='w-10 h-10 rounded-full border-2 border-solid border-[#E7EAF0] cursor-pointer' />
+            <div className={`absolute bottom-0 bg-slate-50 translate-y-full -translate-x-[60%] ${proper ? "" : "hidden"}`}>
               <ul className='border border-gray-400 text-[12px] text-primary rounded-lg min-w-[100px]'>
                 <li className='py-2 px-4 hover:bg-gray-200 cursor-pointer'>
                   My account

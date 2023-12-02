@@ -6,8 +6,8 @@ const Card = () => {
     <div className='p-4 bg-white flex items-center rounded-lg w-full'>
       <div className='flex gap-9 items-center'>
         <div className='relative'>
-          <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-10 h-10 rounded-full border-white border-2' />
-          <Image src={'/avatars/default.svg'} width={100} height={100} alt='Default avatar' className='w-10 h-10 rounded-full border-white border-2 absolute top-0 left-[24px] z-10' />
+          <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-10 h-10 rounded-full border-white border-2' />
+          <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-10 h-10 rounded-full border-white border-2 absolute top-0 left-[24px] z-10' />
         </div>
         <div className='flex flex-col justify-between'>
           <div className='text-base font-bold leading-[24px]'>

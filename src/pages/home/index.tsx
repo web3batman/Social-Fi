@@ -64,7 +64,7 @@ const Home = () => {
         console.log('Error', err);
       })
     }
-  }, [])
+  }, [myProfile])
 
   return (
     <div className='bg-main-bg-color'>
