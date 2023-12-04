@@ -23,7 +23,7 @@ const Card = () => {
             <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
           </h1>
           <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
-            <span>Ticket Prize</span>
+            <span>Ticket Price</span>
           </h2>
         </div>
       </div>

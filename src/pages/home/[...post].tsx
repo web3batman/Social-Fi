@@ -29,24 +29,6 @@ const OpenPost = () => {
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
 
-  const addNewPost = (post: object) => {
-    //@ts-ignore
-    api.post(`/posts`, {content: post.content}).then(
-      res => {
-        const newPost = {
-          ...res.data,
-          poster_id: {
-            screen_name: myProfile.screen_name,
-            username: myProfile.username,
-            avatar: myProfile.avatar
-          }
-        }
-        // @ts-ignore
-        setPosts((predata) => [newPost, ...predata]);
-      }
-    )
-  }
-
   /**
    * Get all posts when the component render.
    */
@@ -58,7 +40,7 @@ const OpenPost = () => {
         console.log('Error', err);
       })
     }
-  }, [])
+  }, [myProfile])
 
   return (
     <div className='bg-main-bg-color'>
@@ -74,7 +56,7 @@ const OpenPost = () => {
           {
             posts.length != 0 && posts.map((post, index) => {
               return (
-                <Link href={'/home/post/1'} key={index}>
+                <Link href={'/home/1'} key={index}>
                   <PostCard display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={post.created_at} content={post.content} />
                 </Link>
               )

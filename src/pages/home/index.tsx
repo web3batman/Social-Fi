@@ -75,7 +75,7 @@ const Home = () => {
           {
             posts.length != 0 && posts.map((post, index) => {
               return (
-                <Link href={'/home/post/1'} key={index}>
+                <Link href={'/home/1'} key={index}>
                   <PostCard display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={post.created_at} content={post.content} />
                 </Link>
               )

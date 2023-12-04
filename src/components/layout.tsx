@@ -88,20 +88,24 @@ const Layout = ({ children }: MyComponentProps) => {
     return <Loading />
   } else {
     if (!main) {
-      return (
-        <div className={saira.className}>
-          <Header />
-          {children}
-        </div>
-      )
+      if (myProfile.avatar) {
+        return (
+          <div className={saira.className}>
+            <Header />
+            {children}
+          </div>
+        )
+      } else {
+        return <Loading />
+      }
     } else {
-      return (
-        <main className="flex min-h-screen flex-col items-center justify-between">
-          <LandingHeader />
-          {children}
-          <Footer />
-        </main>
-      )
+        return (
+          <main className="flex min-h-screen flex-col items-center justify-between">
+            <LandingHeader />
+            {children}
+            <Footer />
+          </main>
+        )
     }
   }
 
