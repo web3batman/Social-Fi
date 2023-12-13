@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import Image from 'next/image'
 import api from '@/pages/api/auth';
+import toast from 'react-hot-toast';
 
 import { Saira } from 'next/font/google';
 
@@ -17,7 +18,11 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
     //@ts-ignore
     api.post('/keys', {seller: owner._id, count: 1, buy}).then(
       res => {
-        console.log('res.data', res.data);
+        if (buy) {
+          toast.success('You bought key.');
+        } else {
+          toast.success('You sold key.');
+        }
         closeModal()
       }
     ).catch(err => console.log(err))

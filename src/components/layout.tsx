@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react'
 import { UserContext } from '@/contexts/UserProvider';
 import Loading from '@/pages/loading';
-
+import toast, {Toaster} from 'react-hot-toast';
 
 const saira = Saira({
   weight: '400',
@@ -48,6 +48,7 @@ const Layout = ({ children }: MyComponentProps) => {
             setAuthToken(res.data.token);
             const decoded: { user: object } = jwtDecode(res.data.token);
             setMyProfile(decoded.user);
+            router.push(path == "/"?'/home':path);
           }).catch((err: any) => {
             console.log('register error', err);
           })
@@ -60,6 +61,7 @@ const Layout = ({ children }: MyComponentProps) => {
           if (res.data.user) {
             const decoded: { user: object } = jwtDecode(userinfo);
             setMyProfile(decoded.user);
+            router.push(path == "/"?'/home':path);
           } else {
             setAuthToken(false);
             router.push('/');
@@ -93,6 +95,10 @@ const Layout = ({ children }: MyComponentProps) => {
           <div className={saira.className}>
             <Header />
             {children}
+            <Toaster 
+              position="top-right"
+              reverseOrder={false}
+             />
           </div>
         )
       } else {

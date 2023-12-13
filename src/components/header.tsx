@@ -72,7 +72,7 @@ const Header = () => {
   return (
     <div className='w-full'>
       <div className='px-5 md:px-10 py-4 sm:py-[22px] flex justify-between max-sm:gap-6 items-center max-w-[1240px] bg-white mx-auto'>
-        <div className='flex gap-2 items-center justify-center cursor-pointer' onClick={() => { router.push('/') }}>
+        <div className='flex gap-2 items-center justify-center cursor-pointer' onClick={() => { router.push('/home') }}>
           <Image src={'/icons/logo.svg'} width={100} height={100} alt='logo' className='w-[43.243px] sm:w-[64.865px] h-8 sm:h-12' />
           <h1 className={`text-[14px] sm:text-[18px] font-normal leading-[normal] text-primary ${aclonica.className} w-[73px] sm:w-[94px]`}>
             The sahara

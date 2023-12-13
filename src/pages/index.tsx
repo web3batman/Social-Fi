@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image';
 // import type Session
+import { signIn } from 'next-auth/react'
 
 export default function Home() {
 
@@ -17,7 +18,7 @@ export default function Home() {
             </h2>
           </div>
           <div className='flex w-full max-sm:mb-[56px]'>
-            <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full'>
+            <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full' onClick={() => signIn('twitter', {callbackUrl:"/home"})}>
               <div className='flex gap-4 items-center justify-center sm:justify-start'>
                 <Image src={'/icons/twitter_logo.png'} width={100} height={100} alt='Twitter logo' className='w-[32px] h-[32px]' />
                 <h1 className='text-white font-medium leading-[32px] text-center text-[24px]'>

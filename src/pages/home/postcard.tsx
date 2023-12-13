@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router'
 
 const PostCard = (props: {
   display_name: string, 
@@ -7,20 +8,22 @@ const PostCard = (props: {
   avatar: string, 
   created_at: string, 
   content: string, 
+  id: string
   // reply: number, 
   // exchange: number, 
   // star: number, 
   // bookmark: number, 
   // price: number
 }) => {
-  const { display_name, username, avatar, created_at, content } = props;
+  const { display_name, username, avatar, created_at, content, id } = props;
+  const router = useRouter();
 
   return (
     <div className='bg-white p-4 rounded-[15px] flex flex-col gap-4'>
       <div className='flex flex-col gap-1'>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+            <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' onClick={() => router.push(`/keys/${id}`)} />
             <div className='flex flex-col'>
               <h1 className='text-base font-bold leading-[24px]'>{ display_name }</h1>
               <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
