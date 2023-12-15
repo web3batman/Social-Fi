@@ -21,12 +21,12 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   const [ballance, setBallance] = useState<number>();
   const [myaddress, setAddress] = useState<string>();
 
-  //@ts-ignore
-  const { myProfile, setMyProfile } = useContext(UserContext);
-
-  const [depositAmount, setDepositAmount] = useState<number>(0);
+  const [withdrawAmount, setwithdrawAmount] = useState<number>(2);
 
   const [selected, setSelected] = useState(Object)
+
+  //@ts-ignore
+  const { myProfile, setMyProfile } = useContext(UserContext);
 
 
   const getWallets = () => {
@@ -43,10 +43,8 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
             if (ballance[0].quantity != 0) {
               // @ts-ignore
               setBallance(Math.floor(ballance[0].quantity / 1000000));
-              // setDepositAmount(Math.floor(ballance[0].quantity / 1000000));
             } else {
               setBallance(ballance[0].quantity);
-              setDepositAmount(ballance[0].quantity);
             }
           }
         )
@@ -61,45 +59,28 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
   const handleChange = async (e: any) => {
     const mount = e.target.value;
-    setDepositAmount(mount);
+    setwithdrawAmount(mount);
   }
 
-  const depositFunc = async () => {
-    // api.post('/users/deposit', {address: myaddress, mount: depositAmount}).then(
-    //   res => console.log(res)
-    // ).catch(err => console.log(err))
-    const amount: string = (depositAmount * 1000000).toString();
-    const tx = new Transaction({ initiator: mywallet })
-      .sendLovelace(
-        'addr_test1qz7wdtzdw3v0wr667a0d6mmpx04m2wdw83mk4hpwrj432fkh2nexqq4d33kgk05ak4656gjd8v95x9qsdql36j3zy5cqmxanz2',
-        amount
-      )
-    ;
-    
-    try {
-      const unsignedTx = await tx.build();
-      //@ts-ignore
-      const signedTx = await mywallet.signTx(unsignedTx);
-      //@ts-ignore
-      const txHash = await mywallet.submitTx(signedTx);
-      if (txHash) {
-        const total = Number(myProfile.balance) + Number(depositAmount);
-        api.post('/users/deposit', {totalBalance: total}).then(
-          res => {
-            console.log('new profile', res.data)
-            toast.success("Deposit succeed")
-            closeModal();
-            setDepositAmount(0)
-            setMyProfile(res.data);
-          }
-        ).catch(
-          err => toast.error(err)
-        )
-      }
-    } catch (error) {
-      console.log('error', error);
-      toast.error("Try again there is an error.")
+  const withdraw = async () => {
+
+    const total = Number(myProfile.balance) - Number(withdrawAmount) - 1;
+
+    if ((total - 1) < 0) {
+      toast.error("You don't have enough balance.")
+    } else {
+      api.post('/users/withdraw', {address: myaddress, mount: withdrawAmount, totalBalance: total}).then(
+        res => {
+          toast.success("Withdraw succeed")
+          closeModal()
+          setMyProfile(res.data)
+          setwithdrawAmount(2)
+        }
+      ).catch(err => {
+        toast.error('Transaction failed!')
+      })
     }
+
   }
 
   useEffect(() => {
@@ -111,7 +92,6 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     walletConnect(wallets[0].name);
   }, [wallets])
 
-  
   useEffect(() => {
 
   }, [myProfile])
@@ -148,7 +128,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                     as="h3"
                     className='text-lg text-[24px] font-semibold leading-8 text-primary p-5'
                   >
-                    Deposit
+                    Withdraw
                   </Dialog.Title>
                   <hr />
                   <div className="p-5">
@@ -214,7 +194,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                       Amount
                     </h1>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
-                      <input type="number" value={depositAmount} min={2} max={ballance} className='border-0 font-medium truncate ...' onChange={handleChange} />
+                      <input type="number" value={withdrawAmount} min={2} max={myProfile.balance} className='border-0 font-medium truncate ...' onChange={handleChange} />
                       <span className='px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border'>
                         MAX
                       </span>
@@ -222,10 +202,10 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                     <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-2'>
                       Available amount: &nbsp;
                       <span className='text-medium'>
-                        {ballance} ADA
+                        {Math.ceil(myProfile.balance * 1000) / 1000} ADA
                       </span>
                     </h1>
-                    {/* <div className='flex justify-center items-center flex-col gap-2 mt-6'>
+                    <div className='flex justify-center items-center flex-col gap-2 mt-6'>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
                         Transaction Fee:  &nbsp;
                         <span className='text-medium text-primary'>
@@ -235,14 +215,14 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
                         You will get:  &nbsp;
                         <span className='text-medium text-primary'>
-                          { depositAmount && (Number(depositAmount) - 1)} ADA
+                          { withdrawAmount && (Number(withdrawAmount) - 1)} ADA
                         </span>
                       </h1>
-                    </div> */}
-                    <button className='px-8 py-2 rounded-lg bg-secondary w-full mt-6' onClick={depositFunc}>
+                    </div>
+                    <button className='px-8 py-2 rounded-lg bg-secondary w-full mt-6' onClick={withdraw}>
                       <div className='flex gap-4 items-center justify-center'>
                         <h1 className='text-white font-medium leading-[24px] text-center text-base'>
-                          Deposit
+                          Withdraw
                         </h1>
                       </div>
                     </button>

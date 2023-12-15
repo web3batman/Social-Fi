@@ -23,7 +23,7 @@ const PostCard = (props: {
       <div className='flex flex-col gap-1'>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' onClick={() => router.push(`/keys/${id}`)} />
+            <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' onClick={() => router.push(`/keys/${id}`)} />
             <div className='flex flex-col'>
               <h1 className='text-base font-bold leading-[24px]'>{ display_name }</h1>
               <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>

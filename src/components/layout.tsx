@@ -59,8 +59,7 @@ const Layout = ({ children }: MyComponentProps) => {
         setAuthToken(userinfo);
         api.get('/users').then((res) => {
           if (res.data.user) {
-            const decoded: { user: object } = jwtDecode(userinfo);
-            setMyProfile(decoded.user);
+            setMyProfile(res.data.userdata);
             router.push(path == "/"?'/home':path);
           } else {
             setAuthToken(false);

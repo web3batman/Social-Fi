@@ -9,6 +9,7 @@ import api from '../api/auth';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import KeyModal from '@/components/keymodal';
+import CardGroup from './cardgroup';
 
 interface Profile {
   avatar?: string;
@@ -52,6 +53,7 @@ const Key = () => {
   const { myProfile, setMyProfile } = useContext(UserContext);
   const [poster, setPoster] = useState<Profile>({});
   const [posteravatar, setPosteravatar] = useState('');
+  const [customer, setCustomer] = useState<string>();
 
   const [modalshow, setModal] = useState<true | false>(false);
   
@@ -68,11 +70,13 @@ const Key = () => {
   // Get post information
   useEffect(() => {
       const param = router.query.key;
+      // @ts-ignore
+      setCustomer(param);
       //@ts-ignore
       api.get(`/users/${param}`).then(res => {
         setPoster(res.data);
       })
-  }, [])
+  }, [poster])
 
   /**
    * Get all posts that posted by poster whose id is poster.
@@ -131,7 +135,7 @@ const Key = () => {
                   </div>
                   <div className='flex flex-col gap-[7px] max-sm:hidden'>
                     <div className='text-base font-bold leading-[24px] flex items-center gap-2'>
-                      <span>10,890</span>
+                      <span>{poster.price}</span>
                       <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
                     </div>
                     <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
@@ -163,14 +167,14 @@ const Key = () => {
                         Holder
                       </h2>
                     </div>
-                    <div className='flex flex-col items-center text-center'>
+                    {/* <div className='flex flex-col items-center text-center'>
                       <h1 className='font-bold text-base leading-6'>
                         100
                       </h1>
                       <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                         WatchList
                       </h2>
-                    </div>
+                    </div> */}
                   </div>
                   <div className='flex gap-2 items-center max-sm:hidden'>
                     <div className='p-2 rounded-lg border border-border-color'>
@@ -204,7 +208,7 @@ const Key = () => {
                     <div className='p-2 rounded-lg border border-border-color'>
                       <Image src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                     </div>
-                    <button className='px-8 py-2 rounded-lg bg-secondary max-sm:w-full'>
+                    <button className='px-8 py-2 rounded-lg bg-secondary max-sm:w-full' onClick={ () => setModal(true)}>
                       <div className='flex gap-4 items-center justify-center sm:justify-start'>
                         <h1 className='text-white font-semibold leading-[24px] text-center text-base'>
                           Buy
