@@ -32,17 +32,23 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
     // @ts-ignore
     api.post('/keys', { seller: owner._id, count: 1, buy }).then(
       res => {
-        if (buy) {
-          toast.success('You bought key.');
+        if (res.status == 505) {
+          toast.error("You don't have enough balance.")
         } else {
-          toast.success('You sold key.');
+          if (buy) {
+            toast.success('You bought key.');
+          } else {
+            toast.success('You sold key.');
+          }
+          closeModal()
+          setConfirm(false);
+          router.reload();
         }
-        closeModal()
-        setConfirm(false);
-        router.reload();
 
       }
-    ).catch(err => console.log(err))
+    ).catch(err => {
+      toast.error(err.response.data.err);
+    })
   }
 
   const confirmContract = (buysell: boolean) => {
