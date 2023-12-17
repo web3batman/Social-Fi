@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 
@@ -17,6 +17,36 @@ const PostCard = (props: {
 }) => {
   const { display_name, username, avatar, created_at, content, id } = props;
   const router = useRouter();
+  const [createdTime, setTime] = useState<string>('1 m');
+
+  useEffect(() => {
+    const timestamp: any = new Date(created_at);
+    const currentTimestamp: any = new Date();
+    const timeDifference = currentTimestamp - timestamp;
+    const minutesDifference = timeDifference / (1000 * 60);
+    const minute = Math.floor(minutesDifference);
+    const hour = Math.floor(minute / 60);
+    const day = Math.floor(hour / 24);
+    const month = Math.floor(day / 30);
+    const createTime = created_at.split('T')[0];
+
+    if (minute < 60) {
+      setTime(`${minute} m`)
+    }
+    if (hour > 0) {
+      if (hour < 24) {
+        setTime(`${hour} h`)
+      }
+    }
+    if (day > 0) {
+      if (day < 30) {
+        setTime(`${hour} d`)
+      }
+    }
+    if (month > 0) {
+      setTime(createTime);
+    }
+  }, [])
 
   return (
     <div className='bg-white p-4 rounded-[15px] flex flex-col gap-4'>
@@ -30,7 +60,7 @@ const PostCard = (props: {
                 <div className="flex gap-2">
                   <span>@{username}</span>
                   <span>-</span>
-                  <span>{created_at}</span>
+                  <span>{createdTime}</span>
                 </div>
               </div>
             </div>

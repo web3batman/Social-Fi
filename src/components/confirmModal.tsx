@@ -51,19 +51,19 @@ export default function ConfirmModal(props: { show: boolean; closeModal: any; bu
                       X
                     </span>
                   </Dialog.Title>
-                  <div className="p-5 flex flex-col gap-8">
-                    <div className='text-center'>
+                  <div className="p-8 flex flex-col gap-20">
+                    <div className='text-center text-[24px] leading-[36px]'>
                       Are you sure?
                     </div>
-                    <div className='flex justify-between gap-[10px] w-full'>
-                      <button className='py-4 rounded-lg bg-secondary w-full max-w-[219px]' onClick={buykey}>
+                    <div className='flex justify-around gap-[10px] w-full'>
+                      <button className='py-2 rounded-lg bg-secondary w-full max-w-[119px]' onClick={buykey}>
                         <div className='flex gap-4 items-center justify-center sm:justify-start'>
                           <h1 className='text-white font-medium leading-[24px] w-full text-center text-[16px]'>
                             Yes
                           </h1>
                         </div>
                       </button>
-                      <button className='py-4 rounded-lg bg-main-bg-color border border-border-color w-full max-w-[219px]' onClick={closeModal}>
+                      <button className='py-2 rounded-lg bg-main-bg-color border border-border-color w-full max-w-[119px]' onClick={closeModal}>
                         <div className='flex gap-4 items-center justify-center sm:justify-start'>
                           <h1 className='font-medium leading-[24px] w-full text-center text-[16px]'>
                             No

@@ -50,7 +50,7 @@ const Header = () => {
             <Image src={'/icons/cardano.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
             <span className='text-center text-base not-italic font-semibold leading-6 text-primary'>
               {
-                Math.ceil(myProfile.balance * 100) / 100
+                Math.floor(myProfile.balance * 100) / 100
               }
             </span>
           </div>

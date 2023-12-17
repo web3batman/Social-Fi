@@ -52,9 +52,9 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
 
   useEffect(() => {
     //@ts-ignore
-    setBuyPrice(Math.ceil(owner.price * 1.1 * 100) / 100)
+    setBuyPrice(Math.floor(owner.price * 1.1 * 100) / 100)
     //@ts-ignore
-    setSellPrice(Math.ceil(owner.price * 0.9 * 100) / 100)
+    setSellPrice(Math.floor(owner.price * 0.9 * 100) / 100)
   }, [])
 
   useEffect(() => {
@@ -107,15 +107,15 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                   <div className="p-5 flex flex-col gap-4">
                     <div className='flex w-full justify-center items-center'>
                       <div className='flex flex-col'>
-                        <h1 className='text-base font-bold leading-[24px] flex gap-2 items-center justify-end'>
+                        <h1 className='text-[18px] font-bold leading-[24px] flex gap-2 items-center justify-end'>
                           <span>
                             {
-                              Math.ceil(myProfile.balance * 100) / 100
+                              Math.floor(myProfile.balance * 100) / 100
                             }
                           </span>
-                          <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
+                          <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-5 h-5 rounded-full' />
                         </h1>
-                        <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
+                        <h2 className='text-[16px] font-normal leading-[24px] text-[#738290]'>
                           <span>Your balance</span>
                         </h2>
                       </div>
@@ -168,13 +168,13 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                     </h1>
                     <div className='flex justify-between gap-[10px] w-full'>
                       {
-                        canBuy?<Link href={'/wallet'} className='py-4 rounded-lg w-full max-w-[219px] bg-secondary'>
+                        canBuy?<Link href={'/wallet'} className={`py-4 rounded-lg w-full ${keyCount != 0 && 'max-w-[219px]'} bg-secondary`}>
                         <div className='flex gap-4 items-center justify-center sm:justify-start'>
                           <h1 className='text-white font-medium leading-[24px] w-full text-center text-[16px]'>
                             Go to deposit
                           </h1>
                         </div>
-                      </Link>:<button className='py-4 rounded-lg w-full max-w-[219px] bg-secondary' onClick={() => confirmContract(true)}>
+                      </Link>:<button className={`py-4 rounded-lg w-full ${keyCount != 0 && 'max-w-[219px]'} bg-secondary`} onClick={() => confirmContract(true)}>
                         <div className='flex gap-4 items-center justify-center sm:justify-start'>
                           <h1 className='text-white font-medium leading-[24px] w-full text-center text-[16px]'>
                             Buy a key
@@ -189,13 +189,7 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                             Sell a key
                           </h1>
                         </div>
-                      </button>:<button className='py-4 rounded-lg bg-main-bg-color border border-border-color w-full max-w-[219px]' disabled>
-                        <div className='flex gap-4 items-center justify-center sm:justify-start'>
-                          <h1 className='font-medium leading-[24px] w-full text-center text-[16px]'>
-                            No key
-                          </h1>
-                        </div>
-                      </button>
+                      </button>:''
                       }
                     </div>
                   </div>

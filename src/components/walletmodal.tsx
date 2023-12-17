@@ -19,7 +19,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   const { show, closeModal, openModal } = props;
   const [wallets, setWallets] = useState([Object]);
   const [mywallet, setWallet] = useState<object>();
-  const [ballance, setBallance] = useState<number>();
+  const [ballance, setBallance] = useState<number>(2);
   const [myaddress, setAddress] = useState<string>();
 
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   //@ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext);
 
-  const [depositAmount, setDepositAmount] = useState<number>(0);
+  const [depositAmount, setDepositAmount] = useState<number>(1);
 
   const [selected, setSelected] = useState(Object)
 
@@ -43,11 +43,10 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
         setWallet(wallet);
         wallet.getBalance().then(
           ballance => {
-            console.log('walletname', walletName)
             if (ballance[0].quantity != 0) {
               // @ts-ignore
-              setBallance(Math.floor(ballance[0].quantity / 100000));
-              // setDepositAmount(Math.floor(ballance[0].quantity / 100000));
+              setBallance(Math.floor(ballance[0].quantity / 1000000));
+              // setDepositAmount(Math.floor(ballance[0].quantity / 1000000));
             } else {
               setBallance(ballance[0].quantity);
               setDepositAmount(ballance[0].quantity);
@@ -72,37 +71,44 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     // api.post('/users/deposit', {address: myaddress, mount: depositAmount}).then(
     //   res => console.log(res)
     // ).catch(err => console.log(err))
-    const amount: string = (depositAmount * 100000).toString();
-    const tx = new Transaction({ initiator: mywallet })
-      .sendLovelace(
-        'addr_test1qz7wdtzdw3v0wr667a0d6mmpx04m2wdw83mk4hpwrj432fkh2nexqq4d33kgk05ak4656gjd8v95x9qsdql36j3zy5cqmxanz2',
-        amount
-      )
-    ;
-    
-    try {
-      const unsignedTx = await tx.build();
-      //@ts-ignore
-      const signedTx = await mywallet.signTx(unsignedTx);
-      //@ts-ignore
-      const txHash = await mywallet.submitTx(signedTx);
-      if (txHash) {
-        const total = Number(myProfile.balance) + Number(depositAmount);
-        api.post('/users/deposit', {totalBalance: total}).then(
-          res => {
-            toast.success("Deposit succeed")
-            closeModal();
-            setDepositAmount(0)
-            setMyProfile(res.data);
-            router.reload();
+
+    if (depositAmount == 0) {
+      toast.error('Please fill the correct balance.')
+    } else {
+
+      
+      const amount: string = ((Number(depositAmount) + 1) * 1000000).toString();
+          const tx = new Transaction({ initiator: mywallet })
+          .sendLovelace(
+            process.env.NEXT_PUBLIC_WALLET_ADDRESS,
+            amount
+            )
+            ;
             
+            try {
+              const unsignedTx = await tx.build();
+            //@ts-ignore
+            const signedTx = await mywallet.signTx(unsignedTx);
+            //@ts-ignore
+            const txHash = await mywallet.submitTx(signedTx);
+            if (txHash) {
+              const total = Number(myProfile.balance) + Number(depositAmount);
+              api.post('/users/deposit', {totalBalance: total}).then(
+                res => {
+                  toast.success("Deposit succeed")
+                  closeModal();
+                  setDepositAmount(0)
+                  setMyProfile(res.data);
+                  router.reload();
+                  
+                }
+              ).catch(
+                err => toast.error(err)
+              )
+            }
+          } catch (error) {
+            toast.error("You dont have enough balance to deposit.")
           }
-        ).catch(
-          err => toast.error(err)
-        )
-      }
-    } catch (error) {
-      toast.error("Try again there is an error.")
     }
   }
 
@@ -118,6 +124,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   useEffect(() => {
     walletConnect(selected.name);
   }, [selected])
+
 
   return (
     <>
@@ -225,10 +232,18 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                       </h1>
                     </div>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
-                      <input type="number" value={depositAmount} min={2} max={ballance} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
+                      <input type="number" value={depositAmount} min={1} max={ballance - 1} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
                       <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance)?'opacity-100':'opacity-0'}`}>
                         MAX
                       </span>
+                    </div>
+                    <div className='flex justify-end mt-2'>
+                      <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
+                        Fee: &nbsp;
+                        <span className='text-medium'>
+                          1 ADA
+                        </span>
+                      </h1>
                     </div>
                     {/* <div className='flex justify-center items-center flex-col gap-2 mt-6'>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>

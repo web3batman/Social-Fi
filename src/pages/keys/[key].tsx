@@ -21,6 +21,7 @@ interface Profile {
   holding?: Holder[];
   holder?: Holder[];
   _id?: string;
+  keyCount?: number;
 }
 
 interface Holder {
@@ -84,8 +85,12 @@ const Key = () => {
 
   const toChatRoom = () => {
     if (keyCount == 0) {
-      toast.error("You don't have any key. Please buy one.");
-      setModal(true)
+      if (myProfile._id == poster._id) {
+        router.push(`/inbox/${poster._id}`)
+      } else {
+        toast.error("You don't have any key. Please buy one.");
+        setModal(true)
+      }
     } else {
       router.push(`/inbox/${poster._id}`)
     }
@@ -102,7 +107,7 @@ const Key = () => {
       setHolder(res.data.holder);
       setHolding(res.data.holding);
     })
-  }, [])
+  }, [router])
 
   useEffect(() => {
     //@ts-ignore
@@ -136,7 +141,9 @@ const Key = () => {
                 <Image src={posteravatar} width={100} height={100} alt='Default avatar' className='w-25 h-25 rounded-full' />
                 <div className='flex gap-4 max-sm:hidden'>
                   <div className='p-2 rounded-lg border border-border-color'>
-                    <Image src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                    <a href={`http://x.com/${poster.screen_name}`} target="_blank" rel="noopener noreferrer">
+                      <Image src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                    </a>
                   </div>
                   <div className='p-2 rounded-lg border border-border-color'>
                     <Image src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
@@ -185,6 +192,8 @@ const Key = () => {
                       {
                         //@ts-ignore
                         poster.holder.length
+                      } / {
+                        poster.keyCount
                       }
                     </h1>
                     <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>

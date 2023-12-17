@@ -25,7 +25,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
   const router = useRouter()
 
-  const [withdrawAmount, setwithdrawAmount] = useState<number>(2);
+  const [withdrawAmount, setwithdrawAmount] = useState<number>(1);
 
   const [selected, setSelected] = useState(Object)
 
@@ -46,7 +46,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
           ballance => {
             if (ballance[0].quantity != 0) {
               // @ts-ignore
-              setBallance(Math.floor(ballance[0].quantity / 100000));
+              setBallance(Math.floor(ballance[0].quantity / 1000000));
             } else {
               setBallance(ballance[0].quantity);
             }
@@ -70,7 +70,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
     const total = Number(myProfile.balance) - Number(withdrawAmount) - 1;
 
-    if ((total - 1) < 0) {
+    if (total < 0) {
       toast.error("You don't have enough balance.")
     } else {
       api.post('/users/withdraw', {address: myaddress, mount: withdrawAmount, totalBalance: total}).then(
@@ -202,12 +202,12 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-2'>
                         Available amount: &nbsp;
                         <span className='text-medium'>
-                          {Math.ceil(myProfile.balance * 100) / 100} ADA
+                          {Math.floor(myProfile.balance * 100) / 100} ADA
                         </span>
                       </h1>
                     </div>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
-                      <input type="number" value={withdrawAmount} min={2} max={myProfile.balance} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
+                      <input type="number" value={withdrawAmount} min={1} max={myProfile.balance - 1} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
                       
                       <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${withdrawAmount >= myProfile.balance?'opacity-100':'opacity-0'}`}>
                         MAX
