@@ -5,7 +5,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Saira, Aclonica } from 'next/font/google';
 import { BrowserWallet, Transaction } from '@meshsdk/core';
 import { UserContext } from '@/contexts/UserProvider';
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 
 import api from '@/pages/api/auth';
 import toast from 'react-hot-toast';
@@ -17,20 +17,28 @@ const saira = Saira({
 
 export default function Modal(props: { show: boolean; closeModal: any; openModal: any; }) {
   const { show, closeModal, openModal } = props;
+  const router = useRouter();
   const [wallets, setWallets] = useState([Object]);
   const [mywallet, setWallet] = useState<object>();
   const [ballance, setBallance] = useState<number>(2);
-  const [myaddress, setAddress] = useState<string>();
-
-  const router = useRouter();
-
+  // const [myaddress, setAddress] = useState<string>();
+  const [depositAmount, setDepositAmount] = useState<number>(1);
+  const [selected, setSelected] = useState(Object)
   //@ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext);
 
-  const [depositAmount, setDepositAmount] = useState<number>(1);
+  useEffect(() => {
+    getWallets();
+  }, [])
 
-  const [selected, setSelected] = useState(Object)
+  useEffect(() => {
+    setSelected(wallets[0]);
+  }, [wallets])
 
+
+  useEffect(() => {
+    walletConnect(selected.name);
+  }, [selected])
 
   const getWallets = () => {
     const wallets = BrowserWallet.getInstalledWallets();
@@ -53,11 +61,11 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
             }
           }
         )
-        wallet.getUsedAddresses().then(
-          address => {
-            setAddress(address[0]);
-          }
-        )
+        // wallet.getUsedAddresses().then(
+        //   address => {
+        //     setAddress(address[0]);
+        //   }
+        // )
       }
     ).catch(error => console.log("Please create your wallet."))
   }
@@ -71,60 +79,47 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     // api.post('/users/deposit', {address: myaddress, mount: depositAmount}).then(
     //   res => console.log(res)
     // ).catch(err => console.log(err))
-
+    if(!mywallet) return;
+ 
     if (depositAmount == 0) {
       toast.error('Please fill the correct balance.')
     } else {
 
-      
+
       const amount: string = ((Number(depositAmount) + 1) * 1000000).toString();
-          const tx = new Transaction({ initiator: mywallet })
-          .sendLovelace(
-            process.env.NEXT_PUBLIC_WALLET_ADDRESS,
-            amount
-            )
-            ;
-            
-            try {
-              const unsignedTx = await tx.build();
-            //@ts-ignore
-            const signedTx = await mywallet.signTx(unsignedTx);
-            //@ts-ignore
-            const txHash = await mywallet.submitTx(signedTx);
-            if (txHash) {
-              const total = Number(myProfile.balance) + Number(depositAmount);
-              api.post('/users/deposit', {totalBalance: total}).then(
-                res => {
-                  toast.success("Deposit succeed")
-                  closeModal();
-                  setDepositAmount(0)
-                  setMyProfile(res.data);
-                  router.reload();
-                  
-                }
-              ).catch(
-                err => toast.error(err)
-              )
+      const tx = new Transaction({ initiator: mywallet })
+        .sendLovelace(
+          process.env.NEXT_PUBLIC_WALLET_ADDRESS,
+          amount
+        )
+        ;
+
+      try {
+        const unsignedTx = await tx.build();
+        //@ts-ignore
+        const signedTx = await mywallet.signTx(unsignedTx);
+        //@ts-ignore
+        const txHash = await mywallet.submitTx(signedTx);
+        if (txHash) {
+          const total = Number(myProfile.balance) + Number(depositAmount);
+          api.post('/users/deposit', { totalBalance: total }).then(
+            res => {
+              toast.success("Deposit succeed")
+              closeModal();
+              setDepositAmount(0)
+              setMyProfile(res.data);
+              router.reload();
+
             }
-          } catch (error) {
-            toast.error("You dont have enough balance to deposit.")
-          }
+          ).catch(
+            err => toast.error(err)
+          )
+        }
+      } catch (error) {
+        toast.error("You dont have enough balance to deposit.")
+      }
     }
   }
-
-  useEffect(() => {
-    getWallets();
-  }, [])
-
-  useEffect(() => {
-    setSelected(wallets[0]);
-  }, [wallets])
-
-  
-  useEffect(() => {
-    walletConnect(selected.name);
-  }, [selected])
-
 
   return (
     <>
@@ -166,7 +161,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                       Select Network
                     </h1>
                     {
-                      wallets.length != 0?(
+                      wallets.length != 0 ? (
                         <Listbox value={selected} onChange={setSelected}>
                           <div className="relative mt-1">
                             <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -216,7 +211,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                             </Transition>
                           </div>
                         </Listbox>
-                      ):(
+                      ) : (
                         <h1 className='text-gray-900 font-medium'>No wallet. Please install any wallet.</h1>
                       )
                     }
@@ -233,7 +228,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                     </div>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
                       <input type="number" value={depositAmount} min={1} max={ballance - 1} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
-                      <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance)?'opacity-100':'opacity-0'}`}>
+                      <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
                         MAX
                       </span>
                     </div>
