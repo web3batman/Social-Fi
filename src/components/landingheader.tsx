@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
-import { signIn, getSession, signOut, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
@@ -29,17 +29,17 @@ const LandingHeader = () => {
         </h1>
       </div>
       <div className='flex gap-6 max-sm:hidden'>
-        <Link href={'/home'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
+        {/* <Link href={'/home'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
           Home
         </Link>
-        <span>.</span>
+        <span>.</span> */}
         <Link href={'/about'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
           About
         </Link>
-        <span>.</span>
+        {/* <span>.</span>
         <Link href={'/inbox'} className='text-primary font-medium leading-6 text-center text-base cursor-pointer'>
           Community
-        </Link>
+        </Link> */}
       </div>
       <div className='flex gap-2'>
         {

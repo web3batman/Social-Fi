@@ -5,6 +5,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Saira, Aclonica } from 'next/font/google';
 import { BrowserWallet, Transaction } from '@meshsdk/core';
 import { UserContext } from '@/contexts/UserProvider';
+import {useRouter} from 'next/router'
 
 import api from '@/pages/api/auth';
 import toast from 'react-hot-toast';
@@ -20,6 +21,8 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   const [mywallet, setWallet] = useState<object>();
   const [ballance, setBallance] = useState<number>();
   const [myaddress, setAddress] = useState<string>();
+
+  const router = useRouter();
 
   //@ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext);
@@ -40,10 +43,11 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
         setWallet(wallet);
         wallet.getBalance().then(
           ballance => {
+            console.log('walletname', walletName)
             if (ballance[0].quantity != 0) {
               // @ts-ignore
-              setBallance(Math.floor(ballance[0].quantity / 1000000));
-              // setDepositAmount(Math.floor(ballance[0].quantity / 1000000));
+              setBallance(Math.floor(ballance[0].quantity / 100000));
+              // setDepositAmount(Math.floor(ballance[0].quantity / 100000));
             } else {
               setBallance(ballance[0].quantity);
               setDepositAmount(ballance[0].quantity);
@@ -68,7 +72,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     // api.post('/users/deposit', {address: myaddress, mount: depositAmount}).then(
     //   res => console.log(res)
     // ).catch(err => console.log(err))
-    const amount: string = (depositAmount * 1000000).toString();
+    const amount: string = (depositAmount * 100000).toString();
     const tx = new Transaction({ initiator: mywallet })
       .sendLovelace(
         'addr_test1qz7wdtzdw3v0wr667a0d6mmpx04m2wdw83mk4hpwrj432fkh2nexqq4d33kgk05ak4656gjd8v95x9qsdql36j3zy5cqmxanz2',
@@ -86,18 +90,18 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
         const total = Number(myProfile.balance) + Number(depositAmount);
         api.post('/users/deposit', {totalBalance: total}).then(
           res => {
-            console.log('new profile', res.data)
             toast.success("Deposit succeed")
             closeModal();
             setDepositAmount(0)
             setMyProfile(res.data);
+            router.reload();
+            
           }
         ).catch(
           err => toast.error(err)
         )
       }
     } catch (error) {
-      console.log('error', error);
       toast.error("Try again there is an error.")
     }
   }
@@ -108,13 +112,12 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
   useEffect(() => {
     setSelected(wallets[0]);
-    walletConnect(wallets[0].name);
   }, [wallets])
 
   
   useEffect(() => {
-
-  }, [myProfile])
+    walletConnect(selected.name);
+  }, [selected])
 
   return (
     <>
@@ -210,21 +213,23 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                         <h1 className='text-gray-900 font-medium'>No wallet. Please install any wallet.</h1>
                       )
                     }
-                    <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-5'>
-                      Amount
-                    </h1>
+                    <div className='flex justify-between items-center mt-5'>
+                      <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
+                        Amount
+                      </h1>
+                      <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
+                        Available amount: &nbsp;
+                        <span className='text-medium'>
+                          {ballance} ADA
+                        </span>
+                      </h1>
+                    </div>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
-                      <input type="number" value={depositAmount} min={2} max={ballance} className='border-0 font-medium truncate ...' onChange={handleChange} />
-                      <span className='px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border'>
+                      <input type="number" value={depositAmount} min={2} max={ballance} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
+                      <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance)?'opacity-100':'opacity-0'}`}>
                         MAX
                       </span>
                     </div>
-                    <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-2'>
-                      Available amount: &nbsp;
-                      <span className='text-medium'>
-                        {ballance} ADA
-                      </span>
-                    </h1>
                     {/* <div className='flex justify-center items-center flex-col gap-2 mt-6'>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
                         Transaction Fee:  &nbsp;

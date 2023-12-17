@@ -44,10 +44,9 @@ const Layout = ({ children }: MyComponentProps) => {
 
       if (!userinfo) {
         if (profile) {
-          api.post('/users', { profile: profile }).then((res: { data: { token: any }; }) => {
+          api.post('/users', { profile: profile }).then((res: { data: { token: any, user: any }; }) => {
             setAuthToken(res.data.token);
-            const decoded: { user: object } = jwtDecode(res.data.token);
-            setMyProfile(decoded.user);
+            setMyProfile(res.data.user);
             router.push(path == "/"?'/home':path);
           }).catch((err: any) => {
             console.log('register error', err);

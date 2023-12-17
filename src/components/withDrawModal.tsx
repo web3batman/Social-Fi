@@ -6,6 +6,8 @@ import { Saira, Aclonica } from 'next/font/google';
 import { BrowserWallet, Transaction } from '@meshsdk/core';
 import { UserContext } from '@/contexts/UserProvider';
 
+import {useRouter} from 'next/router'
+
 import api from '@/pages/api/auth';
 import toast from 'react-hot-toast';
 
@@ -20,6 +22,8 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   const [mywallet, setWallet] = useState<object>();
   const [ballance, setBallance] = useState<number>();
   const [myaddress, setAddress] = useState<string>();
+
+  const router = useRouter()
 
   const [withdrawAmount, setwithdrawAmount] = useState<number>(2);
 
@@ -42,7 +46,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
           ballance => {
             if (ballance[0].quantity != 0) {
               // @ts-ignore
-              setBallance(Math.floor(ballance[0].quantity / 1000000));
+              setBallance(Math.floor(ballance[0].quantity / 100000));
             } else {
               setBallance(ballance[0].quantity);
             }
@@ -75,6 +79,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
           closeModal()
           setMyProfile(res.data)
           setwithdrawAmount(2)
+          router.reload();
         }
       ).catch(err => {
         toast.error('Transaction failed!')
@@ -89,12 +94,12 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
   useEffect(() => {
     setSelected(wallets[0]);
-    walletConnect(wallets[0].name);
   }, [wallets])
 
+  
   useEffect(() => {
-
-  }, [myProfile])
+    walletConnect(selected.name);
+  }, [selected])
 
   return (
     <>
@@ -190,32 +195,29 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                         <h1 className='text-gray-900 font-medium'>No wallet. Please install any wallet.</h1>
                       )
                     }
-                    <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-5'>
-                      Amount
-                    </h1>
+                    <div className="flex justify-between items-center mt-5">
+                      <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-5'>
+                        Amount
+                      </h1>
+                      <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-2'>
+                        Available amount: &nbsp;
+                        <span className='text-medium'>
+                          {Math.ceil(myProfile.balance * 100) / 100} ADA
+                        </span>
+                      </h1>
+                    </div>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
-                      <input type="number" value={withdrawAmount} min={2} max={myProfile.balance} className='border-0 font-medium truncate ...' onChange={handleChange} />
-                      <span className='px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border'>
+                      <input type="number" value={withdrawAmount} min={2} max={myProfile.balance} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
+                      
+                      <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${withdrawAmount >= myProfile.balance?'opacity-100':'opacity-0'}`}>
                         MAX
                       </span>
                     </div>
-                    <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-2'>
-                      Available amount: &nbsp;
-                      <span className='text-medium'>
-                        {Math.ceil(myProfile.balance * 1000) / 1000} ADA
-                      </span>
-                    </h1>
                     <div className='flex justify-center items-center flex-col gap-2 mt-6'>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
                         Transaction Fee:  &nbsp;
                         <span className='text-medium text-primary'>
                           1 ADA
-                        </span>
-                      </h1>
-                      <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
-                        You will get:  &nbsp;
-                        <span className='text-medium text-primary'>
-                          { withdrawAmount && (Number(withdrawAmount) - 1)} ADA
                         </span>
                       </h1>
                     </div>
