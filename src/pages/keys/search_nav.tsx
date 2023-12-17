@@ -5,7 +5,7 @@ const SearchNav = (props:{customer: number, setCustomer: Function}) => {
   const {customer, setCustomer} = props;
 
   return (
-    <div className='flex gap-2 overflow-x-auto'>
+    <div className='flex gap-2 overflow-x-auto w-full'>
       <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${customer == 0? 'bg-secondary text-white':' border-border-color border bg-white text-primary'}`} onClick={() => setCustomer(0)}>
         <div className='flex gap-4 items-center justify-center sm:justify-start'>
           <h1 className='font-medium leading-[32px] text-center text-base'>

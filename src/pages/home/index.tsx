@@ -8,6 +8,7 @@ import { Saira } from 'next/font/google';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
 import api from '../api/auth';
+import toast from 'react-hot-toast'
 
 const saira = Saira({
   weight: '400',
@@ -47,9 +48,12 @@ const Home = () => {
             avatar: myProfile.avatar
           }
         }
+        toast.success('Successfly posted.')
         // @ts-ignore
         setPosts((predata) => [newPost, ...predata]);
       }
+    ).catch(
+      err => toast.error("Oops. Seems like there is an error...")
     )
   }
 
@@ -75,9 +79,9 @@ const Home = () => {
           {
             posts.length != 0 && posts.map((post, index) => {
               return (
-                <Link href={'/home/1'} key={index}>
-                  <PostCard display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={post.created_at} content={post.content} />
-                </Link>
+                <div key={index}>
+                  <PostCard id={post.poster_id._id} display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={post.created_at} content={post.content} />
+                </div>
               )
             })
           }

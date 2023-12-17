@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
-import { signIn, getSession, signOut, useSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
@@ -29,17 +29,17 @@ const LandingHeader = () => {
         </h1>
       </div>
       <div className='flex gap-6 max-sm:hidden'>
-        <Link href={'/home'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
+        {/* <Link href={'/home'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
           Home
         </Link>
-        <span>.</span>
+        <span>.</span> */}
         <Link href={'/about'} className='text-primary font-medium leading-6 text-center cursor-pointer'>
           About
         </Link>
-        <span>.</span>
+        {/* <span>.</span>
         <Link href={'/inbox'} className='text-primary font-medium leading-6 text-center text-base cursor-pointer'>
           Community
-        </Link>
+        </Link> */}
       </div>
       <div className='flex gap-2'>
         {
@@ -56,7 +56,7 @@ const LandingHeader = () => {
               </button>
             </div>
           ) : (
-            <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { signIn('twitter') }}>
+            <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { signIn('twitter', {callbackUrl: '/home'}) }}>
               {/* <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { router.push('/home') }}> */}
               <div className='flex gap-2 items-center'>
                 <Image src={'/icons/twitter_logo.png'} width={100} height={100} alt='Twitter logo' className='w-[12px] sm:w-[24px] h-[12px] sm:h-[24px]' />

@@ -3,27 +3,19 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 const MessageCard = (props: any) => {
-  const { active, username, time, avatar } = props;
+  const { roomname, user } = props;
   const router = useRouter()
 
   return (
-    <div className="p-4 rounded-lg flex justify-between items-center bg-white cursor-pointer hover:bg-slate-100" onClick={() => {router.push('/inbox/1')}}>
-      <div className='flex gap-4 items-center'>
-        <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 rounded-full' />
-        <div className='flex flex-col'>
+    <div className="p-4 rounded-lg flex justify-between items-center bg-white cursor-pointer hover:bg-slate-100">
+      <div className='flex gap-4 items-center w-full'>
+        <Image src={user.avatar} width={100} height={100} alt='Icon' className='w-10 rounded-full cursor-pointer hover:bottom-2' onClick={() => { router.push(`/keys/${user._id}`) }} />
+        <div className='flex justify-between items-center w-full' onClick={() => { router.push(`/inbox/${user._id}`) }}>
           <h1 className='text-[16px] font-semibold leading-6'>
-            Trader Joe
+            {roomname ? roomname : user.username}
           </h1>
-          <h2 className='text-[12px] font-normal leading-[18px] text-grey-2 line-clamp-1'>
-            Hello, Can I have you in my team. Your skill might help the company realy much and you can improve you...
-          </h2>
-        </div>
-      </div>
-      <div className='flex flex-col items-end h-10 justify-between'>
-        <h2 className='text-[12px] font-normal leading-[18px]'>24m</h2>
-        <div>
-          <div className={`w-2 h-2 rounded-full ${active ? 'bg-secondary' : 'bg-white'}`}>
-
+          <div className=''>
+            <h2 className='text-[12px] font-normal leading-[18px]'>24m</h2>
           </div>
         </div>
       </div>

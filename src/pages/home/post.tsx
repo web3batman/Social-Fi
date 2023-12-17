@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import Image from 'next/image'
 import { UserContext } from '@/contexts/UserProvider';
+import toast from 'react-hot-toast'
 
 const Post = (props: {addpost: Function}) => {
   const {addpost} = props;
@@ -29,6 +30,8 @@ const Post = (props: {addpost: Function}) => {
       }
       addpost(newData);
       setPostcontent('');
+    } else {
+      toast.error("Please fill the content");
     }
   }
 

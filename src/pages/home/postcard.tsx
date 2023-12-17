@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router'
 
 const PostCard = (props: {
   display_name: string, 
@@ -7,27 +8,59 @@ const PostCard = (props: {
   avatar: string, 
   created_at: string, 
   content: string, 
+  id: string
   // reply: number, 
   // exchange: number, 
   // star: number, 
   // bookmark: number, 
   // price: number
 }) => {
-  const { display_name, username, avatar, created_at, content } = props;
+  const { display_name, username, avatar, created_at, content, id } = props;
+  const router = useRouter();
+  const [createdTime, setTime] = useState<string>('1 m');
+
+  useEffect(() => {
+    const timestamp: any = new Date(created_at);
+    const currentTimestamp: any = new Date();
+    const timeDifference = currentTimestamp - timestamp;
+    const minutesDifference = timeDifference / (1000 * 60);
+    const minute = Math.floor(minutesDifference);
+    const hour = Math.floor(minute / 60);
+    const day = Math.floor(hour / 24);
+    const month = Math.floor(day / 30);
+    const createTime = created_at.split('T')[0];
+
+    if (minute < 60) {
+      setTime(`${minute} m`)
+    }
+    if (hour > 0) {
+      if (hour < 24) {
+        setTime(`${hour} h`)
+      }
+    }
+    if (day > 0) {
+      if (day < 30) {
+        setTime(`${hour} d`)
+      }
+    }
+    if (month > 0) {
+      setTime(createTime);
+    }
+  }, [])
 
   return (
     <div className='bg-white p-4 rounded-[15px] flex flex-col gap-4'>
       <div className='flex flex-col gap-1'>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+            <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' onClick={() => router.push(`/keys/${id}`)} />
             <div className='flex flex-col'>
               <h1 className='text-base font-bold leading-[24px]'>{ display_name }</h1>
               <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                 <div className="flex gap-2">
                   <span>@{username}</span>
                   <span>-</span>
-                  <span>{created_at}</span>
+                  <span>{createdTime}</span>
                 </div>
               </div>
             </div>

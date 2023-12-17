@@ -20,7 +20,7 @@ const Card = (props: { item: object }) => {
           <div className='text-base font-bold leading-[24px]'>
             {customer.username}
             <span className='font-base font-normal'> {buy ? 'bought' : 'sold'} {count} </span>
-            <span className='font-base font-normal'> Crypto key</span>
+            <span className='font-base font-normal'> key</span>
           </div>
           <div className='text-[12px] font-normal leading-[18px] text-[#738290] flex items-center gap-2'>
             <h2 className='text-[14px] text-secondary font-medium leading-[18px]'>1.3273 ADA</h2>
