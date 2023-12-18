@@ -251,7 +251,7 @@ const ChatInbox = () => {
                 }
                 ):(
                   <div className='flex w-full justify-center'>
-                    <span className='p-3 rounded-[10px] bg-secondary text-white'>
+                    <span className='p-3 rounded-[10px] bg-[#F5F6F8]'>
                       No message yet
                     </span>
                   </div>
