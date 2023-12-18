@@ -131,22 +131,22 @@ const Key = () => {
           <Sidebar />
           <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
             <Link href={'/keys'} className='border border-[#E7EAF0] rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white'>
-              <Image src={'/icons/arrow-left.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 opacity-90' />
+              <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 opacity-90' />
               <h2 className='text-primary font-medium text-base leading-[24px]'>
                 Back
               </h2>
             </Link>
             <div className='flex flex-col gap-4 p-4 bg-white w-full max-sm:justify-center'>
               <div className='flex justify-between w-full items-start max-sm:justify-center'>
-                <Image src={posteravatar} width={100} height={100} alt='Default avatar' className='w-25 h-25 rounded-full' />
+                <Image quality={100} src={posteravatar} width={100} height={100} alt='Default avatar' className='w-25 h-25 rounded-full' />
                 <div className='flex gap-4 max-sm:hidden'>
                   <div className='p-2 rounded-lg border border-border-color'>
                     <a href={`http://x.com/${poster.screen_name}`} target="_blank" rel="noopener noreferrer">
-                      <Image src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                      <Image quality={100} src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                     </a>
                   </div>
                   <div className='p-2 rounded-lg border border-border-color'>
-                    <Image src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                    <Image quality={100} src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                   </div>
                 </div>
               </div>
@@ -167,7 +167,7 @@ const Key = () => {
                 <div className='flex flex-col gap-[7px] max-sm:hidden'>
                   <div className='text-base font-bold leading-[24px] flex items-center gap-2'>
                     <span>{poster.price}</span>
-                    <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
+                    <Image quality={100} src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
                   </div>
                   <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                     Key Price
@@ -211,10 +211,10 @@ const Key = () => {
                 </div>
                 <div className='flex gap-2 items-center max-sm:hidden'>
                   <div className='p-2 rounded-lg border border-border-color'>
-                    <Image src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                    <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                   </div>
                   <div className='p-2 rounded-lg border border-border-color'>
-                    <Image src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
+                    <Image quality={100} src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
                   </div>
                   <button className='px-8 py-2 rounded-lg bg-secondary max-sm:w-full max-w-[200px]' onClick={() => setModal(true)}>
                     <div className='flex gap-4 items-center justify-center sm:justify-start'>
@@ -227,7 +227,7 @@ const Key = () => {
                 <div className='flex flex-col gap-[7px] min-[640px]:hidden'>
                   <div className='text-base font-bold leading-[24px] flex items-center gap-2'>
                     <span>{poster.price}</span>
-                    <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
+                    <Image quality={100} src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
                   </div>
                   <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                     Key Price
@@ -237,10 +237,10 @@ const Key = () => {
               <div className='flex w-full justify-between items-center min-[640px]:hidden'>
                 <div className='flex gap-2'>
                   <div className='p-2 rounded-lg border border-border-color'>
-                    <Image src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                    <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                   </div>
                   <div className='p-2 rounded-lg border border-border-color'>
-                    <Image src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
+                    <Image quality={100} src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
                   </div>
                 </div>
                 <button className='px-8 py-2 rounded-lg bg-secondary' onClick={() => setModal(true)}>

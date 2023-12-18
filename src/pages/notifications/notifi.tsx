@@ -37,7 +37,7 @@ const Notification = (props: any) => {
     <div className={`p-4 rounded-lg flex justify-between items-center bg-white ${active ? styles.active : ''} ${notitype ? '' : 'max-sm:flex-col gap-2'} `}>
       <div className='flex gap-4 items-center'>
         <div className={`p-2 rounded-lg ${notitype ? '' : 'shrink-0'} ${active ? styles.active_card : styles.common_card}`}>
-          <Image src={notifi_avatar} width={'100'} height={'100'} alt='Icon' className='w-[24px] h-[24px] max-w-[unset]' />
+          <Image quality={100} src={notifi_avatar} width={'100'} height={'100'} alt='Icon' className='w-[24px] h-[24px] max-w-[unset]' />
         </div>
         <div className='flex flex-col pr-2'>
           <h1 className='text-[16px] font-semibold leading-6'>
@@ -51,7 +51,7 @@ const Notification = (props: any) => {
       </div>
       {
         notitype ? (
-          <Image src={'/icons/two_girls.svg'} width={100} height={100} alt='Icon' className='w-10 h-10 shrink-0' />
+          <Image quality={100} src={'/icons/two_girls.svg'} width={100} height={100} alt='Icon' className='w-10 h-10 shrink-0' />
         ) : (
           <button className='px-4 py-2 rounded-lg bg-secondary shrink-0'>
             <div className='flex gap-4 items-center justify-center sm:justify-start'>

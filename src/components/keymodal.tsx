@@ -119,7 +119,7 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                               Math.floor(myProfile.balance * 100) / 100
                             }
                           </span>
-                          <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-5 h-5 rounded-full' />
+                          <Image quality={100} src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-5 h-5 rounded-full' />
                         </h1>
                         <h2 className='text-[16px] font-normal leading-[24px] text-[#738290]'>
                           <span>Your balance</span>
@@ -128,7 +128,7 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                     </div>
                     <div className='flex w-full justify-between items-center'>
                       <div className='flex gap-4 items-center'>
-                        <Image src=
+                        <Image quality={100} src=
                           {
                             //@ts-ignore
                             owner.avatar ? owner.avatar : '/images/avatars/default.svg'
@@ -153,7 +153,7 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                               owner.price
                             }
                           </span>
-                          <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
+                          <Image quality={100} src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
                         </h1>
                         <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                           <span>Key Price</span>

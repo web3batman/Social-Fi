@@ -8,7 +8,7 @@ const Card = (props: {avatar: string, id: string, username: string, screen_name:
   return (
     <Link href={`/keys/${id}`} className='p-4 bg-white flex justify-between items-center rounded-lg w-full'>
       <div className='flex gap-4 items-center'>
-        <Image src={avatar?avatar:'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+        <Image quality={100} src={avatar?avatar:'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
         <div className='flex flex-col'>
           <h1 className='text-base font-bold leading-[24px]'>{username}</h1>
           <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
@@ -23,7 +23,7 @@ const Card = (props: {avatar: string, id: string, username: string, screen_name:
         <div className='flex flex-col'>
           <h1 className='text-base font-bold leading-[24px] flex gap-2 items-center'>
             <span>{price}</span>
-            <Image src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
+            <Image quality={100} src={'/icons/cardano.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 rounded-full' />
           </h1>
           <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
             <span>Key Price</span>

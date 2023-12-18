@@ -2,9 +2,9 @@
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color flex justify-between'>
               <div className='flex gap-2 items-center'>
                 <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white' onClick={() => {router.push('/inbox')}}>
-                  <Image src={'/icons/arrow-left.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
+                  <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
-                <Image src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 h-10 rounded-full' />
+                <Image quality={100} src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 h-10 rounded-full' />
                 <div className='flex flex-col justify-between '>
                   <h1 className='text-[#2D3748] font-semibold text-[18px] leading-[24px]'>
                     Trader Joe
@@ -19,10 +19,10 @@
               </div>
               <div className='flex gap-2 items-center'>
                 <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white'>
-                  <Image src={'/icons/search.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
+                  <Image quality={100} src={'/icons/search.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
                 <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white'>
-                  <Image src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
+                  <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
               </div>
             </div>
@@ -36,8 +36,8 @@
                       <span className='text-grey-5 p-3 bg-[#F5F6F8] rounded-[10px]'>
                         Hi, hows going?
                       </span>
-                      <Image src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Icon' className='w-[18px] h-[18px] rounded-full cursor-pointer' />
-                      <Image src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Icon' className='w-[18px] h-[18px] rounded-full cursor-pointer' />
+                      <Image quality={100} src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Icon' className='w-[18px] h-[18px] rounded-full cursor-pointer' />
+                      <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Icon' className='w-[18px] h-[18px] rounded-full cursor-pointer' />
                   </div>
                   <div className='flex gap-4 items-center'>
                     <span className='text-grey-5 p-3 bg-[#F5F6F8] rounded-[10px]'>
