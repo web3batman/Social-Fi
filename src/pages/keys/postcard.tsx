@@ -20,7 +20,7 @@ const PostCard = (props: {
       <div className='flex flex-col gap-1'>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
-            <Image src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
+            <Image quality={100} src={avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
             <div className='flex flex-col'>
               <h1 className='text-base font-bold leading-[24px]'>{ display_name }</h1>
               <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
@@ -40,22 +40,22 @@ const PostCard = (props: {
       <div className='flex justify-between gap-4 max-sm:flex-col'>
         <div className='flex gap-4'>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image quality={100} src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
             {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{reply}</h3> */}
           </div>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image quality={100} src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
           </div>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/post_star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image quality={100} src={'/icons/post_star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{star}</h3> */}
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
           </div>
           <div className='flex gap-1 items-center'>
-            <Image src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{bookmark}</h3> */}
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
           </div>
@@ -64,9 +64,9 @@ const PostCard = (props: {
           <div className='flex gap-1 items-center'>
             {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3> */}
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
-            <Image src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+            <Image quality={100} src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
           </div>
-          <Image src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' />
+          <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' />
         </div>
       </div>
     </div>

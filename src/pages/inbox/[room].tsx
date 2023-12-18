@@ -100,11 +100,9 @@ const ChatInbox = () => {
   }, []);
 
   useEffect(() => {
-    const confirmarray = myProfile.holder.filter((item: any) => {
-      if (item.userid == roomname && item.key) {
-        return true
-      }
+    const confirmarray = myProfile.holding.filter((item: any) => {return item.userid == roomname
     })
+    console.log('confirmarry', confirmarray)
     if (confirmarray.length == 0 && myProfile._id != roomname) {
       toast.error("You don't have permission to access this room!\nBuy a key to access.")
       setInterval(() => {
@@ -143,6 +141,7 @@ const ChatInbox = () => {
 
   // Scroll to the bottom of element
   useEffect(() => {
+    console.log('message list', messageList)
     if (scrollbottom) {
       scrollToBottom()
     }
@@ -182,9 +181,9 @@ const ChatInbox = () => {
 
   useEffect(() => {
     api.get(`/messages/${roomname}`).then(res => {
-      setMessageList(res.data);
+       setMessageList(res.data);
     })
-  }, []);
+  }, [router]);
 
 
   if (isloading) {
@@ -203,9 +202,9 @@ const ChatInbox = () => {
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color flex justify-between'>
               <div className='flex gap-2 items-center'>
                 <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white' onClick={() => { router.push('/inbox') }}>
-                  <Image src={'/icons/arrow-left.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
+                  <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
-                <Image src={roomOwner ? roomOwner.avatar : '/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 h-10 rounded-full' />
+                <Image quality={100} src={roomOwner ? roomOwner.avatar : '/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 h-10 rounded-full' />
                 <div className='flex flex-col justify-between '>
                   <h1 className='text-[#2D3748] font-semibold text-[18px] leading-[24px]'>
                     {roomOwner?.username}&apos;s room
@@ -220,16 +219,16 @@ const ChatInbox = () => {
               </div>
               <div className='flex gap-2 items-center'>
                 <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white'>
-                  <Image src={'/icons/search.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
+                  <Image quality={100} src={'/icons/search.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
                 <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white'>
-                  <Image src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
+                  <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
               </div>
             </div>
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-scroll' ref={messagesEndRef}>
               <div className='flex flex-col gap-4 text-[14px] text-grey-5'>
-                {messageList.map((chat: any, index) => {
+                { messageList.length != 0 ? messageList.map((chat: any, index) => {
                   if (chat.sender == myProfile.username) {
                     return (
                       <div className='flex gap-4 items-center flex-row-reverse' key={index}>
@@ -241,7 +240,7 @@ const ChatInbox = () => {
                   } else {
                     return (
                       <div className='flex gap-2 items-end' key={index}>
-                        <Image src={chat.avatar} width={100} height={100} alt={chat.sender} className='w-8 h-8 rounded-full' />
+                        <Image quality={100} src={chat.avatar} width={100} height={100} alt={chat.sender} className='w-8 h-8 rounded-full' />
                         <div className='p-3 rounded-[10px] bg-[#F5F6F8] flex flex-col gap-2'>
                           <div className='font-medium text-primary'>{chat.sender}</div>
                           <div>{chat.message}</div>
@@ -250,6 +249,12 @@ const ChatInbox = () => {
                     )
                   }
                 }
+                ):(
+                  <div className='flex w-full justify-center'>
+                    <span className='p-3 rounded-[10px] bg-secondary text-white'>
+                      No message yet
+                    </span>
+                  </div>
                 )}
               </div>
             </div>

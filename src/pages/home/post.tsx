@@ -48,13 +48,13 @@ const Post = (props: {addpost: Function}) => {
   return (
     <div className='bg-white p-4 rounded-[15px] flex flex-col gap-2'>
       <div className='flex gap-4 w-full'>
-        <Image src={myProfile.avatar || avatar} width={100} height={100} alt='Default avatar' className='w-[35px] h-[35px] rounded-full' />
+        <Image quality={100} src={myProfile.avatar || avatar} width={100} height={100} alt='Default avatar' className='w-[35px] h-[35px] rounded-full' />
         <textarea className='text-grey-2 font-normal text-[14px] leading-[20px] bg-grey-3 w-full rounded-lg p-2 resize-none' value={postcontent} ref={newPostRef} onChange={handleChange} autoFocus/>
       </div>
       <div className='flex justify-between items-center'>
         <div className='flex gap-2'>
-          <Image src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
-          <Image src={'/icons/photograph.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
+          <Image quality={100} src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
+          <Image quality={100} src={'/icons/photograph.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
         </div>
         <div className='flex gap-4 items-center'>
           <div className='flex gap-2 items-center max-[875px]:hidden'>
