@@ -77,6 +77,16 @@ const Layout = ({ children }: MyComponentProps) => {
   }, [status, path])
 
   useEffect(() => {
+    console.log("Env test");
+    console.log('NEXTAUTH_URL', process.env.NEXTAUTH_URL)
+    console.log('NEXT_PUBLIC_TWITTER_CONSUMER_KEY',  process.env.NEXT_PUBLIC_TWITTER_CONSUMER_KEY)
+    console.log('NEXT_PUBLIC_TWITTER_CONSUMER_SECRET',  process.env.NEXT_PUBLIC_TWITTER_CONSUMER_SECRET)
+    console.log('NEXTAUTH_SECRET', process.env. NEXTAUTH_SECRET)
+    console.log('NEXT_PUBLIC_SERVER_URL',  process.env.NEXT_PUBLIC_SERVER_URL)
+    console.log('NEXT_PUBLIC_WALLET_ADDRESS',  process.env.NEXT_PUBLIC_WALLET_ADDRESS)
+  }, [])
+
+  useEffect(() => {
     if (path == '/') {
       setMain(true)
     } else {
