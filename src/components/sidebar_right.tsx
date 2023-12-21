@@ -4,8 +4,8 @@ import Image from 'next/image'
 const SideBarRight = () => {
   return (
     <div className='shrink-0 max-md:hidden'>
-      <div className='flex flex-col gap-4 rounded-[15px] bg-white w-[250px] lg:w-[300px] p-4'>
-        <h1 className='text-primary text-base leading-[24px] font-semibold'>Fellow to follow</h1>
+      <div className='flex flex-col gap-4 rounded-[15px] bg-white dark:bg-dark-header-bg dark:text-white w-[250px] lg:w-[300px] p-4'>
+        <h1 className='text-primary dark:text-white text-base leading-[24px] font-semibold'>Fellow to follow</h1>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
             <Image quality={100} src={'/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />

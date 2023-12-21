@@ -6,7 +6,7 @@ const Keycard = (props: { avatar: string, id: string, username: string, screen_n
   const { avatar, id, username, screen_name, price, count } = props;
 
   return (
-    <Link href={`/keys/${id}`} className='p-4 bg-white flex justify-between items-center rounded-lg w-full'>
+    <Link href={`/keys/${id}`} className='p-4 bg-white dark:bg-dark-header-bg flex justify-between items-center rounded-lg w-full'>
       <div className='flex gap-4 items-center'>
         <Image quality={100} src={avatar ? avatar : '/avatars/default_profile_normal.png'} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full' />
         <div className='flex flex-col'>

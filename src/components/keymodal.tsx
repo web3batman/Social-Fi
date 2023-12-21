@@ -98,15 +98,15 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full transform overflow-hidden rounded-lg bg-white p-0 text-left align-middle shadow-xl transition-all max-w-[335px] sm:max-w-[488px]">
+                <Dialog.Panel className="w-full transform overflow-hidden rounded-lg bg-white dark:bg-dark-header-bg dark:text-white p-0 text-left align-middle shadow-xl transition-all max-w-[335px] sm:max-w-[488px]">
                   <Dialog.Title
                     as="h3"
-                    className='text-lg text-[24px] font-semibold leading-8 text-primary p-5 flex justify-between items-center'
+                    className='text-lg text-[24px] font-semibold leading-8 text-primary dark:text-white p-5 flex justify-between items-center'
                   >
                     <span>
                       Trade Keys
                     </span>
-                    <span className='px-3 py-1 rounded-lg border border-border-color cursor-pointer hover:bg-main-bg-color' onClick={closeModal}>
+                    <span className='px-3 py-1 rounded-lg border border-border-color dark:border-dark-border cursor-pointer hover:bg-main-bg-color dark:hover:bg-dark-body-bg' onClick={closeModal}>
                       X
                     </span>
                   </Dialog.Title>

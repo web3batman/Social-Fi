@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   return (
     <div className='lg:shrink-0 max-md:hidden'>
-      <div className='flex flex-col gap-2 rounded-[15px] bg-white w-[200px] lg:w-[250px] p-2'>
+      <div className='flex flex-col gap-2 rounded-[15px] bg-white dark:bg-dark-header-bg w-[200px] lg:w-[250px] p-2'>
         <div className={`p-4 cursor-pointer hover:bg-gray-300 rounded-lg ${currentPage == '/home' ? styles.active : 'text-grey-1'}`} onClick={() => router.push('/home')}>
           <div className='flex gap-3 items-center'>
             <Image quality={100} src={currentPage != '/home' ? '/icons/home.svg' : '/icons/home_active.svg'} width={100} height={100} alt='Home' className='w-6 h-6' />

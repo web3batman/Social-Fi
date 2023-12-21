@@ -49,7 +49,7 @@ const PostCard = (props: {
   }, [])
 
   return (
-    <div className='bg-white p-4 rounded-[15px] flex flex-col gap-4'>
+    <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-4 dark:text-white'>
       <div className='flex flex-col gap-1'>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>

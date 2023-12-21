@@ -40,15 +40,15 @@ const WalletInfo: NextPage = () => {
         <WalletSatus title={'Portfolio Value'} amount={'0'} />
       </div>
       <div className='flex justify-between gap-4'>
-        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white border border-border-color w-1/2 cursor-pointer hover:bg-slate-300" onClick={() => { setModal(true) }}>
+        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white dark:bg-dark-header-bg border border-border-color dark:border-dark-border w-1/2 cursor-pointer hover:bg-slate-300" onClick={() => { setModal(true) }}>
           <Image quality={100} src={'/icons/plus-circle.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
-          <h3 className='text-primary leading-[24px] font-semibold text-base'>
+          <h3 className='text-primary dark:text-white leading-[24px] font-semibold text-base'>
             Deposit
           </h3>
         </div>
-        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white border border-border-color w-1/2 cursor-pointer hover:bg-slate-300" onClick={() => { setwdModal(true) }}>
+        <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white dark:bg-dark-header-bg border border-border-color dark:border-dark-border w-1/2 cursor-pointer hover:bg-slate-300" onClick={() => { setwdModal(true) }}>
           <Image quality={100} src={'/icons/paper-airplane.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
-          <h3 className='text-primary leading-[24px] font-semibold text-base'>
+          <h3 className='text-primary dark:text-white leading-[24px] font-semibold text-base'>
             Withdraw
           </h3>
         </div>

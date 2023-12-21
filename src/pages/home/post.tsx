@@ -46,10 +46,10 @@ const Post = (props: {addpost: Function}) => {
   }, [postcontent]);
 
   return (
-    <div className='bg-white p-4 rounded-[15px] flex flex-col gap-2'>
+    <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-2'>
       <div className='flex gap-4 w-full'>
         <Image quality={100} src={myProfile.avatar || avatar} width={100} height={100} alt='Default avatar' className='w-[35px] h-[35px] rounded-full' />
-        <textarea className='text-grey-2 font-normal text-[14px] leading-[20px] bg-grey-3 w-full rounded-lg p-2 resize-none' value={postcontent} ref={newPostRef} onChange={handleChange} autoFocus/>
+        <textarea className='text-grey-2 font-normal text-[14px] leading-[20px] bg-grey-3 dark:bg-dark-body-bg w-full rounded-lg p-2 resize-none' value={postcontent} ref={newPostRef} onChange={handleChange} autoFocus/>
       </div>
       <div className='flex justify-between items-center'>
         <div className='flex gap-2'>
@@ -59,7 +59,7 @@ const Post = (props: {addpost: Function}) => {
         <div className='flex gap-4 items-center'>
           <div className='flex gap-2 items-center max-[875px]:hidden'>
             <h3 className='text-grey-4 text-[12px] font-normal leading-[18px]'>Share to</h3>
-            <select name="share" className='px-2 py-1 rounded-lg bg-grey-3 text-grey-2 font-normal text-[12px] leading-[16px]'>
+            <select name="share" className='px-2 py-1 rounded-lg bg-grey-3 dark:bg-dark-body-bg text-grey-2 font-normal text-[12px] leading-[16px]'>
               <option value="all">Everyone</option>
             </select>
           </div>

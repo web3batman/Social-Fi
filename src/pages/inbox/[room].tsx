@@ -191,22 +191,22 @@ const ChatInbox = () => {
   } else {
 
     return (
-      <div className='w-full bg-main-bg-color'>
+      <div className='w-full bg-main-bg-color dark:bg-dark-body-bg dark:text-white'>
         <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
           <Sidebar />
           <div className='flex flex-col gap-4 max-md:mb-28 w-[300px] max-md:hidden max-md:mb-100px'>
             <h2 className='font-medium text-[24px] leading-[32px]'>Messages</h2>
             <Message />
           </div>
-          <div className='flex flex-col justify-between bg-white flex-grow rounded-lg'>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color flex justify-between'>
+          <div className='flex flex-col justify-between bg-white dark:bg-dark-header-bg flex-grow rounded-lg'>
+            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex justify-between'>
               <div className='flex gap-2 items-center'>
-                <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white' onClick={() => { router.push('/inbox') }}>
+                <div className='bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-body-bg p-2 rounded-full cursor-pointer hover:bg-white dark:hover:bg-border-color' onClick={() => { router.push('/inbox') }}>
                   <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
                 <Image quality={100} src={roomOwner ? roomOwner.avatar : '/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 h-10 rounded-full' />
                 <div className='flex flex-col justify-between '>
-                  <h1 className='text-[#2D3748] font-semibold text-[18px] leading-[24px]'>
+                  <h1 className='text-[#2D3748] dark:text-white font-semibold text-[18px] leading-[24px]'>
                     {roomOwner?.username}&apos;s room
                   </h1>
                   <h1 className='flex items-center text-grey-2 font-normal text-[12px] leading-[18px] gap-1'>
@@ -218,10 +218,10 @@ const ChatInbox = () => {
                 </div>
               </div>
               <div className='flex gap-2 items-center'>
-                <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white'>
+                <div className='bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border p-2 rounded-full cursor-pointer hover:bg-white'>
                   <Image quality={100} src={'/icons/search.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
-                <div className='bg-main-bg-color border border-border-color p-2 rounded-full cursor-pointer hover:bg-white'>
+                <div className='bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border p-2 rounded-full cursor-pointer hover:bg-white'>
                   <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
                 </div>
               </div>
@@ -241,9 +241,9 @@ const ChatInbox = () => {
                     return (
                       <div className='flex gap-2 items-end' key={index}>
                         <Image quality={100} src={chat.avatar} width={100} height={100} alt={chat.sender} className='w-8 h-8 rounded-full' />
-                        <div className='p-3 rounded-[10px] bg-[#F5F6F8] flex flex-col gap-2'>
-                          <div className='font-medium text-primary'>{chat.sender}</div>
-                          <div>{chat.message}</div>
+                        <div className='p-3 rounded-[10px] bg-[#F5F6F8] dark:bg-dark-body-bg flex flex-col gap-2'>
+                          <div className='font-medium text-primary dark:text-white'>{chat.sender}</div>
+                          <div className='dark:text-white'>{chat.message}</div>
                         </div>
                       </div>
                     )
@@ -251,18 +251,18 @@ const ChatInbox = () => {
                 }
                 ):(
                   <div className='flex w-full justify-center'>
-                    <span className='p-3 rounded-[10px] bg-[#F5F6F8]'>
+                    <span className='p-3 rounded-[10px] bg-[#F5F6F8] dark:bg-dark-body-bg dark:text-white'>
                       No message yet
                     </span>
                   </div>
                 )}
               </div>
             </div>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color flex flex-col gap-2 font-base text-primary leading-[24px]'>
+            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary leading-[24px]'>
 
               <div className='flex gap-4 justify-between items-center'>
                 {/* <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => { */}
-                <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => {
+                <input type="text" className={`px-2 py-3 bg-main-bg-color dark:bg-dark-body-bg rounded-lg bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => {
                   if (event.key == 'Enter') {
                     handleSendMessage()
                   }

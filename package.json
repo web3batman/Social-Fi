@@ -21,6 +21,7 @@
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
     "react-loading": "^2.0.3",
+    "react-toggle-dark-mode": "^1.1.1",
     "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
