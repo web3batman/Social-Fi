@@ -10,28 +10,23 @@ import { UserContext } from '@/contexts/UserProvider';
 import api from '../../constants/auth';
 import toast from 'react-hot-toast'
 
-const saira = Saira({
-  weight: '400',
-  subsets: ['latin']
-})
+interface Post {
+  _id: string,
+  content: string,
+  vote: string[],
+  created_at: string,
+  updated_at: string,
+  poster_id: {
+    _id: string,
+    twitter_id: string,
+    avatar: string,
+    username: string,
+    screen_name: string,
+  }
+}
 
 const Home = () => {
-  const [posts, setPosts] = useState<{
-    created_at: string, 
-    content: string, 
-    poster_id: {
-      _id: string,
-      avatar: string,
-      username: string,
-      screen_name: string
-    }
-    _id: string
-    // reply: number, 
-    // exchange: number, 
-    // star: number, 
-    // bookmark: number, 
-    // price: number
-  }[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
@@ -80,7 +75,7 @@ const Home = () => {
             posts.length != 0 && posts.map((post, index) => {
               return (
                 <div key={index}>
-                  <PostCard id={post.poster_id._id} display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={post.created_at} content={post.content} />
+                  <PostCard post={post} />
                 </div>
               )
             })
