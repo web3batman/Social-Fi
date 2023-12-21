@@ -5,8 +5,8 @@ import Header from './header'
 import { Saira } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 
-import api from '@/pages/api/auth';
-import setAuthToken from '@/pages/api/setAuthToken';
+import api from '@/constants/auth';
+import setAuthToken from '@/constants/setAuthToken';
 import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react'
@@ -75,16 +75,6 @@ const Layout = ({ children }: MyComponentProps) => {
       router.push('/');
     }
   }, [status, path])
-
-  useEffect(() => {
-    console.log("Env test");
-    console.log('NEXTAUTH_URL', process.env.NEXTAUTH_URL)
-    console.log('NEXT_PUBLIC_TWITTER_CONSUMER_KEY',  process.env.NEXT_PUBLIC_TWITTER_CONSUMER_KEY)
-    console.log('NEXT_PUBLIC_TWITTER_CONSUMER_SECRET',  process.env.NEXT_PUBLIC_TWITTER_CONSUMER_SECRET)
-    console.log('NEXTAUTH_SECRET', process.env. NEXTAUTH_SECRET)
-    console.log('NEXT_PUBLIC_SERVER_URL',  process.env.NEXT_PUBLIC_SERVER_URL)
-    console.log('NEXT_PUBLIC_WALLET_ADDRESS',  process.env.NEXT_PUBLIC_WALLET_ADDRESS)
-  }, [])
 
   useEffect(() => {
     if (path == '/') {

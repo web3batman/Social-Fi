@@ -5,7 +5,7 @@ import PostCard from './postcard';
 import BottomNav from '@/components/bottom_nav';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
-import api from '../api/auth';
+import api from '../../constants/auth';
 import Image from 'next/image'
 
 const OpenPost = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Card from './card'
-import api from '../api/auth'
+import api from '../../constants/auth'
 
 const CardGroup = (props: {customer: number}) => {
 

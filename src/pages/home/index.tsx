@@ -7,7 +7,7 @@ import BottomNav from '@/components/bottom_nav';
 import { Saira } from 'next/font/google';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
-import api from '../api/auth';
+import api from '../../constants/auth';
 import toast from 'react-hot-toast'
 
 const saira = Saira({

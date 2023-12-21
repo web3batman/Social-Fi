@@ -7,7 +7,7 @@ import { BrowserWallet, Transaction } from '@meshsdk/core';
 import { UserContext } from '@/contexts/UserProvider';
 import { useRouter } from 'next/router'
 
-import api from '@/pages/api/auth';
+import api from '@/constants/auth';
 import toast from 'react-hot-toast';
 
 const saira = Saira({

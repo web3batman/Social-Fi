@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Card from './card'
-import api from '../api/auth'
+import api from '../../constants/auth'
 import toast from 'react-hot-toast';
 
 const CardGroup = (props: {tab: number}) => {

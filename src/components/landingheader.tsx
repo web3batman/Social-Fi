@@ -43,7 +43,7 @@ const LandingHeader = () => {
           Community
         </Link> */}
       </div>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 items-center'>
         {
           myProfile.avatar ? (
             <div className='flex gap-1 items-center'>
@@ -69,11 +69,10 @@ const LandingHeader = () => {
             </button>
           )
         }
-        
+        <Switcher size='18px' />
         <span className='w-9 h-9 rounded-full flex justify-center items-center border border-[#E7EAF0] bg-[#F9FAFC] cursor-pointer sm:hidden' onClick={() => { setNavshow(!navshow) }}>
           <Image quality={100} src={'/icons/dropdown.svg'} width={100} height={100} alt='Twitter logo' className='w-5 h-5' />
         </span>
-        <Switcher size='20px' />
       </div>
       <div className={`flex flex-col w-full sm:hidden mt-4 border-t-[2px] duration-100 ${!navshow ? 'opacity-0' : 'opacity-100'}`}>
         <Link href={'/home'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>

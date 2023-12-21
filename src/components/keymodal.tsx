@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
-import api from '@/pages/api/auth';
+import api from '@/constants/auth';
 import toast from 'react-hot-toast';
 import ConfirmModal from './confirmModal';
 import { UserContext } from '@/contexts/UserProvider';
