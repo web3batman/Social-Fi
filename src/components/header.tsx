@@ -3,10 +3,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
 import styles from './header.module.css';
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import { UserContext } from '@/contexts/UserProvider';
-import setAuthToken from '@/pages/api/setAuthToken';
+import setAuthToken from '@/constants/setAuthToken';
 import Link from 'next/link'
 
 import Switcher from './button/Switcher';

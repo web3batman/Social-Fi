@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import styles from './index.module.css'
 import { UserContext } from '@/contexts/UserProvider';
 import { SocketContext } from '@/contexts/SocketProvider';
-import api from '../api/auth';
+import api from '../../constants/auth';
 import toast from 'react-hot-toast';
 import Loading from '@/pages/loading';
 

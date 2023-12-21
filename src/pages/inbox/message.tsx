@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import MessageCard from './messagecard'
-import api from '../api/auth';
+import api from '../../constants/auth';
 import toast from 'react-hot-toast';
 import { UserContext } from '@/contexts/UserProvider';
 
