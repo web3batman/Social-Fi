@@ -126,26 +126,26 @@ const Key = () => {
 
   if (posteravatar) {
     return (
-      <div className='bg-main-bg-color'>
+      <div className='bg-main-bg-color dark:bg-dark-body-bg dark:text-white'>
         <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
           <Sidebar />
           <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
-            <Link href={'/keys'} className='border border-[#E7EAF0] rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white'>
+            <Link href={'/keys'} className='border border-[#E7EAF0] dark:border-dark-border dark:bg-dark-header-bg rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white'>
               <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 opacity-90' />
-              <h2 className='text-primary font-medium text-base leading-[24px]'>
+              <h2 className='text-primary dark:text-white font-medium text-base leading-[24px]'>
                 Back
               </h2>
             </Link>
-            <div className='flex flex-col gap-4 p-4 bg-white w-full max-sm:justify-center'>
+            <div className='flex flex-col gap-4 p-4 bg-white dark:bg-dark-header-bg w-full max-sm:justify-center'>
               <div className='flex justify-between w-full items-start max-sm:justify-center'>
                 <Image quality={100} src={posteravatar} width={100} height={100} alt='Default avatar' className='w-25 h-25 rounded-full' />
                 <div className='flex gap-4 max-sm:hidden'>
-                  <div className='p-2 rounded-lg border border-border-color'>
+                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <a href={`http://x.com/${poster.screen_name}`} target="_blank" rel="noopener noreferrer">
                       <Image quality={100} src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                     </a>
                   </div>
-                  <div className='p-2 rounded-lg border border-border-color'>
+                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                   </div>
                 </div>
@@ -210,10 +210,10 @@ const Key = () => {
                     </div> */}
                 </div>
                 <div className='flex gap-2 items-center max-sm:hidden'>
-                  <div className='p-2 rounded-lg border border-border-color'>
+                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                   </div>
-                  <div className='p-2 rounded-lg border border-border-color'>
+                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
                   </div>
                   <button className='px-8 py-2 rounded-lg bg-secondary max-sm:w-full max-w-[200px]' onClick={() => setModal(true)}>
@@ -236,10 +236,10 @@ const Key = () => {
               </div>
               <div className='flex w-full justify-between items-center min-[640px]:hidden'>
                 <div className='flex gap-2'>
-                  <div className='p-2 rounded-lg border border-border-color'>
+                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                   </div>
-                  <div className='p-2 rounded-lg border border-border-color'>
+                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
                   </div>
                 </div>
@@ -254,35 +254,35 @@ const Key = () => {
             </div>
 
             <div className='flex gap-2 overflow-x-auto'>
-              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 0 ? 'bg-secondary text-white' : ' border-border-color border bg-white text-primary'}`} onClick={() => setCurrentTab(0)}>
+              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 0 ? 'bg-secondary text-white' : ' border-border-color dark:border-dark-border border bg-white dark:bg-dark-header-bg text-primary dark:text-white'}`} onClick={() => setCurrentTab(0)}>
                 <div className='flex gap-4 items-center justify-center sm:justify-start'>
                   <h1 className='font-medium leading-[32px] text-center text-base'>
                     Post
                   </h1>
                 </div>
               </button>
-              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 1 ? 'bg-secondary text-white' : ' border-border-color border bg-white text-primary'}`} onClick={() => setCurrentTab(1)}>
+              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 1 ? 'bg-secondary text-white' : ' border-border-color dark:border-dark-border border bg-white dark:bg-dark-header-bg text-primary dark:text-white'}`} onClick={() => setCurrentTab(1)}>
                 <div className='flex gap-4 items-center justify-center sm:justify-start'>
                   <h1 className='font-medium leading-[32px] text-center text-base'>
                     Keys
                   </h1>
                 </div>
               </button>
-              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 2 ? 'bg-secondary text-white' : ' border-border-color border bg-white text-primary'}`} onClick={() => setCurrentTab(2)}>
+              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 2 ? 'bg-secondary text-white' : ' border-border-color dark:border-dark-border border bg-white dark:bg-dark-header-bg text-primary dark:text-white'}`} onClick={() => setCurrentTab(2)}>
                 <div className='flex gap-4 items-center justify-center sm:justify-start'>
                   <h1 className='font-medium leading-[32px] text-center text-base'>
                     Trades
                   </h1>
                 </div>
               </button>
-              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 3 ? 'bg-secondary text-white' : ' border-border-color border bg-white text-primary'}`} onClick={() => setCurrentTab(3)}>
+              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 3 ? 'bg-secondary text-white' : ' border-border-color dark:border-dark-border border bg-white dark:bg-dark-header-bg text-primary dark:text-white'}`} onClick={() => setCurrentTab(3)}>
                 <div className='flex gap-4 items-center justify-center sm:justify-start'>
                   <h1 className='font-medium leading-[32px] text-center text-base'>
                     Holders
                   </h1>
                 </div>
               </button>
-              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 4 ? 'bg-secondary text-white' : ' border-border-color border bg-white text-primary'}`} onClick={() => setCurrentTab(4)}>
+              <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 4 ? 'bg-secondary text-white' : ' border-border-color dark:border-dark-border border bg-white dark:bg-dark-header-bg text-primary dark:text-white'}`} onClick={() => setCurrentTab(4)}>
                 <div className='flex gap-4 items-center justify-center sm:justify-start'>
                   <h1 className='font-medium leading-[32px] text-center text-base'>
                     Holding

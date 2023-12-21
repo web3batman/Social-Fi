@@ -34,7 +34,7 @@ const Notification = (props: any) => {
 
 
   return (
-    <div className={`p-4 rounded-lg flex justify-between items-center bg-white ${active ? styles.active : ''} ${notitype ? '' : 'max-sm:flex-col gap-2'} `}>
+    <div className={`p-4 rounded-lg flex justify-between items-center bg-white dark:bg-dark-header-bg ${active ? styles.active : ''} ${notitype ? '' : 'max-sm:flex-col gap-2'} `}>
       <div className='flex gap-4 items-center'>
         <div className={`p-2 rounded-lg ${notitype ? '' : 'shrink-0'} ${active ? styles.active_card : styles.common_card}`}>
           <Image quality={100} src={notifi_avatar} width={'100'} height={'100'} alt='Icon' className='w-[24px] h-[24px] max-w-[unset]' />

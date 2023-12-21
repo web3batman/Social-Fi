@@ -7,7 +7,7 @@ const MessageCard = (props: any) => {
   const router = useRouter()
 
   return (
-    <div className="p-4 rounded-lg flex justify-between items-center bg-white cursor-pointer hover:bg-slate-100">
+    <div className="p-4 rounded-lg flex justify-between items-center bg-white dark:bg-dark-header-bg cursor-pointer dark:text-white hover:bg-slate-100">
       <div className='flex gap-4 items-center w-full'>
         <Image quality={100} src={user.avatar} width={100} height={100} alt='Icon' className='w-10 rounded-full cursor-pointer hover:bottom-2' onClick={() => { router.push(`/keys/${user._id}`) }} />
         <div className='flex justify-between items-center w-full' onClick={() => { router.push(`/inbox/${user._id}`) }}>

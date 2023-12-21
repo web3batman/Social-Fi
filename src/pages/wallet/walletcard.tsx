@@ -9,7 +9,7 @@ const WalletCard = (props: any) => {
   const { myProfile } = useContext(UserContext);
 
   return (
-    <div className="p-4 rounded-lg flex justify-between items-center bg-white border border-border-color">
+    <div className="p-4 rounded-lg flex justify-between items-center bg-white dark:bg-dark-header-bg border border-border-color dark:border-dark-border">
       <div className='flex gap-4 items-center'>
         <Image quality={100} src={myProfile.avatar ? myProfile.avatar : '/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 rounded-full' />
         <div className='flex flex-col'>

@@ -71,7 +71,7 @@ const Home = () => {
   }, [myProfile])
 
   return (
-    <div className='bg-main-bg-color'>
+    <div className='bg-main-bg-color dark:bg-[#212529]'>
       <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
         <Sidebar />
         <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>

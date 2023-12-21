@@ -148,10 +148,10 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full transform overflow-hidden rounded-lg bg-white p-0 text-left align-middle shadow-xl transition-all max-w-[335px] sm:max-w-[488px]">
+                <Dialog.Panel className="w-full transform overflow-hidden rounded-lg bg-white dark:bg-dark-header-bg dark:text-white p-0 text-left align-middle shadow-xl transition-all max-w-[335px] sm:max-w-[488px]">
                   <Dialog.Title
                     as="h3"
-                    className='text-lg text-[24px] font-semibold leading-8 text-primary p-5'
+                    className='text-lg text-[24px] font-semibold leading-8 text-primary dark:text-white p-5'
                   >
                     Deposit
                   </Dialog.Title>
@@ -164,7 +164,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                       wallets.length != 0 ? (
                         <Listbox value={selected} onChange={setSelected}>
                           <div className="relative mt-1">
-                            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                            <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white dark:bg-dark-body-bg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                               <span className="block truncate">{selected.name}</span>
                               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                 <ChevronUpDownIcon
@@ -179,12 +179,12 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                               leaveFrom="opacity-100"
                               leaveTo="opacity-0"
                             >
-                              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-dark-body-bg py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                 {wallets.map((wallet, walletIdx) => (
                                   <Listbox.Option
                                     key={walletIdx}
                                     className={({ active }) =>
-                                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 dark:bg-dark-body-bg text-amber-900 dark:text-white' : 'text-gray-900'
                                       }`
                                     }
                                     value={wallet}
@@ -199,7 +199,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                                           {wallet.name}
                                         </span>
                                         {selected ? (
-                                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600 dark:text-white">
                                             <CheckIcon className="h-5 w-5" aria-hidden="true" />
                                           </span>
                                         ) : null}
@@ -212,7 +212,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                           </div>
                         </Listbox>
                       ) : (
-                        <h1 className='text-gray-900 font-medium'>No wallet. Please install any wallet.</h1>
+                        <h1 className='text-gray-900 font-medium dark:text-white'>No wallet. Please install any wallet.</h1>
                       )
                     }
                     <div className='flex justify-between items-center mt-5'>
@@ -226,8 +226,8 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                         </span>
                       </h1>
                     </div>
-                    <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color rounded-lg mt-2'>
-                      <input type="number" value={depositAmount} min={1} max={ballance - 1} className='border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
+                    <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color dark:bg-dark-body-bg rounded-lg mt-2'>
+                      <input type="number" value={depositAmount} min={1} max={ballance - 1} className='dark:bg-dark-body-bg border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
                       <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
                         MAX
                       </span>

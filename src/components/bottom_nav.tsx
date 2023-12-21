@@ -12,7 +12,7 @@ const BottomNav = () => {
   }, [])
   return (
     <div className='fixed bottom-0 w-full md:hidden z-20'>
-      <div className='flex rounded-t-[15px] bg-white p-2'>
+      <div className='flex rounded-t-[15px] bg-white dark:bg-dark-header-bg p-2'>
         <div className={`p-4 cursor-pointer hover:bg-gray-300 rounded-x-lg w-1/5 ${currentPage == '/home' ? styles.active : 'text-grey-1'}`} onClick={() => router.push('/home')}>
           <div className='flex flex-col items-center gap-2'>
             <Image quality={100} src={currentPage != '/home' ? '/icons/home.svg' : '/icons/home_active.svg'} width={100} height={100} alt='Home' className='w-6 h-6' />
