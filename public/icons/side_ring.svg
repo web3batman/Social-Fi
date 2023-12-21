@@ -1,28 +1,13 @@
-<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="25" height="24" fill="#F5F5F5"/>
-<g clip-path="url(#clip0_23_8480)">
-<rect width="375" height="812" transform="translate(-175 -706)" fill="#F9FAFC"/>
-<rect x="-155" y="-114" width="335" height="510" rx="8" fill="white"/>
-<text fill="black" xml:space="preserve" style="white-space: pre" font-family="Saira" font-size="14" letter-spacing="0em"><tspan x="-139" y="5.872">USDC+EURC are issued by @circle and backed </tspan><tspan x="-139" y="25.872">by a full-reserve model, ensuring stability + </tspan><tspan x="-139" y="45.872">instant access to digital currency. Both $USDC </tspan><tspan x="-139" y="65.872">and SEURC are native to the #Avalanche </tspan><tspan x="-139" y="85.872">blockchain, ensuring that a global user base </tspan><tspan x="-139" y="105.872">can leverage the fast and efficient tech of </tspan><tspan x="-139" y="125.872">#Avalanche while accessing 24/7. FX on </tspan><tspan x="-139" y="145.872">Trader Joe, with near-instant low-cost </tspan><tspan x="-139" y="165.872">swaps...</tspan></text>
-<text fill="#F66429" xml:space="preserve" style="white-space: pre" font-family="Saira" font-size="14" letter-spacing="0em"><tspan x="-88.1406" y="165.872">See More</tspan></text>
-<text fill="black" xml:space="preserve" style="white-space: pre" font-family="Saira" font-size="14" letter-spacing="0em"><tspan x="-139" y="-14.128">&#10;</tspan></text>
-<text fill="black" xml:space="preserve" style="white-space: pre" font-family="Saira" font-size="14" font-weight="500" letter-spacing="0em"><tspan x="-139" y="-34.128">SAVAX Incentives are live for SEURC - SUSDC&#10;</tspan></text>
-<rect x="-175" y="-16" width="375" height="88" rx="15" fill="white"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g style="mix-blend-mode:luminosity">
-<path d="M15.2851 18.6666C15.2851 19.0202 14.9906 19.3594 14.4665 19.6094C13.9424 19.8595 13.2315 19.9999 12.4903 19.9999C11.7491 19.9999 11.0382 19.8595 10.5141 19.6094C9.99001 19.3594 9.69556 19.0202 9.69556 18.6666" stroke="#9E2D2F" stroke-width="1.08314" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M6.88416 16.5419C6.4567 16.4553 6.07877 16.2191 5.82492 15.8797C5.57108 15.5403 5.45979 15.1224 5.513 14.7086L6.38636 7.95033C6.60935 6.56089 7.35064 5.29498 8.47389 4.38551C9.59715 3.47604 11.0268 2.98419 12.4999 3.00039C13.973 2.98419 15.4026 3.47604 16.5258 4.38551C17.6491 5.29498 18.3904 6.56089 18.6134 7.95033L19.4868 14.7086C19.5403 15.1213 19.4302 15.5381 19.1781 15.8773C18.9261 16.2165 18.5502 16.4536 18.1243 16.5419C14.4279 17.3706 10.5805 17.3706 6.88416 16.5419Z" fill="url(#paint0_linear_23_8480)"/>
-</g>
-<path d="M16.2415 11.4304C18.9141 11.4304 21.0416 9.1761 21.0416 6.44444C21.0416 3.71278 18.9141 1.45843 16.2415 1.45843C13.5689 1.45843 11.4413 3.71278 11.4413 6.44444C11.4413 9.1761 13.5689 11.4304 16.2415 11.4304Z" fill="#EB5757" stroke="white" stroke-width="1.08314"/>
-<text fill="white" xml:space="preserve" style="white-space: pre" font-family="Saira" font-size="7" font-weight="500" letter-spacing="0em"><tspan x="14.6597" y="8.49924">1</tspan></text>
+<path d="M14.785 18.6667C14.785 19.0203 14.4905 19.3594 13.9664 19.6095C13.4423 19.8595 12.7314 20 11.9902 20C11.2491 20 10.5382 19.8595 10.0141 19.6095C9.48995 19.3594 9.1955 19.0203 9.1955 18.6667" stroke="#4F4F4F" stroke-width="1.08314" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.38416 16.5419C5.9567 16.4553 5.57877 16.2191 5.32492 15.8797C5.07108 15.5403 4.95979 15.1224 5.013 14.7086L5.88636 7.95033C6.10935 6.56089 6.85064 5.29498 7.97389 4.38551C9.09715 3.47604 10.5268 2.98419 11.9999 3.00039C13.473 2.98419 14.9026 3.47604 16.0258 4.38551C17.1491 5.29498 17.8904 6.56089 18.1134 7.95033L18.9868 14.7086C19.0403 15.1213 18.9302 15.5381 18.6781 15.8773C18.4261 16.2165 18.0502 16.4536 17.6243 16.5419C13.9279 17.3706 10.0805 17.3706 6.38416 16.5419Z" fill="url(#paint0_linear_45_5)"/>
 </g>
 <defs>
-<linearGradient id="paint0_linear_23_8480" x1="15.379" y1="3.39813" x2="9.531" y2="13.3058" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FBD04E"/>
-<stop offset="0.56019" stop-color="#F56328"/>
-<stop offset="1" stop-color="#A12D30"/>
+<linearGradient id="paint0_linear_45_5" x1="14.879" y1="3.39813" x2="9.031" y2="13.3058" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B7B7B7"/>
+<stop offset="0.56019" stop-color="#6F6F6F"/>
+<stop offset="1" stop-color="#4F4F4F"/>
 </linearGradient>
-<clipPath id="clip0_23_8480">
-<rect width="375" height="812" fill="white" transform="translate(-175 -706)"/>
-</clipPath>
 </defs>
 </svg>
