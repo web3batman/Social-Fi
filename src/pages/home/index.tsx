@@ -22,7 +22,8 @@ interface Post {
     avatar: string,
     username: string,
     screen_name: string,
-  }
+  },
+  view: string[]
 }
 
 const Home = () => {
@@ -35,17 +36,7 @@ const Home = () => {
     //@ts-ignore
     api.post(`/posts`, {content: post.content}).then(
       res => {
-        const newPost = {
-          ...res.data,
-          poster_id: {
-            screen_name: myProfile.screen_name,
-            username: myProfile.username,
-            avatar: myProfile.avatar
-          }
-        }
-        toast.success('Successfly posted.')
-        // @ts-ignore
-        setPosts((predata) => [newPost, ...predata]);
+        setPosts([...posts, res.data]);
       }
     ).catch(
       err => toast.error("Oops. Seems like there is an error...")
@@ -56,14 +47,12 @@ const Home = () => {
    * Get all posts when the component render.
    */
   useEffect(() => {
-    if (myProfile.avatar) {      
       api.get('/posts').then(res => {
         setPosts(res.data);
       }).catch(err => {
         console.log('Error', err);
       })
-    }
-  }, [myProfile])
+  }, [])
 
   return (
     <div className='bg-main-bg-color dark:bg-[#212529]'>

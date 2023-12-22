@@ -17,29 +17,28 @@ interface Post {
     avatar: string,
     username: string,
     screen_name: string,
-  }
+  },
+  view: string[]
 }
 
 const PostCard = (props: {
-  post: Post
-  // reply: number, 
-  // exchange: number, 
-  // star: number, 
-  // bookmark: number, 
-  // price: number}
+  post: Post,
+  noreplay?: boolean
 }) => {
-  const { post } = props;
+  const { post, noreplay } = props;
   const router = useRouter();
   const [createdTime, setTime] = useState<string>('1 m');
 
   const [post1, setPost] = useState<Post>(post);
   const [likeit, setLikeIt] = useState(false);
+  const [replyCount, setReplyCount] = useState(0);
   
   //@ts-ignore
   const { myProfile } = useContext(UserContext);
 
 
   useEffect(() => {
+    // get time from now
     const timestamp: any = new Date(post.created_at);
     const currentTimestamp: any = new Date();
     const timeDifference = currentTimestamp - timestamp;
@@ -66,12 +65,25 @@ const PostCard = (props: {
     if (month > 0) {
       setTime(createTime);
     }
+
+    // set like or not
     const isstar = post1.vote.filter(posterid => {
       return posterid == myProfile._id
     })
     if (isstar.length != 0) {
       setLikeIt(true);
+    } else {
+      setLikeIt(false)
     }
+
+    // get reply count
+    api.get(`/posts/getreplycount/${post._id}`).then(
+      res => {
+        setReplyCount(res.data);
+      }
+    ).catch(err => {
+      toast.error('Oops there is an error!');
+    })
   }, [post1])
 
   const likePost = async (postid: any) => {
@@ -85,12 +97,14 @@ const PostCard = (props: {
   }
 
   const toReplyPage = () => {
-    router.push(`/home/${post1._id}`)
+    if (!noreplay) {
+      router.push(`/home/${post1._id}`)
+    }
   }
 
   return (
     <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-4 dark:text-white'>
-      <div className='flex flex-col gap-1 cursor-pointer' onClick={() => toReplyPage()}>
+      <div className='flex flex-col gap-1 cursor-pointer' onClick={toReplyPage}>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
             <Image quality={100} src={post1.poster_id.avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' />
@@ -115,12 +129,11 @@ const PostCard = (props: {
           <div className='flex gap-1 items-center'>
             <Image quality={100} src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
-            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{reply}</h3> */}
           </div>
           <div className='flex gap-1 items-center'>
             <Image quality={100} src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
+            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{replyCount}</h3>
           </div>
           <div className='flex gap-1 items-center'>
             <Image quality={100} src={likeit ? '/icons/star.svg' : '/icons/post_star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 cursor-pointer' onClick={() => likePost(post1._id)} />
@@ -130,7 +143,7 @@ const PostCard = (props: {
           <div className='flex gap-1 items-center'>
             <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
             {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{bookmark}</h3> */}
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
+            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post1.view.length}</h3>
           </div>
         </div>
         <div className="flex gap-4">
