@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation';
 
 import api from '@/constants/auth';
 import setAuthToken from '@/constants/setAuthToken';
-import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react'
 import { UserContext } from '@/contexts/UserProvider';
@@ -27,34 +26,21 @@ interface MyComponentProps {
 const Layout = ({ children }: MyComponentProps) => {
   const path = usePathname();
   const [main, setMain] = useState(false);
-  const [checked, setChecked] = useState(false);
 
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
   const router = useRouter()
 
   // Get profile info
-  const { data: session, status } = useSession();
+  const { status, data:session } = useSession();
 
   useEffect(() => {
     if (status == 'authenticated') {
-      // @ts-ignore
-      const profile = session.token.token.profile;
+      //@ts-ignore
+      const twitterid = session.token.sub;
+      console.log('twitterid', twitterid)
       const userinfo = localStorage.getItem('token');
-
-      if (!userinfo) {
-        if (profile) {
-          api.post('/users', { profile: profile }).then((res: { data: { token: any, user: any }; }) => {
-            setAuthToken(res.data.token);
-            setMyProfile(res.data.user);
-            router.push(path == "/"?'/home':path);
-          }).catch((err: any) => {
-            console.log('register error', err);
-          })
-        } else {
-          router.push('/');
-        }
-      } else {
+      if (userinfo) {
         setAuthToken(userinfo);
         api.get('/users').then((res) => {
           if (res.data.user) {
@@ -70,11 +56,24 @@ const Layout = ({ children }: MyComponentProps) => {
             router.push('/');
           }
         )
+      } else {
+        api.post('/users', {signin: twitterid}).then(
+          res => {
+            const { token, user } = res.data;
+            setAuthToken(token);
+            setMyProfile(user);
+            router.push('/home');
+          }
+        ).catch(err => {
+          router.push('/');
+        })
       }
-    } else if (status == 'unauthenticated') {
-      router.push('/');
+    } else {
+      if (session) {
+        router.push('/');
+      }
     }
-  }, [status, path])
+  }, [path, status])
 
   useEffect(() => {
     if (path == '/') {
