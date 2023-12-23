@@ -17,15 +17,17 @@ interface Post {
     avatar: string,
     username: string,
     screen_name: string,
+    price: string
   },
   view: string[]
 }
 
 const PostCard = (props: {
   post: Post,
-  noreplay?: boolean
+  noreplay?: boolean,
+  nolink?: boolean
 }) => {
-  const { post, noreplay } = props;
+  const { post, noreplay, nolink } = props;
   const router = useRouter();
   const [createdTime, setTime] = useState<string>('1 m');
 
@@ -97,13 +99,13 @@ const PostCard = (props: {
   }
 
   const toReplyPage = () => {
-    if (!noreplay) {
+    if (!noreplay || nolink) {
       router.push(`/home/${post1._id}`)
     }
   }
 
   return (
-    <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-4 dark:text-white'>
+    <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-4 dark:text-white border-b-2 border-border-color dark:border-dark-border'>
       <div className='flex flex-col gap-1 cursor-pointer' onClick={toReplyPage}>
         <div className='flex items-center justify-between w-full'>
           <div className='flex gap-[10px] items-center'>
@@ -124,37 +126,40 @@ const PostCard = (props: {
           {post1.content}
         </h3>
       </div>
-      <div className='flex justify-between gap-4 max-sm:flex-col'>
-        <div className='flex gap-4'>
-          <div className='flex gap-1 items-center'>
-            <Image quality={100} src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
+      {
+        !noreplay && (
+          <div className='flex justify-between gap-4 max-sm:flex-col'>
+            <div className='flex gap-4'>
+              {/* <div className='flex gap-1 items-center'>
+                <Image quality={100} src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+                <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
+              </div> */}
+              <div className='flex gap-1 items-center'>
+                <Image quality={100} src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+                {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
+                <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{replyCount}</h3>
+              </div>
+              <div className='flex gap-1 items-center'>
+                <Image quality={100} src={likeit ? '/icons/star.svg' : '/icons/post_star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 cursor-pointer' onClick={() => likePost(post1._id)} />
+                {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{star}</h3> */}
+                <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post1.vote.length}</h3>
+              </div>
+              {/* <div className='flex gap-1 items-center'>
+                <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+                <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post1.view.length}</h3>
+              </div> */}
+            </div>
+            <div className="flex gap-4">
+              <div className='flex gap-1 items-center'>
+                {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3> */}
+                <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post.poster_id.price}</h3>
+                <Image quality={100} src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+              </div>
+              <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' />
+            </div>
           </div>
-          <div className='flex gap-1 items-center'>
-            <Image quality={100} src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{replyCount}</h3>
-          </div>
-          <div className='flex gap-1 items-center'>
-            <Image quality={100} src={likeit ? '/icons/star.svg' : '/icons/post_star.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 cursor-pointer' onClick={() => likePost(post1._id)} />
-            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{star}</h3> */}
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post1.vote.length}</h3>
-          </div>
-          <div className='flex gap-1 items-center'>
-            <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{bookmark}</h3> */}
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post1.view.length}</h3>
-          </div>
-        </div>
-        <div className="flex gap-4">
-          <div className='flex gap-1 items-center'>
-            {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3> */}
-            <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
-            <Image quality={100} src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
-          </div>
-          <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' />
-        </div>
-      </div>
+        )
+      }
     </div>
   )
 }

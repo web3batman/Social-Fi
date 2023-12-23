@@ -23,13 +23,15 @@ interface Post {
     avatar: string,
     username: string,
     screen_name: string,
+    price: string
   },
-  view: string[]
+  view: string[],
+
 }
 
 const OpenPost = () => {
   const [post, setPost] = useState<Post>();
-  const [replys, setReply] = useState<Post[]>();
+  const [replys, setReply] = useState<Post[]>([]);
 
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
@@ -66,24 +68,27 @@ const OpenPost = () => {
 
   const addNewPost = (post: object) => {
     //@ts-ignore
-    api.post(`/posts`, {content: post.content, reply: post.reply}).then(
+    api.post(`/posts`, { content: post.content, reply: post.reply }).then(
       res => {
-        const newreply = {
-          ...res.data,
-          poster_id: {
-            screen_name: myProfile.screen_name,
-            username: myProfile.username,
-            avatar: myProfile.avatar
-          }
-        }
+        // const newreply = {
+        //   ...res.data,
+        //   poster_id: {
+        //     screen_name: myProfile.screen_name,
+        //     username: myProfile.username,
+        //     avatar: myProfile.avatar,
+        //     price: myProfile.price
+        //   }
+        // }
+        setReply([...replys, res.data]);
         toast.success('Successfly posted.')
         // @ts-ignore
-        setReply((predata) => [newreply, ...predata]);
+        
       }
     ).catch(
       err => toast.error("Oops. Seems like there is an error...")
     )
   }
+
 
   return (
     <div className='bg-main-bg-color dark:bg-dark-body-bg'>
@@ -97,21 +102,19 @@ const OpenPost = () => {
             </h2>
           </Link>
           {
-            post && <PostCard post={post} noreplay={true} />
+            post && <PostCard post={post} nolink={true} />
           }
           {
             //@ts-ignore
             postid && <Post addpost={addNewPost} reply={postid} />
           }
-          {
-            replys && replys.length != 0 && replys.map((post, index) => {
-              return (
-                <div key={index}>
-                  <PostCard post={post} noreplay={true} />
-                </div>
-              )
-            })
-          }
+          <div className='flex flex-col'>
+            {
+              replys && replys.length > 0 && replys.map((post, index) => {
+                return <PostCard post={post} noreplay={true} key={index} />
+              })
+            }
+          </div>
         </div>
         <SideBarRight />
       </div>

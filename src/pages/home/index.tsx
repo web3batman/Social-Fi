@@ -22,21 +22,25 @@ interface Post {
     avatar: string,
     username: string,
     screen_name: string,
+    price: string
   },
   view: string[]
 }
 
 const Home = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  
+  const [tempPosts, setTemp] = useState<Post[]>([]);
+
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
 
-  const addNewPost = (post: object) => {
+  const addNewPost = async (post: {content: string}) => {
+
     //@ts-ignore
     api.post(`/posts`, {content: post.content}).then(
       res => {
-        setPosts([...posts, res.data]);
+        let newdata = [...posts, res.data];
+        setPosts(newdata);
       }
     ).catch(
       err => toast.error("Oops. Seems like there is an error...")
@@ -54,6 +58,13 @@ const Home = () => {
       })
   }, [])
 
+  // useEffect(() => {
+  //   if(!posts) return;
+  //   let temarr = posts.reverse();
+  //   console.log(temarr)
+  //   setTemp(temarr);
+  // }, [posts])
+
   return (
     <div className='bg-main-bg-color dark:bg-[#212529]'>
       <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
@@ -61,7 +72,7 @@ const Home = () => {
         <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
           <Post addpost={addNewPost} />
           {
-            posts.length != 0 && posts.map((post, index) => {
+            posts.map((post, index) => {
               return (
                 <div key={index}>
                   <PostCard post={post} />
