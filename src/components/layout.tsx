@@ -35,6 +35,7 @@ const Layout = ({ children }: MyComponentProps) => {
   const { status, data:session } = useSession();
 
   useEffect(() => {
+    if(!session) return
     if (status == 'authenticated') {
       //@ts-ignore
       const twitterid = session.token.sub;
@@ -69,9 +70,7 @@ const Layout = ({ children }: MyComponentProps) => {
         })
       }
     } else {
-      if (session) {
         router.push('/');
-      }
     }
   }, [path, status])
 
@@ -98,8 +97,6 @@ const Layout = ({ children }: MyComponentProps) => {
              />
           </div>
         )
-      } else {
-        return <Loading />
       }
     } else {
         return (

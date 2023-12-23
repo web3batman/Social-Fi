@@ -42,6 +42,9 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
   const getWallets = () => {
     const wallets = BrowserWallet.getInstalledWallets();
+    if (wallets.length == 0) {
+      toast.success("Please create your wallet!")
+    }
     setWallets(wallets);
   }
 
@@ -228,7 +231,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                     </div>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color dark:bg-dark-body-bg rounded-lg mt-2'>
                       <input type="number" value={depositAmount} min={1} max={ballance - 1} className='dark:bg-dark-body-bg border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
-                      <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
+                      <span className={`px-2 py-1 text-primary dark:text-white text-[12px] font-medium leading-[14px] border-border-color dark:border-dark-border border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
                         MAX
                       </span>
                     </div>

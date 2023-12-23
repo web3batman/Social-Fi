@@ -11,6 +11,9 @@ import api from '../../constants/auth';
 import toast from 'react-hot-toast';
 import Loading from '@/pages/loading';
 
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react'
+
 const ChatInbox = () => {
   const router = useRouter();
   const roomname = router.query.room;
@@ -226,7 +229,7 @@ const ChatInbox = () => {
                 </div>
               </div>
             </div>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-scroll' ref={messagesEndRef}>
+            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-auto' ref={messagesEndRef}>
               <div className='flex flex-col gap-4 text-[14px] text-grey-5'>
                 { messageList.length != 0 ? messageList.map((chat: any, index) => {
                   if (chat.sender == myProfile.username) {
@@ -257,8 +260,9 @@ const ChatInbox = () => {
                   </div>
                 )}
               </div>
+              {/* <Picker data={data} onEmojiSelect={console.log} set='facebook' /> */}
             </div>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary leading-[24px]'>
+            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary dark:text-white leading-[24px]'>
 
               <div className='flex gap-4 justify-between items-center'>
                 {/* <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => { */}
