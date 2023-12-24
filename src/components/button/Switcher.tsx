@@ -14,7 +14,7 @@ export default function Switcher(props: {size: string}): JSX.Element {
   };
 
   return (
-    <div className='p-3 rounded-full border border-[#3E3C31] bg-main-bg-color dark:bg-[#212529] flex justify-center items-center'>
+    <div className='p-3 max-md:hidden rounded-full border border-[#3E3C31] bg-main-bg-color dark:bg-[#212529] flex justify-center items-center'>
       <DarkModeSwitch checked={darkSide} onChange={toggleDarkMode} size={size} moonColor='#E8E9E9' sunColor='#4B3A41' />
     </div>
   );

@@ -32,8 +32,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   // const [myaddress, setAddress] = useState<string>();
   const [depositAmount, setDepositAmount] = useState<number>(0);
   const [selected, setSelected] = useState({
-    name: "Select a wallet",
-
+    name: "Select wallet",
   })
 
   //@ts-ignore
@@ -45,7 +44,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
   
   useEffect(() => {
-    if (selected.name != 'Select a wallet' && selected) {
+    if (selected.name != 'Select wallet' && selected) {
       walletConnect(selected.name);
     }
   }, [selected])
@@ -171,9 +170,6 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                   </Dialog.Title>
                   <hr />
                   <div className="p-5">
-                    <h1 className='text-grey-2 font-normal text-[14px] leading-[18px] mt-5'>
-                      Select Network
-                    </h1>
                     {
                       wallets.length != 0 ? (
                         <Listbox value={selected} onChange={setSelected}>
@@ -198,7 +194,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                                   <Listbox.Option
                                     key={walletIdx}
                                     className={({ active }) =>
-                                      `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 dark:bg-dark-body-bg text-amber-900 dark:text-white' : 'text-gray-900'
+                                      `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-amber-100 dark:bg-dark-body-bg text-amber-900 dark:text-white' : 'text-gray-900 dark:text-white'
                                       }`
                                     }
                                     value={wallet}
