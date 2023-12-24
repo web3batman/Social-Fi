@@ -10,9 +10,10 @@ import { SocketContext } from '@/contexts/SocketProvider';
 import api from '../../constants/auth';
 import toast from 'react-hot-toast';
 import Loading from '@/pages/loading';
+import { ReactionBarSelector } from '@charkour/react-reactions';
 
-import data from '@emoji-mart/data';
-import Picker from '@emoji-mart/react'
+// Import the EmojiInput component from the react-input-emoji package
+import EmojiInput from 'react-input-emoji';
 
 const ChatInbox = () => {
   const router = useRouter();
@@ -43,9 +44,21 @@ const ChatInbox = () => {
 
   let typingTimeout: string | number | NodeJS.Timeout | undefined;
 
+  // State for tracking selected reaction
+  const [selectedReaction, setSelectedReaction] = useState(null);
+
+  // Function to handle reaction selection
+  const handleReactionSelect = (reaction: any) => {
+    console.log('reaction', reaction)
+    setSelectedReaction(reaction);
+    // You can also send the selected reaction to the server if needed
+    // Modify this function based on your server communication logic
+    // socket.emit('send_reaction', { reaction, roomname, messageId: selectedMessageId });
+  };
+
   // When user is typing new message.
-  const handleTyping = (e: any) => {
-    setMessage(e.target.value);
+  const handleTyping = () => {
+    console.log('typing')
     setScrollbottom(true)
 
     if (!isTyping) {
@@ -103,9 +116,9 @@ const ChatInbox = () => {
   }, []);
 
   useEffect(() => {
-    const confirmarray = myProfile.holding.filter((item: any) => {return item.userid == roomname
+    const confirmarray = myProfile.holding.filter((item: any) => {
+      return item.userid == roomname
     })
-    console.log('confirmarry', confirmarray)
     if (confirmarray.length == 0 && myProfile._id != roomname) {
       toast.error("You don't have permission to access this room!\nBuy a key to access.")
       setInterval(() => {
@@ -119,9 +132,9 @@ const ChatInbox = () => {
   // When the scroll is at the end of element or not
   useEffect(() => {
     if (!isloading) {
-      
+
       const scrollContainer = messagesEndRef.current; // step 2
-  
+
       const handleScroll = () => {
         if (isScrollAtBottom()) {
           setScrollbottom(true);
@@ -129,11 +142,11 @@ const ChatInbox = () => {
           setScrollbottom(false);
         }
       };
-  
+
       // step 4
       // @ts-ignore
       scrollContainer.addEventListener('scroll', handleScroll);
-  
+
       // step 5
       return () => {
         // @ts-ignore
@@ -144,7 +157,6 @@ const ChatInbox = () => {
 
   // Scroll to the bottom of element
   useEffect(() => {
-    console.log('message list', messageList)
     if (scrollbottom) {
       scrollToBottom()
     }
@@ -184,7 +196,7 @@ const ChatInbox = () => {
 
   useEffect(() => {
     api.get(`/messages/${roomname}`).then(res => {
-       setMessageList(res.data);
+      setMessageList(res.data);
     })
   }, [router]);
 
@@ -231,28 +243,63 @@ const ChatInbox = () => {
             </div>
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-auto' ref={messagesEndRef}>
               <div className='flex flex-col gap-4 text-[14px] text-grey-5'>
-                { messageList.length != 0 ? messageList.map((chat: any, index) => {
+                {messageList.length != 0 ? messageList.map((chat: any, index) => {
                   if (chat.sender == myProfile.username) {
                     return (
                       <div className='flex gap-4 items-center flex-row-reverse' key={index}>
-                        <span className='p-3 rounded-[10px] bg-secondary text-white'>
-                          {chat.message}
-                        </span>
+                        <div className='flex flex-col gap-1'>
+                          <span className='p-3 rounded-[10px] bg-secondary text-white'>
+                            {chat.message}
+                          </span>
+                          <span className='text-[#738290] text-[12px] leading-[18px]'>
+                            Just now
+                          </span>
+                        </div>
                       </div>
                     )
                   } else {
                     return (
                       <div className='flex gap-2 items-end' key={index}>
-                        <Image quality={100} src={chat.avatar} width={100} height={100} alt={chat.sender} className='w-8 h-8 rounded-full' />
-                        <div className='p-3 rounded-[10px] bg-[#F5F6F8] dark:bg-dark-body-bg flex flex-col gap-2'>
-                          <div className='font-medium text-primary dark:text-white'>{chat.sender}</div>
-                          <div className='dark:text-white'>{chat.message}</div>
+                        <div className='flex flex-col gap-1 items-end'>
+                          <div className='flex gap-2 items-start'>
+                            <Image quality={100} src={chat.avatar} width={100} height={100} alt={chat.sender} className='w-8 h-8 rounded-full' />
+                            <div className='flex gap-2 items-start'>
+                              <div className='flex flex-col items-end gap-3'>
+                                <div className='p-3 rounded-[10px] relative bg-[#F5F6F8] dark:bg-dark-body-bg flex flex-col gap-2'>
+                                  <div className='font-bold text-primary dark:text-white'>{chat.sender}</div>
+                                  <div className='dark:text-white'>{chat.message}</div>
+                                  <div className='absolute bg-white border px-2 py-1 rounded-full bottom-[-20%] right-0 shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px,rgba(0,0,0,0.15)_0px_1px_2px'>
+                                      ❤️
+                                  </div>
+                                </div>
+                                <span className='text-[#738290] text-[12px] leading-[18px]'>
+                                  Just now
+                                </span>
+                              </div>
+                              <div className='relative'>
+                                <Image src={'/icons/smilecircle.svg'} className='w-[18px] h-[18px] cursor-pointer' width={100} height={100} alt='smile face' />
+                                <ReactionBarSelector
+                                  iconSize={16}
+                                  reactions={[
+                                    { label: 'thumbs-up', node: '👍' },
+                                    { label: 'heart', node: '❤️' },
+                                    { label: 'smile', node: '😊' },
+                                    // Add more reactions as needed
+                                  ]}
+                                  
+                                  style={{position: 'absolute', top: '-100%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                                  onSelect={(reaction: any) => handleReactionSelect(reaction)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          
                         </div>
                       </div>
                     )
                   }
                 }
-                ):(
+                ) : (
                   <div className='flex w-full justify-center'>
                     <span className='p-3 rounded-[10px] bg-[#F5F6F8] dark:bg-dark-body-bg dark:text-white'>
                       No message yet
@@ -264,14 +311,23 @@ const ChatInbox = () => {
             </div>
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary dark:text-white leading-[24px]'>
 
-              <div className='flex gap-4 justify-between items-center'>
+              <div className='flex gap-4 justify-between items-center max-sm:gap-1'>
                 {/* <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => { */}
-                <input type="text" className={`px-2 py-3 bg-main-bg-color dark:bg-dark-body-bg rounded-lg bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => {
+
+                <EmojiInput
+                  value={message}
+                  onChange={setMessage}
+                  cleanOnEnter
+                  onEnter={handleSendMessage}
+                  onKeyDown={handleTyping}
+                  placeholder="Type a message here"
+                />
+                {/* <input type="text" className={`px-2 py-3 bg-main-bg-color dark:bg-dark-body-bg rounded-lg bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => {
                   if (event.key == 'Enter') {
                     handleSendMessage()
                   }
-                }} />
-                <button className='px-5 py-3 rounded-lg bg-secondary max-sm:w-full' onClick={handleSendMessage}>
+                }} /> */}
+                <button className='px-5 py-3 rounded-lg bg-secondary max-sm:w-[80px] max-sm:px-0 max-sm:py-2' onClick={handleSendMessage}>
                   <div className='flex gap-4 items-center justify-center sm:justify-start'>
                     <h1 className='text-white font-medium leading-[24px] text-center text-base'>
                       Send
