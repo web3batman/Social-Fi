@@ -35,42 +35,48 @@ const Layout = ({ children }: MyComponentProps) => {
   const { status, data:session } = useSession();
 
   useEffect(() => {
-    if(!session) return
-    if (status == 'authenticated') {
-      //@ts-ignore
-      const twitterid = session.token.sub;
-      console.log('twitterid', twitterid)
-      const userinfo = localStorage.getItem('token');
-      if (userinfo) {
-        setAuthToken(userinfo);
-        api.get('/users').then((res) => {
-          if (res.data.user) {
-            setMyProfile(res.data.userdata);
-            router.push(path == "/"?'/home':path);
-          } else {
-            setAuthToken(false);
+    if (status == 'loading') return
+    if (session) {      
+      if (status == 'authenticated') {
+        //@ts-ignore
+        const twitterid = session.token.sub;
+        console.log('twitterid', twitterid)
+        const userinfo = localStorage.getItem('token');
+        if (userinfo) {
+          setAuthToken(userinfo);
+          api.get('/users').then((res) => {
+            if (res.data.user) {
+              setMyProfile(res.data.userdata);
+              router.push(path == "/"?'/home':path);
+            } else {
+              setAuthToken(false);
+              router.push('/');
+            }
+          }).catch(
+            err => {
+              setAuthToken(false);
+              router.push('/');
+            }
+          )
+        } else {
+          api.post('/users', {signin: twitterid}).then(
+            res => {
+              const { token, user } = res.data;
+              setAuthToken(token);
+              setMyProfile(user);
+              router.push('/home');
+            }
+          ).catch(err => {
             router.push('/');
-          }
-        }).catch(
-          err => {
-            setAuthToken(false);
-            router.push('/');
-          }
-        )
+          })
+        }
       } else {
-        api.post('/users', {signin: twitterid}).then(
-          res => {
-            const { token, user } = res.data;
-            setAuthToken(token);
-            setMyProfile(user);
-            router.push('/home');
-          }
-        ).catch(err => {
-          router.push('/');
-        })
+        if (status !='loading') {
+            router.push('/');
+        }
       }
     } else {
-        router.push('/');
+      router.push('/');
     }
   }, [path, status])
 

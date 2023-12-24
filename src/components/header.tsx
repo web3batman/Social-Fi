@@ -61,10 +61,10 @@ const Header = () => {
             
             <div className={`absolute bottom-0 bg-slate-50 dark:bg-dark-header-bg translate-y-full -translate-x-[60%] ${proper ? "" : "hidden"} rounded-lg`}>
               <ul className='border border-gray-400 text-[12px] text-primary dark:text-white min-w-[100px]'>
-                <li className='py-2 px-4 hover:bg-grey-2 dark:hover:bg-dark-body-bg cursor-pointer' onClick={() => router.push(`/keys/${myProfile._id}`)}>
+                <li className='py-2 px-4 hover:bg-grey-4 dark:hover:bg-dark-body-bg cursor-pointer' onClick={() => router.push(`/keys/${myProfile._id}`)}>
                   My account
                 </li>
-                <li className='py-2 px-4  dark:hover:bg-dark-body-bg cursor-pointer' onClick={() => logout()}>
+                <li className='py-2 px-4 hover:bg-grey-4 dark:hover:bg-dark-body-bg cursor-pointer' onClick={() => logout()}>
                   Sign Out
                 </li>
               </ul>
