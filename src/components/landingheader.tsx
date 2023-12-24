@@ -35,9 +35,9 @@ const LandingHeader = () => {
           Home
         </Link>
         <span>.</span> */}
-        <Link href={'/about'} className='text-primary dark:text-white font-medium leading-6 text-center cursor-pointer'>
+        {/* <Link href={'/about'} className='text-primary dark:text-white font-medium leading-6 text-center cursor-pointer'>
           About
-        </Link>
+        </Link> */}
         {/* <span>.</span>
         <Link href={'/inbox'} className='text-primary font-medium leading-6 text-center text-base cursor-pointer'>
           Community
@@ -70,12 +70,12 @@ const LandingHeader = () => {
           )
         }
         <Switcher size='18px' />
-        <span className='w-9 h-9 rounded-full flex justify-center items-center border border-[#E7EAF0] bg-[#F9FAFC] cursor-pointer sm:hidden' onClick={() => { setNavshow(!navshow) }}>
+        <span className='w-9 h-9 rounded-full flex justify-center items-center border border-[#E7EAF0] dark:border-dark-border bg-[#F9FAFC] dark:bg-dark-body-bg cursor-pointer sm:hidden' onClick={() => { setNavshow(!navshow) }}>
           <Image quality={100} src={'/icons/dropdown.svg'} width={100} height={100} alt='Twitter logo' className='w-5 h-5' />
         </span>
       </div>
       <div className={`flex flex-col w-full sm:hidden mt-4 border-t-[2px] duration-100 ${!navshow ? 'opacity-0' : 'opacity-100'}`}>
-        <Link href={'/home'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
+        {/* <Link href={'/home'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
           Home
         </Link>
         <Link href={'/about'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
@@ -83,7 +83,7 @@ const LandingHeader = () => {
         </Link>
         <Link href={'/inbox'} className='text-primary font-medium leading-6 p-2 cursor-pointer hover:bg-secondary'>
           Community
-        </Link>
+        </Link> */}
       </div>
     </div>
   )
