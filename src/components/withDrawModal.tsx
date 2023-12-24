@@ -27,7 +27,9 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
   const [withdrawAmount, setwithdrawAmount] = useState<number>(1);
 
-  const [selected, setSelected] = useState(Object)
+  const [selected, setSelected] = useState({
+    name: "Select a wallet",
+  })
 
   //@ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext);
@@ -51,6 +53,11 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
               setBallance(ballance[0].quantity);
             }
           }
+        ).catch(
+          err => {
+            toast.error("We can't connect your wallet.")
+            setBallance(0);
+          }
         )
         wallet.getUsedAddresses().then(
           address => {
@@ -58,7 +65,13 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
           }
         )
       }
-    ).catch(error => console.log("Please create your wallet."))
+    ).catch(
+      err => {
+        toast.error("We can't connect your wallet.")
+        setBallance(0);
+        console.log('cant connect wallet')
+      }
+    )
   }
 
   const handleChange = async (e: any) => {
@@ -92,13 +105,15 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     getWallets();
   }, [])
 
-  useEffect(() => {
-    setSelected(wallets[0]);
-  }, [wallets])
+  // useEffect(() => {
+  //   setSelected(wallets[0]);
+  // }, [wallets])
 
   
   useEffect(() => {
-    walletConnect(selected.name);
+    if (selected.name != 'Select a wallet' && selected) {
+      walletConnect(selected.name);
+    }
   }, [selected])
 
   return (

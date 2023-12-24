@@ -10,7 +10,7 @@ import { SocketContext } from '@/contexts/SocketProvider';
 import api from '../../constants/auth';
 import toast from 'react-hot-toast';
 import Loading from '@/pages/loading';
-import { ReactionBarSelector } from '@charkour/react-reactions';
+// import { ReactionBarSelector } from '@charkour/react-reactions';
 
 // Import the EmojiInput component from the react-input-emoji package
 import EmojiInput from 'react-input-emoji';
@@ -268,9 +268,9 @@ const ChatInbox = () => {
                                 <div className='p-3 rounded-[10px] relative bg-[#F5F6F8] dark:bg-dark-body-bg flex flex-col gap-2'>
                                   <div className='font-bold text-primary dark:text-white'>{chat.sender}</div>
                                   <div className='dark:text-white'>{chat.message}</div>
-                                  <div className='absolute bg-white border px-2 py-1 rounded-full bottom-[-20%] right-0 shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px,rgba(0,0,0,0.15)_0px_1px_2px'>
+                                  {/* <div className='absolute bg-white border px-2 py-1 rounded-full bottom-[-20%] right-0 shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px,rgba(0,0,0,0.15)_0px_1px_2px'>
                                       ❤️
-                                  </div>
+                                  </div> */}
                                 </div>
                                 <span className='text-[#738290] text-[12px] leading-[18px]'>
                                   Just now
@@ -278,7 +278,7 @@ const ChatInbox = () => {
                               </div>
                               <div className='relative'>
                                 <Image src={'/icons/smilecircle.svg'} className='w-[18px] h-[18px] cursor-pointer' width={100} height={100} alt='smile face' />
-                                <ReactionBarSelector
+                                {/* <ReactionBarSelector
                                   iconSize={16}
                                   reactions={[
                                     { label: 'thumbs-up', node: '👍' },
@@ -289,7 +289,7 @@ const ChatInbox = () => {
                                   
                                   style={{position: 'absolute', top: '-100%', left: '50%', transform: 'translate(-50%, -50%)' }}
                                   onSelect={(reaction: any) => handleReactionSelect(reaction)}
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>
