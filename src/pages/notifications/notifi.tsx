@@ -10,11 +10,11 @@ const Notification = (props: any) => {
   useEffect(() => {
     switch (notitype) {
       case 'comment':
-        setComment('comment on your post');
+        setComment('commented on your post');
         setNotifiavatar('/icons/noti_inbox.svg');
         break;
       case 'star':
-        setComment('star your post');
+        setComment('liked your post');
         setNotifiavatar('/icons/star.svg');
         break;
       case 'follow':
