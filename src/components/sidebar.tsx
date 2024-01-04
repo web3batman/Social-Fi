@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import styles from './sidebar.module.css'
 import { useRouter } from 'next/router'
+import api from '@/constants/auth'
+import toast from 'react-hot-toast'
 
 const Sidebar = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState<string | null>();
+  const [isnoti, setNoti] = useState(false);
 
   useEffect(() => {
     if (router.asPath.indexOf('/inbox') > -1) {
@@ -13,6 +16,16 @@ const Sidebar = () => {
     } else {
       setCurrentPage(router.asPath)
     }
+  }, [])
+
+  useEffect(() => {
+    api.get('/notifications/isnoti').then(
+      res => {
+        setNoti(res.data.state)
+      }
+    ).catch(err => {
+      toast.error("There is an error.")
+    })
   }, [])
 
   return (
@@ -38,7 +51,16 @@ const Sidebar = () => {
         </div>
         <div className={`p-4 cursor-pointer hover:bg-gray-300 dark:bg-dark-body-bg rounded-lg ${currentPage == '/notifications' ? styles.active : 'text-grey-1'}`} onClick={() => router.push('/notifications')}>
           <div className='flex gap-3 items-center'>
-            <Image quality={100} src={currentPage != '/notifications' ? '/icons/side_ring.svg' : '/icons/side_ring_active.svg'} width={100} height={100} alt='Notification' className='w-6 h-6' />
+            <div className='relative'>
+              <Image quality={100} src={currentPage != '/notifications' ? '/icons/side_ring.svg' : '/icons/side_ring_active.svg'} width={100} height={100} alt='Notification' className='w-6 h-6' />
+              {
+                isnoti && (
+                  <div className='absolute rounded-full text-white text-[7px] border border-white top-0 right-0 bg-[#EB5757] text-center w-3 h-3'>
+                    
+                  </div>
+                )
+              }
+            </div>
             <h3 className='font-semibold leading-[14px] text-[18px]'>Notifications</h3>
           </div>
         </div>

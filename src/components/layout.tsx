@@ -40,7 +40,6 @@ const Layout = ({ children }: MyComponentProps) => {
       if (status == 'authenticated') {
         //@ts-ignore
         const twitterid = session.token.sub;
-        console.log('twitterid', twitterid)
         const userinfo = localStorage.getItem('token');
         if (userinfo) {
           setAuthToken(userinfo);

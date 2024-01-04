@@ -72,14 +72,14 @@ const Header = () => {
           <div className='relative flex gap-2 items-center' onMouseOver={() => { setProper(true) }} onMouseLeave={() => { setProper(false) }}>
             <Image quality={100} src={myProfile.avatar ? myProfile.avatar : avatar} width={'100'} height={'100'} alt='Default avatar' className='w-10 h-10 rounded-full border-2 border-solid border-[#E7EAF0] dark:border-dark-border cursor-pointer' />
 
-            <div className={`absolute bottom-0 bg-slate-50 dark:bg-dark-header-bg translate-y-full -translate-x-[60%] ${proper ? "" : "hidden"} rounded-lg`}>
-              <ul className='text-center border w-[150px] border-gray-400 text-[14px] text-primary dark:text-white min-w-[100px]'>
+            <div className={`absolute bottom-0 bg-slate-50 dark:bg-dark-header-bg translate-y-full -translate-x-[60%] ${proper ? "" : "hidden"} rounded-lg border border-gray-400`}>
+              <ul className='text-center w-[150px] text-[14px] text-primary dark:text-white min-w-[100px]'>
                 <li className='py-3 px-2 text-center hover:bg-grey-4 dark:hover:bg-dark-body-bg cursor-pointer' onClick={() => router.push(`/keys/${myProfile._id}`)}>
                   <div className='w-full py-2 px-2 bg-[#F9FAFC] dark:bg-[#212529] border border-[#E7EAF0] dark:border-dark-border rounded-full'>
                     My account
                   </div>
                 </li>
-                <li className='py-2 px-2 hover:bg-grey-4 dark:hover:bg-dark-body-bg cursor-pointer'>
+                <li className='py-2 px-2 md:hidden hover:bg-grey-4 dark:hover:bg-dark-body-bg cursor-pointer'>
                   <div className='w-full py-2 px-2 bg-[#F9FAFC] dark:bg-[#212529] border border-[#E7EAF0] dark:border-dark-border rounded-full flex gap-2 items-center'>
                     <Image quality={100} src={'/icons/cardano.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
                     <span className='text-base not-italic font-semibold leading-6 text-primary dark:text-white'>
@@ -89,7 +89,7 @@ const Header = () => {
                     </span>
                   </div>
                 </li>
-                <li className='py-2 px-2 hover:bg-grey-4 dark:hover:bg-dark-body-bg cursor-pointer' onClick={() => toggleDarkMode(!darkSide)}>
+                <li className='py-2 px-2 md:hidden hover:bg-grey-4 dark:hover:bg-dark-body-bg cursor-pointer' onClick={() => toggleDarkMode(!darkSide)}>
                   <div className='w-full py-2 px-2 bg-[#F9FAFC] dark:bg-[#212529] border border-[#E7EAF0] dark:border-dark-border rounded-full flex gap-2 items-center'>
                     <DarkModeSwitch checked={darkSide} onChange={toggleDarkMode} moonColor='#E8E9E9' sunColor='#4B3A41' />
                     <span>{darkSide ? 'Dark' : 'Light'} mode</span>

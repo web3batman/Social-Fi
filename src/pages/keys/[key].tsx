@@ -31,26 +31,28 @@ interface Holder {
 }
 
 
+interface Post {
+  _id: string,
+  content: string,
+  vote: string[],
+  created_at: string,
+  updated_at: string,
+  poster_id: {
+    _id: string,
+    twitter_id: string,
+    avatar: string,
+    username: string,
+    screen_name: string,
+    price: string
+  },
+  view: string[]
+}
+
 const Key = () => {
 
   const router = useRouter();
 
-  const [posts, setPosts] = useState<{
-    created_at: string,
-    content: string,
-    poster_id: {
-      _id: string,
-      avatar: string,
-      username: string,
-      screen_name: string
-    }
-    _id: string
-    // reply: number, 
-    // exchange: number, 
-    // star: number, 
-    // bookmark: number, 
-    // price: number
-  }[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const [poster, setPoster] = useState<Profile>({});
   const [posteravatar, setPosteravatar] = useState('');
@@ -124,18 +126,53 @@ const Key = () => {
     }
   }, [poster])
 
+  const convertDate = (postCreatedTime: string) => {
+    // Input date string
+    var inputDate = postCreatedTime;
+
+    // Parse the input date string
+    var parsedDate = new Date(inputDate);
+
+    // Function to format the date in the desired output format
+    function formatOutputDate(date: Date) {
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      var formattedDate = months[date.getMonth()] + date.getDate() + ', ' + date.getFullYear() +
+        ' - ' + padZero(date.getHours()) + ':' + padZero(date.getMinutes()) + ' ' + getAMPM(date);
+
+      return formattedDate;
+    }
+
+    // Function to pad zero for single-digit hours and minutes
+    function padZero(num: string | number) {
+      return Number(num) < 10 ? '0' + num : num;
+    }
+
+    // Function to get AM/PM
+    function getAMPM(date: Date) {
+      return date.getHours() >= 12 ? 'PM' : 'AM';
+    }
+
+    // Format the date and print the result
+    var outputDate = formatOutputDate(parsedDate);
+    return outputDate
+  }
+
+
   if (posteravatar) {
     return (
       <div className='bg-main-bg-color dark:bg-dark-body-bg dark:text-white'>
         <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col'>
           <Sidebar />
           <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
-            <Link href={'/keys'} className='border border-[#E7EAF0] dark:border-dark-border dark:bg-dark-header-bg rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white'>
+            <div onClick={() => {
+              window.history.back()
+            }} className='border border-[#E7EAF0] dark:border-dark-border dark:bg-dark-header-bg rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white'>
               <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 opacity-90' />
               <h2 className='text-primary dark:text-white font-medium text-base leading-[24px]'>
                 Back
               </h2>
-            </Link>
+            </div>
             <div className='flex flex-col gap-4 p-4 bg-white dark:bg-dark-header-bg w-full max-sm:justify-center'>
               <div className='flex justify-between w-full items-start max-sm:justify-center'>
                 <Image quality={100} src={posteravatar} width={100} height={100} alt='Default avatar' className='w-25 h-25 rounded-full' />
@@ -253,7 +290,7 @@ const Key = () => {
               </div>
             </div>
 
-            <div className='flex gap-2 overflow-x-auto'>
+            <div className='flex gap-2 overflow-x-auto scrollbar-none'>
               <button className={`px-2 lg:px-6 py-1 lg:py-2 rounded-lg max-sm:w-full ${currentTab == 0 ? 'bg-secondary text-white' : ' border-border-color dark:border-dark-border border bg-white dark:bg-dark-header-bg text-primary dark:text-white'}`} onClick={() => setCurrentTab(0)}>
                 <div className='flex gap-4 items-center justify-center sm:justify-start'>
                   <h1 className='font-medium leading-[32px] text-center text-base'>
@@ -295,7 +332,7 @@ const Key = () => {
               currentTab == 0 && posts.length != 0 && posts.map((post, index) => {
                 return (
                   <div key={index}>
-                    <PostCard display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={post.created_at} content={post.content} />
+                    <PostCard display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={convertDate(post.created_at)} content={post.content} />
                   </div>
                 )
               })

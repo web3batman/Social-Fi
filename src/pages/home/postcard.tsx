@@ -1,9 +1,10 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import api from '@/constants/auth';
 import toast from 'react-hot-toast';
 import { UserContext } from '@/contexts/UserProvider';
+import Link from 'next/link';
 
 interface Post {
   _id: string,
@@ -34,7 +35,7 @@ const PostCard = (props: {
   const [post1, setPost] = useState<Post>(post);
   const [likeit, setLikeIt] = useState(false);
   const [replyCount, setReplyCount] = useState(0);
-  
+
   //@ts-ignore
   const { myProfile } = useContext(UserContext);
 
@@ -61,7 +62,7 @@ const PostCard = (props: {
     }
     if (day > 0) {
       if (day < 30) {
-        setTime(`${hour} d`)
+        setTime(`${day} d`)
       }
     }
     if (month > 0) {
@@ -89,7 +90,7 @@ const PostCard = (props: {
   }, [post1])
 
   const likePost = async (postid: any) => {
-    const res = await api.post('/posts/likepost',{postId: postid});
+    const res = await api.post('/posts/likepost', { postId: postid });
     if (res.data.state) {
       toast.success(res.data.msg);
       setPost(res.data.post)
@@ -98,20 +99,28 @@ const PostCard = (props: {
     }
   }
 
-  const toReplyPage = () => {
+  const toReplyPage = (e: any) => {
+    e.preventDefault();
+    console.log('toreplay')
     if (!noreplay || nolink) {
       router.push(`/home/${post1._id}`)
     }
   }
 
+  const toProfile = () => {
+    console.log('toprofile')
+
+    router.push(`/keys/${post1.poster_id._id}`)
+  }
+
   return (
     <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-4 dark:text-white border-b-2 border-border-color dark:border-dark-border'>
-      <div className='flex flex-col gap-1 cursor-pointer' onClick={toReplyPage}>
-        <div className='flex items-center justify-between w-full'>
+      <div className='flex flex-col gap-1 cursor-pointer'>
+        <div className='flex items-center justify-between w-full' onClick={toReplyPage}>
           <div className='flex gap-[10px] items-center'>
-            <Image quality={100} src={post1.poster_id.avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' />
+            <ProfileComponent post={post1} toProfile={toProfile} />
             <div className='flex flex-col'>
-              <h1 className='text-base font-bold leading-[24px]'>{ post1.poster_id.username }</h1>
+              <h1 className='text-base font-bold leading-[24px]'>{post1.poster_id.username}</h1>
               <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                 <div className="flex gap-2">
                   <span>@{post1.poster_id.screen_name}</span>
@@ -160,6 +169,19 @@ const PostCard = (props: {
           </div>
         )
       }
+    </div>
+  )
+}
+
+const ProfileComponent = (props: {
+  toProfile: () => void,
+  post: Post
+}) => {
+  const { toProfile, post } = props;
+
+  return (
+    <div onClick={toProfile}>
+      <Image quality={100} src={post.poster_id.avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' />
     </div>
   )
 }
