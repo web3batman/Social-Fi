@@ -79,7 +79,10 @@ const OpenPost = () => {
         //     price: myProfile.price
         //   }
         // }
-        setReply([...replys, res.data]);
+        console.log('res.data', res.data)
+        if (res.data) {
+          setReply(res.data);
+        }
         toast.success('Successfly posted.')
         // @ts-ignore
         

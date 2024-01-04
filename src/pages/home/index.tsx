@@ -72,7 +72,7 @@ const Home = () => {
         <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
           <Post addpost={addNewPost} />
           {
-            posts.map((post, index) => {
+           posts && posts.length > 0 && posts.map((post, index) => {
               return (
                 <div key={index}>
                   <PostCard post={post} />
