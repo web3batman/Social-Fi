@@ -15,7 +15,7 @@ const MessageCard = (props: any) => {
             {roomname ? roomname : user.username}
           </h1>
           <div className=''>
-            <h2 className='text-[12px] font-normal leading-[18px]'>24m</h2>
+            {/* <h2 className='text-[12px] font-normal leading-[18px]'>24m</h2> */}
           </div>
         </div>
       </div>
