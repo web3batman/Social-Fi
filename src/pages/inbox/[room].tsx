@@ -15,6 +15,10 @@ import Loading from '@/pages/loading';
 // Import the EmojiInput component from the react-input-emoji package
 import EmojiInput from 'react-input-emoji';
 
+
+import TextareaAutosize from 'react-textarea-autosize';
+import EmojiPicker from 'emoji-picker-react';
+
 const ChatInbox = () => {
   const router = useRouter();
   const roomname = router.query.room;
@@ -32,6 +36,7 @@ const ChatInbox = () => {
   const [scrollbottom, setScrollbottom] = useState(true);
 
   const messagesEndRef = useRef(null)
+  const chatBarRef = useRef(null)
 
   // New message and is typing state.
   const [message, setMessage] = useState("");
@@ -47,6 +52,8 @@ const ChatInbox = () => {
   // State for tracking selected reaction
   const [selectedReaction, setSelectedReaction] = useState(null);
 
+  const [chatbarHeight, setChatbarHeight] = useState(0);
+
   // Function to handle reaction selection
   const handleReactionSelect = (reaction: any) => {
     console.log('reaction', reaction)
@@ -57,9 +64,9 @@ const ChatInbox = () => {
   };
 
   // When user is typing new message.
-  const handleTyping = () => {
-    console.log('typing')
+  const handleTyping = (e: any) => {
     setScrollbottom(true)
+    setMessage(e.target.value)
 
     if (!isTyping) {
       setIsTyping(true);
@@ -200,6 +207,29 @@ const ChatInbox = () => {
     })
   }, [router]);
 
+  
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+  const [chosenEmoji, setChosenEmoji] = useState<any | null>(null);
+
+  const handleEmojiClick = (emoji: any) => {
+    setChosenEmoji(emoji);
+    setMessage((prevMessage) => prevMessage + emoji.emoji);
+  };
+
+  const toggleEmojiPicker = () => {
+    setShowEmojiPicker((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const element = chatBarRef.current;
+    if (!element) return
+    // @ts-ignore
+    setChatbarHeight(element.scrollHeight)
+    // @ts-ignore
+
+    console.log('chatbar height', element.scrollHeight)
+  }, [message])
+
   if (isloading) {
     return <Loading />
   } else {
@@ -208,7 +238,7 @@ const ChatInbox = () => {
       <div className='w-full bg-main-bg-color dark:bg-dark-body-bg dark:text-white'>
         <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col max-sm:px-0 max-sm:py-0'>
           <Sidebar />
-          <div className='flex flex-col gap-4 max-md:mb-28 w-[300px] max-md:hidden max-md:mb-100px'>
+          <div className='flex flex-col gap-4 max-md:mb-28 w-[300px] max-md:hidden max-md:mb-100px min-w-[250px]'>
             <h2 className='font-medium text-[24px] leading-[32px]'>Messages</h2>
             <Message />
           </div>
@@ -240,16 +270,16 @@ const ChatInbox = () => {
                 </div>
               </div>
             </div>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color h-[calc(100vh-296px)] max-md:h-[calc(100vh-375px)] overflow-y-auto' ref={messagesEndRef}>
+            <div className={`px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color overflow-y-auto`} ref={messagesEndRef} style={{height: `calc(100vh - ${chatbarHeight + 180}px)`}}>
               <div className='flex flex-col gap-4 text-[14px] text-grey-5'>
                 {messageList.length != 0 ? messageList.map((chat: any, index) => {
                   if (chat.sender == myProfile.username) {
                     return (
                       <div className='flex gap-4 items-center flex-row-reverse' key={index}>
                         <div className='flex flex-col gap-1'>
-                          <span className='p-3 rounded-[10px] bg-secondary text-white break-all'>
-                            {chat.message}
-                          </span>
+                          <div className='p-3 rounded-[10px] bg-secondary text-white break-all whitespace-pre-wrap ml-[50px]'>
+                                {chat.message}
+                          </div>
                           {/* <span className='text-[#738290] text-[12px] leading-[18px]'>
                             Just now
                           </span> */}
@@ -266,7 +296,9 @@ const ChatInbox = () => {
                               <div className='flex flex-col items-end gap-3'>
                                 <div className='p-3 rounded-[10px] relative bg-[#F5F6F8] dark:bg-dark-body-bg flex flex-col gap-2'>
                                   <div className='font-bold text-primary dark:text-white'>{chat.sender}</div>
-                                  <div className='dark:text-white break-all'>{chat.message}</div>
+                                  <div className='dark:text-white break-all whitespace-pre-wrap mr-[50px]'>
+                                      {chat.message}
+                                  </div>
                                   {/* <div className='absolute bg-white border px-2 py-1 rounded-full bottom-[-20%] right-0 shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px,rgba(0,0,0,0.15)_0px_1px_2px'>
                                       ❤️
                                   </div> */}
@@ -308,24 +340,44 @@ const ChatInbox = () => {
               </div>
               {/* <Picker data={data} onEmojiSelect={console.log} set='facebook' /> */}
             </div>
-            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary dark:text-white leading-[24px] max-sm:px-2'>
+            <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary dark:text-white leading-[24px] max-sm:px-2 max-[770px]:fixed max-[770px]:bottom-0 max-[770px]:w-full max-[770px]:dark:bg-dark-header-bg' ref={chatBarRef}>
 
-              <div className='flex gap-4 justify-between items-center max-sm:gap-1'>
-                {/* <input type="text" className={`px-2 py-3 bg-main-bg-color rounded-lg bg-[url("/icons/emoji-happy.svg")] bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => { */}
+              <div className='flex gap-4 justify-between max-sm:gap-1 items-start'>
 
-                <EmojiInput
+                {/* <EmojiInput
                   value={message}
                   onChange={setMessage}
                   cleanOnEnter
                   onEnter={handleSendMessage}
                   onKeyDown={handleTyping}
                   placeholder="Type a message"
-                />
+                /> */}
                 {/* <input type="text" className={`px-2 py-3 bg-main-bg-color dark:bg-dark-body-bg rounded-lg bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => {
                   if (event.key == 'Enter') {
                     handleSendMessage()
                   }
                 }} /> */}
+
+                <div className='relative flex gap-2 w-full items-start'>
+                  {/* Textarea for typing messages */}
+                  <button onClick={toggleEmojiPicker}>
+                    <Image src={'/icons/emoji-happy.svg'} width={100} height={100} className='w-10 h-10' alt='Emoji happy face' />
+                  </button>
+                  <TextareaAutosize
+                    minRows={1}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder='Type reply here'
+                    className={`px-2 py-3 bg-main-bg-color dark:bg-dark-body-bg rounded-lg bg-right bg-no-repeat resize-none w-[-webkit-fill-available] ${styles.inputtype}`}
+                  />
+
+                  {showEmojiPicker && (
+                    <div className='absolute top-0 -translate-y-[102%]'>
+                      <EmojiPicker onEmojiClick={handleEmojiClick} />
+                    </div>
+                  )}
+                </div>
+
                 <button className='px-5 py-3 rounded-lg bg-secondary max-sm:w-[80px] max-sm:px-0 max-sm:py-2' onClick={handleSendMessage}>
                   <div className='flex gap-4 items-center justify-center sm:justify-start'>
                     <h1 className='text-white font-medium leading-[24px] text-center text-base'>
@@ -342,7 +394,9 @@ const ChatInbox = () => {
             </div>
           </div>
         </div>
-        <BottomNav />
+        <div className='max-[770px]:hidden'>
+          <BottomNav />
+        </div>
       </div>
     )
   }
