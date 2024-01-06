@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Sidebar from '@/components/sidebar';
 import SideBarRight from '@/components/sidebar_right';
 import Post from './post';
@@ -34,12 +34,13 @@ const Home = () => {
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
 
-  const addNewPost = async (post: {content: string}) => {
+  const addNewPost = async (post: { content: string }) => {
 
     //@ts-ignore
-    api.post(`/posts`, {content: post.content}).then(
+    api.post(`/posts`, { content: post.content }).then(
       res => {
-        let newdata = [...posts, res.data];
+        console.log("res.data", res.data)
+        let newdata = [res.data, ...posts];
         setPosts(newdata);
       }
     ).catch(
@@ -51,19 +52,16 @@ const Home = () => {
    * Get all posts when the component render.
    */
   useEffect(() => {
-      api.get('/posts').then(res => {
-        setPosts(res.data);
-      }).catch(err => {
-        console.log('Error', err);
-      })
+    getPosts()
   }, [])
 
-  // useEffect(() => {
-  //   if(!posts) return;
-  //   let temarr = posts.reverse();
-  //   console.log(temarr)
-  //   setTemp(temarr);
-  // }, [posts])
+  const getPosts = () => {
+    api.get('/posts').then(res => {
+      setPosts(res.data);
+    }).catch(err => {
+      console.log('Error', err);
+    })
+  }
 
   return (
     <div className='bg-main-bg-color dark:bg-[#212529]'>
@@ -72,7 +70,7 @@ const Home = () => {
         <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
           <Post addpost={addNewPost} />
           {
-           posts && posts.length > 0 && posts.map((post, index) => {
+            posts && posts.length > 0 && posts.map((post, index) => {
               return (
                 <div key={index}>
                   <PostCard post={post} />

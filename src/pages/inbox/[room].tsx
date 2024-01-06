@@ -52,7 +52,7 @@ const ChatInbox = () => {
   // State for tracking selected reaction
   const [selectedReaction, setSelectedReaction] = useState(null);
 
-  const [chatbarHeight, setChatbarHeight] = useState(0);
+  const [chatbarHeight, setChatbarHeight] = useState(96);
 
   // Function to handle reaction selection
   const handleReactionSelect = (reaction: any) => {
@@ -224,18 +224,30 @@ const ChatInbox = () => {
     const element = chatBarRef.current;
     if (!element) return
     // @ts-ignore
-    setChatbarHeight(element.scrollHeight)
+    setChatbarHeight(element.scrollHeight + 16)
     // @ts-ignore
 
     console.log('chatbar height', element.scrollHeight)
   }, [message])
+
+  const elementRef = useRef(null);
+  const emojiElRef = useRef(null);
+  const handleClick = (e: any) => {
+    if(showEmojiPicker == false) return
+    const element2 = emojiElRef.current;
+    //@ts-ignore
+    if (e.target !== elementRef.current && !element2.contains(e.target)) {
+      // Your logic for when any element except the excluded one is clicked
+      setShowEmojiPicker(false);
+    }
+  }
 
   if (isloading) {
     return <Loading />
   } else {
 
     return (
-      <div className='w-full bg-main-bg-color dark:bg-dark-body-bg dark:text-white'>
+      <div className='w-full bg-main-bg-color dark:bg-dark-body-bg dark:text-white' onClick={handleClick}>
         <div className='px-5 py-6 flex max-w-[1240px] mx-auto justify-between gap-4 max-md:flex-col max-sm:px-0 max-sm:py-0'>
           <Sidebar />
           <div className='flex flex-col gap-4 max-md:mb-28 w-[300px] max-md:hidden max-md:mb-100px min-w-[250px]'>
@@ -344,35 +356,22 @@ const ChatInbox = () => {
 
               <div className='flex gap-4 justify-between max-sm:gap-1 items-start'>
 
-                {/* <EmojiInput
-                  value={message}
-                  onChange={setMessage}
-                  cleanOnEnter
-                  onEnter={handleSendMessage}
-                  onKeyDown={handleTyping}
-                  placeholder="Type a message"
-                /> */}
-                {/* <input type="text" className={`px-2 py-3 bg-main-bg-color dark:bg-dark-body-bg rounded-lg bg-right bg-no-repeat w-[-webkit-fill-available] ${styles.inputtype}`} placeholder='Type reply here' value={message} onChange={handleTyping} autoFocus onKeyDown={(event) => {
-                  if (event.key == 'Enter') {
-                    handleSendMessage()
-                  }
-                }} /> */}
-
                 <div className='relative flex gap-2 w-full items-start'>
                   {/* Textarea for typing messages */}
-                  <button onClick={toggleEmojiPicker}>
+                  <button onClick={toggleEmojiPicker} ref={elementRef}>
                     <Image src={'/icons/emoji-happy.svg'} width={100} height={100} className='w-10 h-10' alt='Emoji happy face' />
                   </button>
                   <TextareaAutosize
                     minRows={1}
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    maxRows={6}
+                    onChange={(e) => {setMessage(e.target.value); handleTyping(e);}}
                     placeholder='Type reply here'
                     className={`px-2 py-3 bg-main-bg-color dark:bg-dark-body-bg rounded-lg bg-right bg-no-repeat resize-none w-[-webkit-fill-available] ${styles.inputtype}`}
                   />
 
                   {showEmojiPicker && (
-                    <div className='absolute top-0 -translate-y-[102%]'>
+                    <div className='absolute top-0 -translate-y-[102%]' ref={emojiElRef}>
                       <EmojiPicker onEmojiClick={handleEmojiClick} />
                     </div>
                   )}
