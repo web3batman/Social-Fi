@@ -3,6 +3,9 @@ import Image from 'next/image'
 import { UserContext } from '@/contexts/UserProvider';
 import toast from 'react-hot-toast'
 
+import EmojiPicker from 'emoji-picker-react';
+
+
 const Post = (props: { addpost: Function, reply?: string }) => {
   const { addpost, reply } = props;
 
@@ -51,16 +54,48 @@ const Post = (props: { addpost: Function, reply?: string }) => {
     }
   }, [postcontent]);
 
+
+  // Emoji part
+  
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+  const [chosenEmoji, setChosenEmoji] = useState<any | null>(null);
+
+  const handleEmojiClick = (emoji: any) => {
+    setChosenEmoji(emoji);
+    setPostcontent((prevMessage) => prevMessage + emoji.emoji);
+  };
+
+  const toggleEmojiPicker = () => {
+    setShowEmojiPicker((prev) => !prev);
+  };
+
+  const elementRef = useRef(null);
+  const emojiElRef = useRef(null);
+  const handleClick = (e: any) => {
+    if(showEmojiPicker == false) return
+    const element2 = emojiElRef.current;
+    //@ts-ignore
+    if (e.target !== elementRef.current && !element2.contains(e.target)) {
+      // Your logic for when any element except the excluded one is clicked
+      setShowEmojiPicker(false);
+    }
+  }
+
   return (
-    <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-2'>
+    <div className='bg-white dark:bg-dark-header-bg p-4 rounded-[15px] flex flex-col gap-2' onClick={handleClick}>
       <div className='flex gap-4 w-full'>
         <Image quality={100} src={myProfile.avatar || avatar} width={100} height={100} alt='Default avatar' className='w-[35px] h-[35px] rounded-full' />
         <textarea className='text-grey-2 font-normal text-[14px] leading-[20px] bg-grey-3 dark:bg-dark-body-bg w-full rounded-lg p-2 resize-none' value={postcontent} ref={newPostRef} onChange={handleChange} autoFocus />
       </div>
       <div className='flex justify-between items-center'>
-        <div className='flex gap-2'>
-          <Image quality={100} src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
-          <Image quality={100} src={'/icons/photograph.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px]' />
+        <div className='flex gap-2 relative'>
+          <Image quality={100} src={'/icons/emoji-happy.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px] cursor-pointer' onClick={toggleEmojiPicker} ref={elementRef} />
+          <Image quality={100} src={'/icons/photograph.svg'} width={100} height={100} alt='Default avatar' className='w-[24px] h-[24px] cursor-pointer' />
+          {showEmojiPicker && (
+            <div className='absolute -bottom-3 translate-y-full z-10' ref={emojiElRef}>
+              <EmojiPicker onEmojiClick={handleEmojiClick} />
+            </div>
+          )}
         </div>
         <div className='flex gap-4 items-center'>
           {

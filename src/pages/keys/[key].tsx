@@ -167,7 +167,7 @@ const Key = () => {
           <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
             <div onClick={() => {
               window.history.back()
-            }} className='border border-[#E7EAF0] dark:border-dark-border dark:bg-dark-header-bg rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white'>
+            }} className='border border-[#E7EAF0] dark:border-dark-border dark:bg-dark-header-bg rounded-lg py-2 px-4 flex items-center gap-2 w-fit bg-white cursor-pointer'>
               <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Default avatar' className='w-4 h-4 opacity-90' />
               <h2 className='text-primary dark:text-white font-medium text-base leading-[24px]'>
                 Back
