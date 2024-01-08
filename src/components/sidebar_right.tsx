@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const SideBarRight = () => {
   return (
-    <div className='shrink-0 max-md:hidden'>
+    <div className='shrink-0 hidden'>
       <div className='flex flex-col gap-4 rounded-[15px] bg-white dark:bg-dark-header-bg dark:text-white w-[250px] lg:w-[300px] p-4'>
         <h1 className='text-primary dark:text-white text-base leading-[24px] font-semibold'>Who to follow</h1>
         <div className='flex items-center justify-between w-full'>
