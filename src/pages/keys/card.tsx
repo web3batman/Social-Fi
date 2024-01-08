@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -7,7 +7,41 @@ const Card = (props: { item: object }) => {
   const router = useRouter();
 
   //@ts-ignore
-  const { customer, seller, buy, count } = props.item;
+  const { customer, seller, buy, count, created_at } = props.item;
+  const [creatTime, setTime] = useState('');
+
+  useEffect(() => {
+    convertTime();
+  }, [])
+
+  const convertTime = () => {
+    const timestamp: any = new Date(created_at);
+      const currentTimestamp: any = new Date();
+      const timeDifference = currentTimestamp - timestamp;
+      const minutesDifference = timeDifference / (1000 * 60);
+      const minute = Math.floor(minutesDifference);
+      const hour = Math.floor(minute / 60);
+      const day = Math.floor(hour / 24);
+      const month = Math.floor(day / 30);
+      const createTime = created_at.split('T')[0];
+
+      if (minute < 60) {
+        setTime(`${minute + 1} m`)
+      }
+      if (hour > 0) {
+        if (hour < 24) {
+          setTime(`${hour} h`)
+        }
+      }
+      if (day > 0) {
+        if (day < 30) {
+          setTime(`${day} d`)
+        }
+      }
+      if (month > 0) {
+        setTime(createTime);
+      }
+  }
 
   return (
     <div className='p-4 bg-white dark:bg-dark-header-bg flex items-center rounded-lg w-full'>
@@ -23,9 +57,9 @@ const Card = (props: { item: object }) => {
             <span className='font-base font-normal'> key</span>
           </div>
           <div className='text-[12px] font-normal leading-[18px] text-[#738290] flex items-center gap-2'>
-            <h2 className='text-[14px] text-secondary font-medium leading-[18px]'>1.3273 ADA</h2>
-            <span className='w-1 h-1 rounded-full bg-grey-2'></span>
-            <span>Just now</span>
+            {/* <h2 className='text-[14px] text-secondary font-medium leading-[18px]'>1.3273 ADA</h2>
+            <span className='w-1 h-1 rounded-full bg-grey-2'></span> */}
+            <span>{creatTime} ago</span>
           </div>
         </div>
       </div>
