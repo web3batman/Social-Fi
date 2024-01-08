@@ -154,7 +154,7 @@ const PostCard = (props: {
       </div>
       {
         !noreplay && post1 && (
-          <div className='flex justify-between gap-4 max-sm:flex-col'>
+          <div className='flex justify-between gap-4'>
             <div className='flex gap-4'>
               {/* <div className='flex gap-1 items-center'>
                 <Image quality={100} src={'/icons/chat.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
