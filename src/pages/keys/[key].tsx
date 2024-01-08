@@ -182,9 +182,6 @@ const Key = () => {
                       <Image quality={100} src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                     </a>
                   </div>
-                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
-                    <Image quality={100} src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
-                  </div>
                 </div>
               </div>
               <div className='flex justify-between items-center max-sm:justify-center max-sm:flex-col'>
@@ -247,9 +244,9 @@ const Key = () => {
                     </div> */}
                 </div>
                 <div className='flex gap-2 items-center max-sm:hidden'>
-                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
+                  {/* <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
-                  </div>
+                  </div> */}
                   <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
                   </div>
@@ -273,9 +270,9 @@ const Key = () => {
               </div>
               <div className='flex w-full justify-between items-center min-[640px]:hidden'>
                 <div className='flex gap-2'>
-                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
+                  {/* <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/bookmark.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
-                  </div>
+                  </div> */}
                   <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
                   </div>
@@ -332,7 +329,7 @@ const Key = () => {
               currentTab == 0 && posts.length != 0 && posts.map((post, index) => {
                 return (
                   <div key={index}>
-                    <PostCard display_name={post.poster_id.screen_name} username={post.poster_id.username} avatar={post.poster_id.avatar} created_at={convertDate(post.created_at)} content={post.content} />
+                    <PostCard post={post} />
                   </div>
                 )
               })
