@@ -12,6 +12,7 @@ import { signOut, useSession } from 'next-auth/react'
 import { UserContext } from '@/contexts/UserProvider';
 import Loading from '@/pages/loading';
 import toast, {Toaster} from 'react-hot-toast';
+import axios from 'axios';
 
 const saira = Saira({
   weight: '400',
@@ -40,6 +41,10 @@ const Layout = ({ children }: MyComponentProps) => {
       if (status == 'authenticated') {
         //@ts-ignore
         const twitterid = session.token.sub;
+        //@ts-ignore
+        const username = session.token.name;
+        //@ts-ignore
+        const useravatar = session.token.picture;
         const userinfo = localStorage.getItem('token');
         if (userinfo) {
           setAuthToken(userinfo);
@@ -58,7 +63,7 @@ const Layout = ({ children }: MyComponentProps) => {
             }
           )
         } else {
-          api.post('/users', {signin: twitterid}).then(
+          api.post('/users', {signin: twitterid, username, useravatar}).then(
             res => {
               const { token, user } = res.data;
               setAuthToken(token);

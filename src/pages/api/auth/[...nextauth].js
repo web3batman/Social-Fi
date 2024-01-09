@@ -14,7 +14,7 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn({user, account, profile}) {
-      const response = api.post('/users',{ profile: profile });
+      const response = api.post('/users',{ profile: profile, account: account });
       const {token} = response;
       return true;
     },
