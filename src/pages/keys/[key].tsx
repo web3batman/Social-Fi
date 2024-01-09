@@ -276,6 +276,11 @@ const Key = () => {
                   <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <Image quality={100} src={'/icons/side_inbox_active.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full cursor-pointer' onClick={toChatRoom} />
                   </div>
+                  <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
+                    <a href={`http://x.com/${poster.screen_name}`} target="_blank" rel="noopener noreferrer">
+                      <Image quality={100} src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                    </a>
+                  </div>
                 </div>
                 <button className='px-8 py-2 rounded-lg bg-secondary' onClick={() => setModal(true)}>
                   <div className='flex gap-4 items-center justify-center sm:justify-start'>
