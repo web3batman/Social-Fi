@@ -39,20 +39,20 @@ export default function ConfirmModal(props: { show: boolean; closeModal: any; bu
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full transform overflow-hidden rounded-lg bg-white p-0 text-left align-middle shadow-xl transition-all max-w-[335px] sm:max-w-[488px]">
+                <Dialog.Panel className="w-full transform overflow-hidden rounded-lg bg-white dark:bg-dark-body-bg p-0 text-left align-middle shadow-xl transition-all max-w-[335px] sm:max-w-[488px]">
                   <Dialog.Title
                     as="h3"
-                    className='text-lg text-[24px] font-semibold leading-8 text-primary p-5 flex justify-between items-center'
+                    className='text-lg text-[24px] font-semibold leading-8 text-primary dark:text-grey-2 p-5 flex justify-between items-center'
                   >
                     <span>
                       Confirm
                     </span>
-                    <span className='px-3 py-1 rounded-lg border border-border-color cursor-pointer hover:bg-main-bg-color' onClick={closeModal}>
+                    <span className='px-3 py-1 rounded-lg border border-border-color cursor-pointer hover:bg-main-bg-color dark:text-grey-2 dark:hover:bg-dark-header-bg' onClick={closeModal}>
                       X
                     </span>
                   </Dialog.Title>
                   <div className="p-8 flex flex-col gap-20">
-                    <div className='text-center text-[24px] leading-[36px]'>
+                    <div className='text-center text-[24px] leading-[36px] dark:text-grey-2'>
                       Are you sure?
                     </div>
                     <div className='flex justify-around gap-[10px] w-full'>
@@ -63,7 +63,7 @@ export default function ConfirmModal(props: { show: boolean; closeModal: any; bu
                           </h1>
                         </div>
                       </button>
-                      <button className='py-2 rounded-lg bg-main-bg-color border border-border-color w-full max-w-[119px]' onClick={closeModal}>
+                      <button className='py-2 rounded-lg bg-main-bg-color dark:bg-dark-header-bg border border-border-color w-full max-w-[119px] dark:text-white' onClick={closeModal}>
                         <div className='flex gap-4 items-center justify-center sm:justify-start'>
                           <h1 className='font-medium leading-[24px] w-full text-center text-[16px]'>
                             No

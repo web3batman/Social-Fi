@@ -161,7 +161,7 @@ const PostCard = (props: {
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
               </div> */}
               <div className='flex gap-1 items-center'>
-                <Image quality={100} src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+                <Image quality={100} src={'/icons/Comment.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
                 {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{replyCount}</h3>
               </div>

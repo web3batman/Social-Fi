@@ -5,6 +5,7 @@ import api from '@/constants/auth';
 import toast from 'react-hot-toast';
 import { UserContext } from '@/contexts/UserProvider';
 import Link from 'next/link';
+import ConfirmModal from '@/components/confirmModal';
 
 interface Post {
   _id: string,
@@ -35,6 +36,8 @@ const PostCard = (props: {
   const [post1, setPost] = useState<Post>();
   const [likeit, setLikeIt] = useState(false);
   const [replyCount, setReplyCount] = useState(0);
+
+  const [confModal, setConfModal] = useState(false);
 
   //@ts-ignore
   const { myProfile } = useContext(UserContext);
@@ -118,10 +121,15 @@ const PostCard = (props: {
   }
 
   const toProfile = () => {
-    console.log('toprofile')
-
     if (post1) {
       router.push(`/keys/${post1.poster_id._id}`)
+    }
+  }
+
+  const deletePost = async () => {
+    const res = await api.delete(`/posts/${post._id}`);
+    if (res) {
+      router.reload()
     }
   }
 
@@ -161,7 +169,7 @@ const PostCard = (props: {
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
               </div> */}
               <div className='flex gap-1 items-center'>
-                <Image quality={100} src={'/icons/refresh.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
+                <Image quality={100} src={'/icons/Comment.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
                 {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{replyCount}</h3>
               </div>
@@ -181,11 +189,14 @@ const PostCard = (props: {
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post.poster_id.price}</h3>
                 <Image quality={100} src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
               </div>
-              <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' />
+              <Image quality={100} src={'/icons/trash.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 cursor-pointer' onClick={() => setConfModal(true)} />
+
+              {/* <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' /> */}
             </div>
           </div>
         )
       }
+      <ConfirmModal show={confModal} closeModal={() => setConfModal(false)} buykey={deletePost} />
     </div>
   )
 }
