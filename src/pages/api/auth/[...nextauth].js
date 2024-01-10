@@ -1,6 +1,5 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import TwitterProvider from "next-auth/providers/twitter";
-import Router from "next/navigation";
 import api from '../../../constants/auth';
 
 export default NextAuth({
@@ -13,9 +12,9 @@ export default NextAuth({
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({user, account, profile}) {
-      const response = api.post('/users',{ profile: profile, account: account });
-      const {token} = response;
+    async signIn({ user, account, profile }) {
+      const response = api.post('/users', { profile: profile });
+      const { token } = response;
       return true;
     },
     async session(session, user) {

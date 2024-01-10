@@ -41,10 +41,6 @@ const Layout = ({ children }: MyComponentProps) => {
       if (status == 'authenticated') {
         //@ts-ignore
         const twitterid = session.token.sub;
-        //@ts-ignore
-        const username = session.token.name;
-        //@ts-ignore
-        const useravatar = session.token.picture;
         const userinfo = localStorage.getItem('token');
         if (userinfo) {
           setAuthToken(userinfo);
@@ -63,7 +59,7 @@ const Layout = ({ children }: MyComponentProps) => {
             }
           )
         } else {
-          api.post('/users', {signin: twitterid, username, useravatar}).then(
+          api.post('/users', {signin: twitterid}).then(
             res => {
               const { token, user } = res.data;
               setAuthToken(token);
