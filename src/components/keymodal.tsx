@@ -59,8 +59,19 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
   useEffect(() => {
     //@ts-ignore
     setBuyPrice(Math.floor(owner.price * 1.1 * 100) / 100)
+    let tempSellPrice;
     //@ts-ignore
-    setSellPrice(Math.floor(owner.price * 0.9 * 100) / 100)
+    if (owner.keyCount == 1) {
+      tempSellPrice = 0.14;
+      //@ts-ignore
+    } else if(owner.keyCount == 0){
+      tempSellPrice = 0;
+    } else {
+      //@ts-ignore
+      tempSellPrice = 2 / 7 * Math.pow(owner.keyCount - 1, 2);
+    }
+    //@ts-ignore
+    setSellPrice(Math.floor(tempSellPrice * 0.9 * 100) / 100)
   }, [])
 
   useEffect(() => {
@@ -189,7 +200,7 @@ export default function KeyModal(props: { show: boolean; closeModal: any; openMo
                       </button>
                       }
                       {
-                        keyCount != 0?<button className='py-4 rounded-lg bg-main-bg-color border border-border-color w-full max-w-[219px]' onClick={() => confirmContract(false)}>
+                        keyCount != 0?<button className='py-4 rounded-lg bg-main-bg-color dark:bg-dark-body-bg border border-border-color w-full max-w-[219px]' onClick={() => confirmContract(false)}>
                         <div className='flex gap-4 items-center justify-center sm:justify-start'>
                           <h1 className='font-medium leading-[24px] w-full text-center text-[16px]'>
                             Sell a key
