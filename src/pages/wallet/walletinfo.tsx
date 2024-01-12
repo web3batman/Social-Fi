@@ -37,7 +37,7 @@ const WalletInfo: NextPage = () => {
       <div className='flex justify-between gap-4 max-lg:flex-col'>
         <WalletSatus title={'Balance'} amount={Math.floor(myProfile.balance * 100) / 100} />
         <WalletSatus title={'Fees Earned'} amount={Math.floor(myProfile.fee_profit * 100) / 100} />
-        <WalletSatus title={'Portfolio Value'} amount={'0'} />
+        {/* <WalletSatus title={'Portfolio Value'} amount={'0'} /> */}
       </div>
       <div className='flex justify-between gap-4'>
         <div className="p-4 rounded-lg flex flex-col justify-between items-center bg-white dark:bg-dark-header-bg border border-border-color dark:border-dark-border w-1/2 cursor-pointer hover:bg-slate-300" onClick={() => { setModal(true) }}>
