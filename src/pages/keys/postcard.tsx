@@ -189,8 +189,11 @@ const PostCard = (props: {
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post.poster_id.price}</h3>
                 <Image quality={100} src={'/icons/currency-dollar.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
               </div>
-              <Image quality={100} src={'/icons/trash.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 cursor-pointer' onClick={() => setConfModal(true)} />
-
+              {
+                myProfile._id == post.poster_id && (
+                  <Image quality={100} src={'/icons/trash.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 cursor-pointer' onClick={() => setConfModal(true)} />
+                )
+              }
               {/* <Image quality={100} src={'/icons/dots-vertical.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90 max-sm:hidden' /> */}
             </div>
           </div>
