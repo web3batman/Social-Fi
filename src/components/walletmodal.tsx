@@ -23,8 +23,8 @@ const people = [
   { id: 5, name: 'Katelyn Rohan', unavailable: false },
 ]
 
-export default function Modal(props: { show: boolean; closeModal: any; openModal: any; }) {
-  const { show, closeModal, openModal } = props;
+export default function Modal(props: { show: boolean; closeModal: any; confirm?: boolean }) {
+  const { show, closeModal, confirm } = props;
   const router = useRouter();
   const [wallets, setWallets] = useState([Object]);
   const [mywallet, setWallet] = useState<object>();
@@ -93,17 +93,15 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     //   res => console.log(res)
     // ).catch(err => console.log(err))
     if(!mywallet) return;
- 
-    if (depositAmount == 0) {
+    
+    if (depositAmount == 0 && !confirm) {
       toast.error('Please fill the correct balance.')
     } else {
-
-
       const amount: string = ((Number(depositAmount) + 1) * 1000000).toString();
       const tx = new Transaction({ initiator: mywallet })
         .sendLovelace(
           process.env.NEXT_PUBLIC_WALLET_ADDRESS,
-          amount
+          confirm?"10000000":amount
         )
         ;
 
@@ -115,18 +113,28 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
         const txHash = await mywallet.submitTx(signedTx);
         if (txHash) {
           const total = Number(myProfile.balance) + Number(depositAmount);
-          api.post('/users/deposit', { totalBalance: total }).then(
-            res => {
-              toast.success("Deposit succeed")
-              closeModal();
-              setDepositAmount(0)
-              setMyProfile(res.data);
-              router.reload();
-
-            }
-          ).catch(
-            err => toast.error(err)
-          )
+          if(confirm){
+            api.post('/users/verify', {userid: myProfile._id}).then(
+              res => {
+                toast.success("Verification succeed");
+                router.reload()
+              }
+            ).catch(
+              err => toast.error(err)
+            )
+          } else {
+            api.post('/users/deposit', { totalBalance: total }).then(
+              res => {
+                toast.success("Deposit succeed")
+                closeModal();
+                setDepositAmount(0)
+                setMyProfile(res.data);
+                router.reload();
+              }
+            ).catch(
+              err => toast.error(err)
+            )
+          }
         }
       } catch (error) {
         toast.error("You dont have enough balance to deposit.")
@@ -227,7 +235,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                     }
                     <div className='flex justify-between items-center mt-5'>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
-                        Amount
+                        {confirm && 'Amount: 10'}
                       </h1>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
                         Available amount: &nbsp;
@@ -236,20 +244,28 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                         </span>
                       </h1>
                     </div>
-                    <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color dark:bg-dark-body-bg rounded-lg mt-2'>
-                      <input type="number" value={depositAmount} min={1} max={ballance - 1} className='dark:bg-dark-body-bg border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
-                      <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
-                        MAX
-                      </span>
-                    </div>
-                    <div className='flex justify-end mt-2'>
-                      <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
-                        Fee: &nbsp;
-                        <span className='text-medium'>
-                          1 ADA
-                        </span>
-                      </h1>
-                    </div>
+                    {
+                      !confirm && (
+                        <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color dark:bg-dark-body-bg rounded-lg mt-2'>
+                          <input type="number" value={depositAmount} min={1} max={ballance - 1} className='dark:bg-dark-body-bg border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
+                          <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
+                            MAX
+                          </span>
+                        </div>
+                      )
+                    }
+                    {
+                      !confirm && (
+                        <div className='flex justify-end mt-2'>
+                          <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
+                            Fee: &nbsp;
+                            <span className='text-medium'>
+                              1 ADA
+                            </span>
+                          </h1>
+                        </div>
+                      )
+                    }
                     {/* <div className='flex justify-center items-center flex-col gap-2 mt-6'>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
                         Transaction Fee:  &nbsp;

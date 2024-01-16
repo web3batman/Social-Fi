@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
 
+import Modal from './walletmodal';
+
 import Switcher from './button/Switcher';
 
 const aclonica = Aclonica({
@@ -18,6 +20,8 @@ const aclonica = Aclonica({
 const LandingHeader = () => {
   const router = useRouter();
   const [navshow, setNavshow] = useState(false);
+
+  const [wallet, setWallet] = useState(false);
 
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext);
@@ -44,6 +48,9 @@ const LandingHeader = () => {
         </Link> */}
       </div>
       <div className='flex gap-2 items-center'>
+      {
+        myProfile.avatar && !myProfile.verified && <Image quality={100} src={'/icons/wallet.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 sm:w-10 sm:h-10 cursor-pointer' onClick={() => setWallet(true)} />
+      }
         {
           myProfile.avatar ? (
             <div className='flex gap-1 items-center'>
@@ -85,6 +92,7 @@ const LandingHeader = () => {
           Community
         </Link> */}
       </div>
+      <Modal show={wallet} closeModal={() => setWallet(false)} confirm={true} />
     </div>
   )
 }

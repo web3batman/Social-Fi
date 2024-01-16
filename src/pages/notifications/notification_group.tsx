@@ -17,7 +17,8 @@ interface Noti {
     avatar: String
   },
   read_status: Boolean,
-  created_at: Date
+  created_at: Date,
+  target_id: String
 }
 
 const NotificationGroup = () => {
@@ -38,7 +39,7 @@ const NotificationGroup = () => {
       {
         notifications?.map((noti, index) => {
           return (
-            <Notification id={noti._id} active={true} username={noti.activist.username} notitype={noti.noti_type} time={noti.created_at} avatar={noti.activist.avatar} key={index} />
+            <Notification id={noti._id} active={true} username={noti.activist.username} notitype={noti.noti_type} time={noti.created_at} avatar={noti.activist.avatar} key={index} target={noti.target_id} />
           )
         })
       }
