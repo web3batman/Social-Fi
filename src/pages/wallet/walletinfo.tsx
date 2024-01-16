@@ -53,7 +53,7 @@ const WalletInfo: NextPage = () => {
           </h3>
         </div>
       </div>
-      <Modal show={modalshow} closeModal={closeModal} openModal={openModal} />
+      <Modal show={modalshow} closeModal={closeModal} />
       <WithDrawModal show={wdModal} closeModal={closeWdModal} openModal={openWdModal} />
     </div>
   )
