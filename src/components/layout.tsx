@@ -48,7 +48,11 @@ const Layout = ({ children }: MyComponentProps) => {
           api.get('/users').then((res) => {
             if (res.data.user) {
               setMyProfile(res.data.userdata);
-              router.push(path == "/"?'/home':path);
+              if (res.data.userdata.verified) {
+                router.push(path == "/"?'/home':path);
+              } else {
+                router.push('/')
+              }
             } else {
               setAuthToken(false);
               router.push('/');
@@ -65,7 +69,11 @@ const Layout = ({ children }: MyComponentProps) => {
               const { token, user } = res.data;
               setAuthToken(token);
               setMyProfile(user);
-              router.push('/home');
+              if (user.verified) {
+                router.push('/home');
+              } else {
+                router.push('/')
+              }
             }
           ).catch(err => {
             router.push('/');
@@ -151,13 +159,15 @@ const Layout = ({ children }: MyComponentProps) => {
       }
     } else {
         return (
-          <>
           <main className="flex min-h-screen flex-col items-center justify-between">
             <LandingHeader />
             {children}
             <Footer />
+            <Toaster 
+              position="top-right"
+              reverseOrder={false}
+             />
           </main>
-          </>
         )
     }
   }

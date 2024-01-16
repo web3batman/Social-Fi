@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import { UserContext } from '@/contexts/UserProvider'
 
 const Notification = (props: any) => {
-  let { active, username, notitype, time, avatar, id } = props;
+  let { active, username, notitype, time, avatar, id, target } = props;
   const [comment, setComment] = useState('');
   const [notifi_avatar, setNotifiavatar] = useState('/icons/noti_ring.svg');
 
@@ -34,11 +34,11 @@ const Notification = (props: any) => {
   useEffect(() => {
     console.log('notitype', notitype)
     switch (notitype) {
-      case 'comment':
-        setComment('commented on your post');
+      case 'post':
+        setComment('posted new post');
         setNotifiavatar('/icons/noti_inbox.svg');
         break;
-      case 'star':
+      case 'postlike':
         setComment('liked your post');
         setNotifiavatar('/icons/star.svg');
         break;
@@ -74,6 +74,10 @@ const Notification = (props: any) => {
               break;
             case 'chat':
               router.push(`/inbox/${myProfile._id}`)
+            case 'postlike':
+              router.push(`/home/${target}`)
+            case 'post':
+              router.push(`/home/${target}`)
           }
         }).catch(err => {
           toast.error("There is an error!")
