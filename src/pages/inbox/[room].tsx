@@ -18,6 +18,7 @@ import EmojiInput from 'react-input-emoji';
 
 import TextareaAutosize from 'react-textarea-autosize';
 import EmojiPicker from 'emoji-picker-react';
+import Link from 'next/link';
 
 const ChatInbox = () => {
   const router = useRouter();
@@ -257,9 +258,9 @@ const ChatInbox = () => {
           <div className='flex flex-col justify-between bg-white dark:bg-dark-header-bg flex-grow rounded-lg'>
             <div className='px-6 py-4 border border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex justify-between'>
               <div className='flex gap-2 items-center'>
-                <div className='bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-body-bg p-2 rounded-full cursor-pointer hover:bg-white dark:hover:bg-border-color' onClick={() => { router.push('/inbox') }}>
+                <Link href={'/inbox'} className='bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-body-bg p-2 rounded-full cursor-pointer hover:bg-white dark:hover:bg-border-color'>
                   <Image quality={100} src={'/icons/arrow-left.svg'} width={100} height={100} alt='Icon' className='w-6 h-6' />
-                </div>
+                </Link>
                 <Image quality={100} src={roomOwner ? roomOwner.avatar : '/avatars/default_profile_normal.png'} width={100} height={100} alt='Icon' className='w-10 h-10 rounded-full' />
                 <div className='flex flex-col justify-between '>
                   <h1 className='text-[#2D3748] dark:text-white font-semibold text-[18px] leading-[24px]'>
