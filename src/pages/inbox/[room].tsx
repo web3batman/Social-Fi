@@ -55,6 +55,8 @@ const ChatInbox = () => {
 
   const [chatbarHeight, setChatbarHeight] = useState(96);
 
+  const [isuser, setUser] = useState(false);
+
   // Function to handle reaction selection
   const handleReactionSelect = (reaction: any) => {
     console.log('reaction', reaction)
@@ -191,6 +193,15 @@ const ChatInbox = () => {
   }, [])
 
   useEffect(() => {
+    socket.on('allusers', (data: any) => {
+      console.log('alluser', data)
+      if (data.indexOf(roomname) > -1) {
+        setUser(true);
+      }
+    })
+  })
+
+  useEffect(() => {
     api.get(`/users/${roomname}`).then(
       res => {
         setRoomOwner(res.data);
@@ -200,6 +211,9 @@ const ChatInbox = () => {
 
   useEffect(() => {
     socket.emit('join_room', { roomname, sender: myProfile.username, avatar: myProfile.avatar, id: myProfile._id })
+    return (() => {
+      socket.emit('leave_room', { roomname, sender: myProfile.username, avatar: myProfile.avatar, id: myProfile._id })
+    })
   })
 
   useEffect(() => {
@@ -267,9 +281,9 @@ const ChatInbox = () => {
                     {roomOwner?.username}&apos;s room
                   </h1>
                   <h1 className='flex items-center text-grey-2 font-normal text-[12px] leading-[18px] gap-1'>
-                    <span className='w-2 h-2 bg-[#38C585] rounded-full'></span>
+                    <span className={`w-2 h-2 ${isuser?'bg-[#38C585]':'bg-[#e23d3d]'} rounded-full`}></span>
                     <span>
-                      Online
+                      {isuser?'Online':'Offline'}
                     </span>
                   </h1>
                 </div>
@@ -320,9 +334,9 @@ const ChatInbox = () => {
                                   Just now
                                 </span> */}
                               </div>
-                              <div className='relative min-w-[20px]'>
+                              {/* <div className='relative min-w-[20px]'>
                                 <Image src={'/icons/smilecircle.svg'} className='w-[18px] h-[18px] cursor-pointer' width={100} height={100} alt='smile face' />
-                                {/* <ReactionBarSelector
+                                <ReactionBarSelector
                                   iconSize={16}
                                   reactions={[
                                     { label: 'thumbs-up', node: '👍' },
@@ -333,8 +347,8 @@ const ChatInbox = () => {
                                   
                                   style={{position: 'absolute', top: '-100%', left: '50%', transform: 'translate(-50%, -50%)' }}
                                   onSelect={(reaction: any) => handleReactionSelect(reaction)}
-                                /> */}
-                              </div>
+                                />
+                              </div> */}
                             </div>
                           </div>
 

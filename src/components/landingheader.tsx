@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { Aclonica } from 'next/font/google';
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
 
 import Modal from './walletmodal';
@@ -22,9 +21,22 @@ const LandingHeader = () => {
   const [navshow, setNavshow] = useState(false);
 
   const [wallet, setWallet] = useState(false);
+  const [dark, setDark] = useState(false);
+  const [theme, setTheme] = useState<string>();
 
   // @ts-ignore
-  const { myProfile, setMyProfile } = useContext(UserContext);
+  const { myProfile } = useContext(UserContext);
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+      setTheme(theme);
+    }
+  }, [dark])
+
+  const settheme = () => {
+    setDark(!dark);
+  }
 
   return (
     <div className='px-5 md:px-10 py-4 sm:py-[22px] flex justify-between items-center max-w-[1240px] w-full flex-wrap dark:text-white'>
@@ -49,15 +61,14 @@ const LandingHeader = () => {
       </div>
       <div className='flex gap-2 items-center'>
       {
-        myProfile.avatar && !myProfile.verified && <Image quality={100} src={'/icons/wallet.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 sm:w-10 sm:h-10 cursor-pointer' onClick={() => setWallet(true)} />
+        myProfile.avatar && !myProfile.verified && <Image quality={100} src={theme == 'dark' ?'/icons/wallet.svg':'/icons/wallet_dark.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 sm:w-10 sm:h-10 cursor-pointer' onClick={() => setWallet(true)} />
       }
         {
           myProfile.avatar ? (
             <div className='flex gap-1 items-center'>
-              <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { router.push('/home') }}>
+              <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary'>
                 <div className='flex gap-2 items-center'>
-
-                  <Image quality={100} src={myProfile.avatar} width={100} height={100} alt='Twitter logo' className='w-[12px] sm:w-[24px] h-[12px] sm:h-[24px]' />
+                  <Image quality={100} src={ myProfile.avatar} width={100} height={100} alt='Twitter logo' className='w-[12px] sm:w-[24px] h-[12px] sm:h-[24px]' />
                   <h1 className='text-white font-medium leading-6 text-center text-[12px] sm:text-base'>
                     {myProfile.username}
                   </h1>
@@ -76,7 +87,7 @@ const LandingHeader = () => {
             </button>
           )
         }
-        <Switcher size='18px' />
+        <Switcher size='18px' setDarkMode={settheme} />
         <span className='w-9 h-9 rounded-full flex justify-center items-center border border-[#E7EAF0] dark:border-dark-border bg-[#F9FAFC] dark:bg-dark-body-bg cursor-pointer sm:hidden' onClick={() => { setNavshow(!navshow) }}>
           <Image quality={100} src={'/icons/dropdown.svg'} width={100} height={100} alt='Twitter logo' className='w-5 h-5' />
         </span>

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import useDarkSide from '@/hooks/useDarkMode';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
-export default function Switcher(props: {size: string}): JSX.Element {
-  const { size } = props;
+export default function Switcher(props: {size: string, setDarkMode?:Function}): JSX.Element {
+  const { size, setDarkMode } = props;
   // Assuming useDarkSide hook returns a 'light' or 'dark' string
   const [colorTheme, setTheme] = useDarkSide();
   const [darkSide, setDarkSide] = useState<boolean>(colorTheme === 'light');
@@ -11,7 +11,9 @@ export default function Switcher(props: {size: string}): JSX.Element {
   const toggleDarkMode = (): void => {
     setTheme(colorTheme); // You might want to toggle the theme instead of setting it to the current value
     setDarkSide(!darkSide);
-
+    if (setDarkMode) {
+      setDarkMode()
+    }
   };
 
   return (

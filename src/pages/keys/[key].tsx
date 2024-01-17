@@ -188,7 +188,7 @@ const Key = () => {
                 <div className='flex flex-col gap-[7px] max-sm:justify-center'>
                   <div className='text-base font-bold leading-[24px] flex items-center gap-2'>
                     <span>{poster.username}</span>
-                    <span className='bg-[#4C9B42] w-[7px] h-[7px] rounded-full'></span>
+                    {/* <span className='bg-[#4C9B42] w-[7px] h-[7px] rounded-full'></span> */}
                   </div>
                   <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
                     {/* <div className="flex gap-2 max-sm:flex-col items-center">
