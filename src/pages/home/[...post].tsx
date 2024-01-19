@@ -66,9 +66,9 @@ const OpenPost = () => {
     })
   }, [postid])
 
-  const addNewPost = (post: object) => {
+  const addNewPost = (newpost: object) => {
     //@ts-ignore
-    api.post(`/posts`, { content: post.content, reply: post.reply }).then(
+    api.post(`/posts`, { content: newpost.content, reply: newpost.reply, posterid: post?.poster_id._id }).then(
       res => {
         if (res.data) {
           let newdata = [res.data, ...replys];
