@@ -101,7 +101,7 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
       const tx = new Transaction({ initiator: mywallet })
         .sendLovelace(
           process.env.NEXT_PUBLIC_WALLET_ADDRESS,
-          confirm?"10000000":amount
+          confirm?"20000000":amount
         )
         ;
 
@@ -235,7 +235,7 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
                     }
                     <div className='flex justify-between items-center mt-5'>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
-                        {confirm && 'Amount: 10'}
+                        {confirm && 'Amount: 20'}
                       </h1>
                       <h1 className='text-grey-2 font-normal text-[14px] leading-[18px]'>
                         Available amount: &nbsp;
