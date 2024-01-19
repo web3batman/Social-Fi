@@ -98,7 +98,7 @@ const OpenPost = () => {
             </h2>
           </div>
           {
-            post && <PostCard post={post} nolink={true} />
+            post && <PostCard post={post} nolink={true} toprofile={true} />
           }
           {
             //@ts-ignore
