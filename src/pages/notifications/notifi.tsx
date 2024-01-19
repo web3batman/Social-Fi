@@ -32,7 +32,6 @@ const Notification = (props: any) => {
   }
 
   useEffect(() => {
-    console.log('notitype', notitype)
     switch (notitype) {
       case 'post':
         setComment('posted new post');
@@ -45,6 +44,8 @@ const Notification = (props: any) => {
       case 'follow':
         setComment('follow now');
         setNotifiavatar('/icons/noti_ring.svg');
+      case 'reply':
+        setComment('replied to your post')
         break;
       case 'key':
         setComment('bought your key');
@@ -77,6 +78,8 @@ const Notification = (props: any) => {
             case 'postlike':
               router.push(`/home/${target}`)
             case 'post':
+              router.push(`/home/${target}`)
+            case 'reply':
               router.push(`/home/${target}`)
           }
         }).catch(err => {

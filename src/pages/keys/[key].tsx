@@ -177,6 +177,13 @@ const Key = () => {
               <div className='flex justify-between w-full items-start max-sm:justify-center'>
                 <Image quality={100} src={posteravatar} width={100} height={100} alt='Default avatar' className='w-25 h-25 rounded-full' />
                 <div className='flex gap-4 max-sm:hidden'>
+                  {
+                    myProfile._id == poster._id && (
+                      <div className='p-2 rounded-lg border border-border-color dark:border-dark-border cursor-pointer'>
+                          <Image quality={100} src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                      </div>
+                    )
+                  }
                   <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <a href={`http://x.com/${poster.screen_name}`} target="_blank" rel="noopener noreferrer">
                       <Image quality={100} src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />

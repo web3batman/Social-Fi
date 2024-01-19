@@ -194,9 +194,10 @@ const ChatInbox = () => {
 
   useEffect(() => {
     socket.on('allusers', (data: any) => {
-      console.log('alluser', data)
       if (data.indexOf(roomname) > -1) {
         setUser(true);
+      } else {
+        setUser(false);
       }
     })
   })
