@@ -39,7 +39,6 @@ const Home = () => {
     //@ts-ignore
     api.post(`/posts`, { content: post.content }).then(
       res => {
-        console.log("res.data", res.data)
         let newdata = [res.data, ...posts];
         setPosts(newdata);
       }

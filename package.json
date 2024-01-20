@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -17,6 +17,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@meshsdk/core": "^1.5.9-beta.1",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.2",
     "emoji-mart": "^5.5.2",
     "emoji-picker-react": "^4.5.16",

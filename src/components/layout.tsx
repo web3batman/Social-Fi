@@ -64,20 +64,29 @@ const Layout = ({ children }: MyComponentProps) => {
             }
           )
         } else {
-          api.post('/users', {signin: twitterid}).then(
-            res => {
-              const { token, user } = res.data;
-              setAuthToken(token);
-              setMyProfile(user);
-              if (user.verified) {
-                router.push('/home');
-              } else {
-                router.push('/')
+          const inviteid = window.localStorage.getItem('inviter')
+          if (twitterid) {
+            api.post('/users', {signin: twitterid, inviteid}).then(
+              res => {
+                const { token, user, invited } = res.data;
+                if (invited) {
+                  toast.success("You've invited by " + inviteid, {duration: 5000})
+                }
+                if (inviteid) {
+                  window.localStorage.removeItem('inviter');
+                }
+                setAuthToken(token);
+                setMyProfile(user);
+                if (user.verified) {
+                  router.push('/home');
+                } else {
+                  router.push('/')
+                }
               }
-            }
-          ).catch(err => {
-            router.push('/');
-          })
+            ).catch(err => {
+              router.push('/');
+            })
+          }
         }
       } else {
         if (status !='loading') {
