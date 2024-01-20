@@ -81,7 +81,7 @@ export default function ReferModal(props: { show: boolean; closeModal: any; }) {
                           <span>You can get 10 point by Invite your friends to join The Sahara using your link down below.</span>
                         </h2>
                     </div>
-                    <div className='flex w-full justify-between items-center p-2 bg-[#F9FAFC] dark:bg-[#212529] border border-[#E7EAF0] dark:border-[#3C3E41] rounded-full gap-2'>
+                    <div className='flex w-full justify-between items-center p-2 mb-2 bg-[#F9FAFC] dark:bg-[#212529] border border-[#E7EAF0] dark:border-[#3C3E41] rounded-full gap-2'>
                       <h1 className='text-black dark:text-white text-base pl-2 whitespace-nowrap text-ellipsis overflow-hidden'>
                         {shareTxt}
                       </h1>
@@ -92,7 +92,7 @@ export default function ReferModal(props: { show: boolean; closeModal: any; }) {
                           </h1>
                         </div>
                     </div>
-                    <h1 className='text-center text-[14px] font-normal leading-[18px] text-grey-2'>
+                    {/* <h1 className='text-center text-[14px] font-normal leading-[18px] text-grey-2'>
                       or share to socials
                     </h1>
                     <div className='flex justify-between gap-[10px] w-full px-2 pb-4'>
@@ -120,7 +120,7 @@ export default function ReferModal(props: { show: boolean; closeModal: any; }) {
                           Telegram
                         </h1>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
