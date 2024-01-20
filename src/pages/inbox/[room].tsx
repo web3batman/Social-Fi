@@ -243,7 +243,6 @@ const ChatInbox = () => {
     setChatbarHeight(element.scrollHeight + 16)
     // @ts-ignore
 
-    console.log('chatbar height', element.scrollHeight)
   }, [message])
 
   const elementRef = useRef(null);

@@ -1,16 +1,33 @@
 'use client'
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 // import type Session
 import { signIn } from 'next-auth/react'
-import Head from 'next/head';
 import { UserContext } from '@/contexts/UserProvider';
+import { useRouter } from 'next/router';
 
 
 export default function Home() {
   
   //@ts-ignore
   const { myProfile } = useContext(UserContext)
+  const router = useRouter();
+
+  const [loginBtn, setLoginBtn] = useState(true);
+
+  useEffect(() => {
+    const invite = router.query.invite;
+    if (invite) {
+      //@ts-ignore
+      window.localStorage.setItem('inviter', invite)
+      signIn('twitter', {callbackUrl: '/'})
+    }
+    if (myProfile) {
+      if (myProfile.verified) {
+        setLoginBtn(false);
+      }
+    }
+  }, [])
 
   return (
     <div className='px-5 md:px-10 flex justify-between items-center max-w-[1240px] w-full'>
@@ -25,9 +42,9 @@ export default function Home() {
             </h2>
           </div>
           {
-            myProfile.verified ? (
+            loginBtn ? (
               <div className='flex w-full max-sm:mb-[56px]'>
-                <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full' onClick={() => signIn('twitter', { callbackUrl: "/home" })}>
+                <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full' onClick={() => signIn('twitter')}>
                   <div className='flex gap-4 items-center justify-center sm:justify-start'>
                     <Image quality={100} src={'/icons/x_logo.svg'} width={100} height={100} alt='Twitter logo' className='w-[32px] h-[32px]' />
                     <h1 className='text-white font-medium leading-[32px] text-center text-[24px]'>

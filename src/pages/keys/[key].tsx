@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import KeyModal from '@/components/keymodal';
 import Keycard from './keycard';
 import toast from 'react-hot-toast';
+import { useCopyToClipboard } from "@uidotdev/usehooks";
 
 interface Profile {
   avatar?: string;
@@ -68,6 +69,10 @@ const Key = () => {
 
   const [keyCount, setKeyCount] = useState<number>();
 
+  const [copiedText, copyToClipboard] = useCopyToClipboard();
+  const [shareTxt, setShareTxt] = useState('');
+
+
   function closeModal() {
     setModal(false);
   }
@@ -98,6 +103,11 @@ const Key = () => {
     }
   }
 
+  const getCopiedTxt = () => {
+    copyToClipboard(shareTxt);
+    toast.success('Your referral link copied!', { duration: 5000 });
+  }
+
   // Get post information
   useEffect(() => {
     const param = router.query.key;
@@ -106,6 +116,7 @@ const Key = () => {
     //@ts-ignore
     api.get(`/users/${param}`).then(res => {
       setPoster(res.data);
+      setShareTxt(window.location.protocol + "//" + window.location.host + "/invite/" + res.data.screen_name);
       setHolder(res.data.holder);
       setHolding(res.data.holding);
     })
@@ -126,37 +137,6 @@ const Key = () => {
     }
   }, [poster])
 
-  const convertDate = (postCreatedTime: string) => {
-    // Input date string
-    var inputDate = postCreatedTime;
-
-    // Parse the input date string
-    var parsedDate = new Date(inputDate);
-
-    // Function to format the date in the desired output format
-    function formatOutputDate(date: Date) {
-      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-      var formattedDate = months[date.getMonth()] + date.getDate() + ', ' + date.getFullYear() +
-        ' - ' + padZero(date.getHours()) + ':' + padZero(date.getMinutes()) + ' ' + getAMPM(date);
-
-      return formattedDate;
-    }
-
-    // Function to pad zero for single-digit hours and minutes
-    function padZero(num: string | number) {
-      return Number(num) < 10 ? '0' + num : num;
-    }
-
-    // Function to get AM/PM
-    function getAMPM(date: Date) {
-      return date.getHours() >= 12 ? 'PM' : 'AM';
-    }
-
-    // Format the date and print the result
-    var outputDate = formatOutputDate(parsedDate);
-    return outputDate
-  }
 
 
   if (posteravatar) {
@@ -179,8 +159,8 @@ const Key = () => {
                 <div className='flex gap-4 max-sm:hidden'>
                   {
                     myProfile._id == poster._id && (
-                      <div className='p-2 rounded-lg border border-border-color dark:border-dark-border cursor-pointer'>
-                          <Image quality={100} src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
+                      <div className='p-2 rounded-lg border border-border-color dark:border-dark-border cursor-pointer hover:bg-border-color' onClick={getCopiedTxt}>
+                        <Image quality={100} src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
                       </div>
                     )
                   }
