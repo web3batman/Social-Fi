@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import KeyModal from '@/components/keymodal';
 import Keycard from './keycard';
 import toast from 'react-hot-toast';
-import { useCopyToClipboard } from "@uidotdev/usehooks";
 
 interface Profile {
   avatar?: string;
@@ -23,6 +22,7 @@ interface Profile {
   holder?: Holder[];
   _id?: string;
   keyCount?: number;
+  point?: number;
 }
 
 interface Holder {
@@ -69,9 +69,6 @@ const Key = () => {
 
   const [keyCount, setKeyCount] = useState<number>();
 
-  const [copiedText, copyToClipboard] = useCopyToClipboard();
-  const [shareTxt, setShareTxt] = useState('');
-
 
   function closeModal() {
     setModal(false);
@@ -103,10 +100,6 @@ const Key = () => {
     }
   }
 
-  const getCopiedTxt = () => {
-    copyToClipboard(shareTxt);
-    toast.success('Your referral link copied!', { duration: 5000 });
-  }
 
   // Get post information
   useEffect(() => {
@@ -116,7 +109,6 @@ const Key = () => {
     //@ts-ignore
     api.get(`/users/${param}`).then(res => {
       setPoster(res.data);
-      setShareTxt(window.location.protocol + "//" + window.location.host + "/invite/" + res.data.screen_name);
       setHolder(res.data.holder);
       setHolding(res.data.holding);
     })
@@ -157,13 +149,6 @@ const Key = () => {
               <div className='flex justify-between w-full items-start max-sm:justify-center'>
                 <Image quality={100} src={posteravatar} width={100} height={100} alt='Default avatar' className='w-25 h-25 rounded-full' />
                 <div className='flex gap-4 max-sm:hidden'>
-                  {
-                    myProfile._id == poster._id && (
-                      <div className='p-2 rounded-lg border border-border-color dark:border-dark-border cursor-pointer hover:bg-border-color' onClick={getCopiedTxt}>
-                        <Image quality={100} src={'/icons/share.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
-                      </div>
-                    )
-                  }
                   <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>
                     <a href={`http://x.com/${poster.screen_name}`} target="_blank" rel="noopener noreferrer">
                       <Image quality={100} src={'/icons/twitter.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 rounded-full' />
@@ -221,14 +206,14 @@ const Key = () => {
                       Holder
                     </h2>
                   </div>
-                  {/* <div className='flex flex-col items-center text-center'>
-                      <h1 className='font-bold text-base leading-6'>
-                        100
-                      </h1>
-                      <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
-                        WatchList
-                      </h2>
-                    </div> */}
+                  <div className='flex flex-col items-center text-center'>
+                    <h1 className='font-bold text-base leading-6'>
+                      { poster.point?poster.point:'0' }
+                    </h1>
+                    <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
+                      Point
+                    </h2>
+                  </div>
                 </div>
                 <div className='flex gap-2 items-center max-sm:hidden'>
                   {/* <div className='p-2 rounded-lg border border-border-color dark:border-dark-border'>

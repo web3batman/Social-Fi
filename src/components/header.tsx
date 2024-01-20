@@ -30,17 +30,18 @@ const Header = () => {
   const [proper, setProper] = useState(false);
   // Assuming useDarkSide hook returns a 'light' or 'dark' string
   const [colorTheme, setTheme] = useDarkSide();
-  const [darkSide, setDarkSide] = useState<boolean>(colorTheme === 'light');
+  const [darkSide, setDarkSide] = useState<boolean>(colorTheme === 'dark');
   const [referModal, setReferModal] = useState(false);
 
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(colorTheme === 'light');
 
   useEffect(() => {
+    console.log('darktheme', colorTheme)
     const theme = localStorage.getItem('theme');
     if (theme) {
       setTheme(theme);
     }
-  }, [dark])
+  }, [router])
 
   const settheme = () => {
     setDark(!dark);
@@ -73,7 +74,7 @@ const Header = () => {
         <div className='flex gap-2 items-center'>
           <input type="text" className={`max-md:hidden w-[300px] border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] dark:border-dark-border bg-[#F9FAFC] dark:bg-dark-body-bg dark:text-dark-font-1 bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' />
           <div className='max-md:hidden p-2 bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border rounded-full cursor-pointer hover:bg-border-color' onClick={openReferModal}>
-            <Image quality={100} src={!dark?'/icons/user-add-white.svg':'/icons/user-add-dark.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 cursor-pointer hover:border' />
+            <Image quality={100} src={!dark?'/icons/user-add-white.svg':'/icons/user-add-dark.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
           </div>
           <div className='md:hidden p-2 bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border rounded-full cursor-pointer hover:bg-border-color' onClick={() => { router.push('/notifications') }}>
             <Image quality={100} src={'/icons/side_ring.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 cursor-pointer hover:border' />
