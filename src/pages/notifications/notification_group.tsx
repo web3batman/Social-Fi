@@ -27,6 +27,7 @@ const NotificationGroup = () => {
 
   useEffect(() => {
     api.get('/notifications').then(res => {
+      res.data.reverse();
       setNotification(res.data)
     }).catch(err => {
       toast.error('There is an error in server.')
