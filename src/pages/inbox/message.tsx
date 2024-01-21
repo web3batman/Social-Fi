@@ -20,7 +20,7 @@ const Message = () => {
   }, [])
 
   return (
-    <div className='flex flex-col gap-4 w-full h-[calc(100vh_-_180px)] overflow-auto'>
+    <div className='flex flex-col gap-4 w-full md:h-[calc(100vh_-_180px)] overflow-auto'>
       <MessageCard user={myProfile} roomname='My Room' />
       {
         cards && cards.map((card, index) => {
