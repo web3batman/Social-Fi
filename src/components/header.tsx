@@ -98,8 +98,9 @@ const Header = () => {
           searchState && <input type="text" className={`w-full md:hidden border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] dark:border-dark-border bg-[#F9FAFC] dark:bg-dark-body-bg dark:text-dark-font-1 bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' name='Search input' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
         }
         <div className='flex gap-2 items-center'>
-          <input type="text" className={`max-md:hidden w-[300px] border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] dark:border-dark-border bg-[#F9FAFC] dark:bg-dark-body-bg dark:text-dark-font-1 bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' name='Search input' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
-
+          {
+            needSearch && <input type="text" className={`max-md:hidden w-[300px] border px-8 py-2 rounded-[100px] border-solid border-[#E7EAF0] dark:border-dark-border bg-[#F9FAFC] dark:bg-dark-body-bg dark:text-dark-font-1 bg-[url("/icons/search.svg")] bg-no-repeat ${styles.searchinput}`} placeholder='Search' name='Search input' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+          }
           <div className='max-md:hidden p-2 bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border rounded-full cursor-pointer hover:bg-border-color' onClick={openReferModal}>
             <Image quality={100} src={!dark ? '/icons/user-add-white.svg' : '/icons/user-add-dark.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6' />
           </div>

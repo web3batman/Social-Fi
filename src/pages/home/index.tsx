@@ -56,6 +56,15 @@ const Home = () => {
     getPosts()
   }, [])
 
+  useEffect(() => {
+    const filterdata = posts.filter((post) => {
+      if (post.content.toUpperCase().indexOf(searchInput.toUpperCase()) > -1) {
+        return true;
+      }
+    })
+    setFilterPosts(filterdata)
+  }, [searchInput])
+
   const getPosts = () => {
     api.get('/posts').then(res => {
       setPosts(res.data);
@@ -71,7 +80,16 @@ const Home = () => {
         <div className='flex flex-col gap-4 max-lg:grow max-md:mb-[110px] min-h-[calc(100vh-140px)] w-full'>
           <Post addpost={addNewPost} />
           {
-            posts && posts.length > 0 && posts.map((post, index) => {
+            posts && posts.length > 0 && (searchInput == '') && posts.map((post, index) => {
+              return (
+                <div key={index}>
+                  <PostCard post={post} />
+                </div>
+              )
+            })
+          }
+          {
+            (searchInput != '') && filterPosts.length > 0 && filterPosts.map((post, index) => {
               return (
                 <div key={index}>
                   <PostCard post={post} />
