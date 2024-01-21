@@ -69,7 +69,7 @@ export default function ReferModal(props: { show: boolean; closeModal: any; }) {
                     className='text-lg text-[24px] font-semibold leading-8 text-primary dark:text-white p-5 flex justify-between items-center'
                   >
                     <span>
-                      Refer to Friends
+                    Your Referral Code
                     </span>
                     <span className='px-3 py-1 rounded-lg border border-border-color dark:border-dark-border cursor-pointer hover:bg-main-bg-color dark:hover:bg-dark-body-bg' onClick={closeModal}>
                       X
@@ -78,7 +78,7 @@ export default function ReferModal(props: { show: boolean; closeModal: any; }) {
                   <div className="px-5 flex flex-col gap-4">
                     <div className='flex w-full justify-center items-center px-4'>
                         <h2 className='text-[16px] font-normal leading-[24px] text-[#738290] text-center'>
-                          <span>You can get 10 point by Invite your friends to join The Sahara using your link down below.</span>
+                          <span>Receive 10 points for each friend you invite that joins the Sahara using your link down below.</span>
                         </h2>
                     </div>
                     <div className='flex w-full justify-between items-center p-2 mb-6 bg-[#F9FAFC] dark:bg-[#212529] border border-[#E7EAF0] dark:border-[#3C3E41] rounded-full gap-2'>
