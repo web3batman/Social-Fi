@@ -3764,6 +3764,11 @@ react-hot-toast@^2.4.1:
   dependencies:
     goober "^2.1.10"
 
+react-icons@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.0.1.tgz#1694e11bfa2a2888cab47dcc30154ce90485feee"
+  integrity sha512-WqLZJ4bLzlhmsvme6iFdgO8gfZP17rfjYEJ2m9RsZjZ+cc4k1hTzknEz63YS1MeT50kVzoa1Nz36f4BEx+Wigw==
+
 react-input-emoji@^5.6.5:
   version "5.6.5"
   resolved "https://registry.yarnpkg.com/react-input-emoji/-/react-input-emoji-5.6.5.tgz#d2027e44084227a41ba66cbd6d2d67e78465d550"

@@ -211,7 +211,7 @@ const Key = () => {
                       { poster.point?poster.point:'0' }
                     </h1>
                     <h2 className='text-[12px] font-normal leading-[18px] text-[#738290]'>
-                      Point
+                      Points
                     </h2>
                   </div>
                 </div>

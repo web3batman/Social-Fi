@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { UserContext } from '@/contexts/UserProvider';
 import api from '../../constants/auth';
 import toast from 'react-hot-toast'
+import { SearchContext } from '@/contexts/SearchProvider';
 
 interface Post {
   _id: string,
@@ -29,13 +30,14 @@ interface Post {
 
 const Home = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [tempPosts, setTemp] = useState<Post[]>([]);
+  const [filterPosts, setFilterPosts] = useState<Post[]>([]);
 
   // @ts-ignore
   const { myProfile, setMyProfile } = useContext(UserContext)
+  // @ts-ignore
+  const {searchInput, setSearchInput} = useContext(SearchContext);
 
   const addNewPost = async (post: { content: string }) => {
-
     //@ts-ignore
     api.post(`/posts`, { content: post.content }).then(
       res => {
