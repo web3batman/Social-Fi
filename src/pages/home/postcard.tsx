@@ -151,7 +151,7 @@ const PostCard = (props: {
                 </div>
               </div>
             </div>
-            <h3 className='text-[14px] font-normal leading-5'>
+            <h3 className='text-[14px] font-normal leading-5 break-all whitespace-pre-wrap'>
               {post1.content}
             </h3>
           </>
