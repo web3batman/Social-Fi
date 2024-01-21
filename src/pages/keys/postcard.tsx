@@ -122,6 +122,17 @@ const PostCard = (props: {
     }
   }
 
+  const removePost = (postid: any) => {
+    api.delete(`/posts/${postid}`).then(
+      res => {
+        toast.success(res.data.msg)
+        router.reload();
+      }
+    ).catch(
+      err => console.log('Server error')
+    )
+  }
+
   // const toProfile = () => {
   //   if (post1) {
   //     router.push(`/keys/${post1.poster_id._id}`)
@@ -136,9 +147,9 @@ const PostCard = (props: {
           <>
             <div className='flex items-center justify-between w-full'>
               <div className='flex gap-[10px] items-center'>
-              <div>
-                <Image quality={100} src={post.poster_id.avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' />
-              </div>
+                <div>
+                  <Image quality={100} src={post.poster_id.avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' />
+                </div>
                 <div className='flex flex-col'>
                   <h1 className='text-base font-bold leading-[24px]'>{post1.poster_id.username}</h1>
                   <div className='text-[12px] font-normal leading-[18px] text-[#738290]'>
@@ -166,7 +177,7 @@ const PostCard = (props: {
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{0}</h3>
               </div> */}
               <div className='flex gap-1 items-center cursor-pointer' onClick={toReplyPage}>
-                <Image quality={100} src={'/icons/Comment.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90'/>
+                <Image quality={100} src={'/icons/Comment.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' />
                 {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{exchange}</h3> */}
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{replyCount}</h3>
               </div>
@@ -181,6 +192,14 @@ const PostCard = (props: {
               </div> */}
             </div>
             <div className="flex gap-4">
+              {
+                post.poster_id._id == myProfile._id && (
+                  <div className='flex gap-1 items-center cursor-pointer'>
+                    {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3> */}
+                    <Image quality={100} src={'/icons/trash.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' onClick={() => { removePost(post._id) }} />
+                  </div>
+                )
+              }
               <div className='flex gap-1 items-center'>
                 {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3> */}
                 <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{post.poster_id.price}</h3>
