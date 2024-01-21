@@ -67,6 +67,7 @@ const Notification = (props: any) => {
   }, [])
 
   const toLinkPage = () => {
+    console.log('notitype', notitype)
         api.get(`/notifications/${id}`).then(res => {
           
           switch (notitype) {
@@ -75,12 +76,16 @@ const Notification = (props: any) => {
               break;
             case 'chat':
               router.push(`/inbox/${myProfile._id}`)
+              break;
             case 'postlike':
               router.push(`/home/${target}`)
+              break;
             case 'post':
               router.push(`/home/${target}`)
+              break;
             case 'reply':
               router.push(`/home/${target}`)
+              break
           }
         }).catch(err => {
           toast.error("There is an error!")

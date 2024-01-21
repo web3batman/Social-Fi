@@ -15,6 +15,7 @@ import { IoMdClose } from 'react-icons/io'
 
 import useDarkSide from '@/hooks/useDarkMode';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import api from '@/constants/auth';
 
 import ReferModal from './referModal';
 
@@ -42,6 +43,9 @@ const Header = () => {
 
   const [dark, setDark] = useState(colorTheme === 'light');
 
+  const [isnoti, setNoti] = useState(false);
+
+
   useEffect(() => {
     const theme = localStorage.getItem('theme');
     setSearchInput('');
@@ -55,7 +59,15 @@ const Header = () => {
       setNeedSearch(false)
     }
     setSearchState(false)
+    api.get('/notifications/isnoti').then(
+      res => {
+        setNoti(res.data.state)
+      }
+    ).catch(err => {
+      console.log("There is an error.", err)
+    })
   }, [router])
+
 
   const settheme = () => {
     setDark(!dark);
@@ -83,7 +95,7 @@ const Header = () => {
 
   return (
     <div className='w-full dark:bg-dark-header-bg'>
-      <div className={`px-5 md:px-10 py-4 ${!searchState ? 'max-sm:gap-6':'max-sm:gap-2' } sm:py-[22px] flex justify-between items-center max-w-[1240px] bg-white dark:bg-[#2D3136] mx-auto`}>
+      <div className={`px-5 md:px-10 py-4 ${!searchState ? 'max-sm:gap-6' : 'max-sm:gap-2'} sm:py-[22px] flex justify-between items-center max-w-[1240px] bg-white dark:bg-[#2D3136] mx-auto`}>
         {
           !searchState && (
             <Link href={'/home'} className='flex gap-2 items-center justify-center cursor-pointer'>
@@ -107,7 +119,7 @@ const Header = () => {
           {
             searchState && (
               <div className='md:hidden p-2 bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border rounded-full cursor-pointer hover:bg-border-color w-[42px]' onClick={showSearchInput}>
-                <IoMdClose size={24} color={dark?'white':'black'} />
+                <IoMdClose size={24} color={dark ? 'white' : 'black'} />
               </div>
             )
           }
@@ -120,9 +132,16 @@ const Header = () => {
           }
           {
             !searchState && (
-              <div className='md:hidden p-2 bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border rounded-full cursor-pointer hover:bg-border-color' onClick={() => { router.push('/notifications') }}>
-            <Image quality={100} src={'/icons/side_ring.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 cursor-pointer' />
-          </div>
+              <div className='md:hidden p-2 bg-main-bg-color dark:bg-dark-body-bg border border-border-color dark:border-dark-border rounded-full cursor-pointer hover:bg-border-color relative' onClick={() => { router.push('/notifications') }}>
+                <Image quality={100} src={'/icons/side_ring.svg'} width={'100'} height={'100'} alt='Cardano avatar' className='w-6 h-6 cursor-pointer' />
+                {
+                  isnoti && (
+                    <div className='absolute rounded-full text-white text-[7px] border border-white top-0 right-0 bg-[#EB5757] text-center w-4 h-4'>
+
+                    </div>
+                  )
+                }
+              </div>
             )
           }
           <div className='max-md:hidden relative flex items-center gap-2 border pl-2 pr-4 py-2 rounded-[100px] border-solid border-[#E7EAF0] dark:border-dark-border bg-[#F9FAFC] dark:bg-dark-body-bg cursor-pointer'>
