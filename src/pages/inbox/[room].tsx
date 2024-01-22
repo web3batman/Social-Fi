@@ -300,61 +300,63 @@ const ChatInbox = () => {
             <div className={`px-6 py-4 border-l-0 border-r-0 border-t-0 border-border-color overflow-y-auto`} ref={messagesEndRef} style={{height: `calc(100vh - ${chatbarHeight + 170}px)`}}>
               <div className='flex flex-col gap-4 text-[14px] text-grey-5 max-md:pb-[70px]'>
                 {messageList.length != 0 ? messageList.map((chat: any, index) => {
-                  if (chat.sender == myProfile.username) {
-                    return (
-                      <div className='flex gap-4 items-center flex-row-reverse' key={index}>
-                        <div className='flex flex-col gap-1'>
-                          <div className='p-3 rounded-[10px] bg-secondary text-white break-all whitespace-pre-wrap ml-[50px]'>
-                                {chat.message}
-                          </div>
-                          {/* <span className='text-[#738290] text-[12px] leading-[18px]'>
-                            Just now
-                          </span> */}
-                        </div>
-                      </div>
-                    )
-                  } else {
-                    return (
-                      <div className='flex gap-2 items-end' key={index}>
-                        <div className='flex flex-col gap-1 items-end'>
-                          <div className='flex gap-2 items-start'>
-                            <Image quality={100} src={chat.avatar} width={100} height={100} alt={chat.sender} className='w-8 h-8 rounded-full' />
-                            <div className='flex gap-2 items-start'>
-                              <div className='flex flex-col items-end gap-3'>
-                                <div className='p-3 rounded-[10px] relative bg-[#F5F6F8] dark:bg-dark-body-bg flex flex-col gap-2'>
-                                  <div className='font-bold text-primary dark:text-white'>{chat.sender}</div>
-                                  <div className='dark:text-white break-all whitespace-pre-wrap mr-[50px]'>
-                                      {chat.message}
-                                  </div>
-                                  {/* <div className='absolute bg-white border px-2 py-1 rounded-full bottom-[-20%] right-0 shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px,rgba(0,0,0,0.15)_0px_1px_2px'>
-                                      ❤️
-                                  </div> */}
-                                </div>
-                                {/* <span className='text-[#738290] text-[12px] leading-[18px]'>
-                                  Just now
-                                </span> */}
-                              </div>
-                              {/* <div className='relative min-w-[20px]'>
-                                <Image src={'/icons/smilecircle.svg'} className='w-[18px] h-[18px] cursor-pointer' width={100} height={100} alt='smile face' />
-                                <ReactionBarSelector
-                                  iconSize={16}
-                                  reactions={[
-                                    { label: 'thumbs-up', node: '👍' },
-                                    { label: 'heart', node: '❤️' },
-                                    { label: 'smile', node: '😊' },
-                                    // Add more reactions as needed
-                                  ]}
-                                  
-                                  style={{position: 'absolute', top: '-100%', left: '50%', transform: 'translate(-50%, -50%)' }}
-                                  onSelect={(reaction: any) => handleReactionSelect(reaction)}
-                                />
-                              </div> */}
+                  if (chat.avatar) {
+                    if (chat.sender == myProfile.username) {
+                      return (
+                        <div className='flex gap-4 items-center flex-row-reverse' key={index}>
+                          <div className='flex flex-col gap-1'>
+                            <div className='p-3 rounded-[10px] bg-secondary text-white break-all whitespace-pre-wrap ml-[50px]'>
+                                  {chat.message}
                             </div>
+                            {/* <span className='text-[#738290] text-[12px] leading-[18px]'>
+                              Just now
+                            </span> */}
                           </div>
-
                         </div>
-                      </div>
-                    )
+                      )
+                    } else {
+                      return (
+                        <div className='flex gap-2 items-end' key={index}>
+                          <div className='flex flex-col gap-1 items-end'>
+                            <div className='flex gap-2 items-start'>
+                              <Image quality={100} src={chat.avatar} width={100} height={100} alt={chat.sender} className='w-8 h-8 rounded-full' />
+                              <div className='flex gap-2 items-start'>
+                                <div className='flex flex-col items-end gap-3'>
+                                  <div className='p-3 rounded-[10px] relative bg-[#F5F6F8] dark:bg-dark-body-bg flex flex-col gap-2'>
+                                    <div className='font-bold text-primary dark:text-white'>{chat.sender}</div>
+                                    <div className='dark:text-white break-all whitespace-pre-wrap mr-[50px]'>
+                                        {chat.message}
+                                    </div>
+                                    {/* <div className='absolute bg-white border px-2 py-1 rounded-full bottom-[-20%] right-0 shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px,rgba(0,0,0,0.15)_0px_1px_2px'>
+                                        ❤️
+                                    </div> */}
+                                  </div>
+                                  {/* <span className='text-[#738290] text-[12px] leading-[18px]'>
+                                    Just now
+                                  </span> */}
+                                </div>
+                                {/* <div className='relative min-w-[20px]'>
+                                  <Image src={'/icons/smilecircle.svg'} className='w-[18px] h-[18px] cursor-pointer' width={100} height={100} alt='smile face' />
+                                  <ReactionBarSelector
+                                    iconSize={16}
+                                    reactions={[
+                                      { label: 'thumbs-up', node: '👍' },
+                                      { label: 'heart', node: '❤️' },
+                                      { label: 'smile', node: '😊' },
+                                      // Add more reactions as needed
+                                    ]}
+                                    
+                                    style={{position: 'absolute', top: '-100%', left: '50%', transform: 'translate(-50%, -50%)' }}
+                                    onSelect={(reaction: any) => handleReactionSelect(reaction)}
+                                  />
+                                </div> */}
+                              </div>
+                            </div>
+  
+                          </div>
+                        </div>
+                      )
+                    }
                   }
                 }
                 ) : (
