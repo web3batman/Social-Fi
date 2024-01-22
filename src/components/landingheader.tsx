@@ -20,7 +20,7 @@ const LandingHeader = () => {
   const router = useRouter();
   const [navshow, setNavshow] = useState(false);
 
-  const [wallet, setWallet] = useState(false);
+  const [wallet, setWallet] = useState(true);
   const [dark, setDark] = useState(false);
   const [theme, setTheme] = useState<string>();
 
@@ -103,7 +103,7 @@ const LandingHeader = () => {
           Community
         </Link> */}
       </div>
-      <Modal show={wallet} closeModal={() => setWallet(false)} confirm={true} />
+      <Modal show={wallet} closeModal={() => setWallet(false)} confirm={true} verify={true} />
     </div>
   )
 }
