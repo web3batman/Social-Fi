@@ -78,13 +78,31 @@ const Notification = (props: any) => {
               router.push(`/inbox/${myProfile._id}`)
               break;
             case 'postlike':
-              router.push(`/home/${target}`)
+              api.get(`/posts/${target}`).then(post => {
+                if (post) {
+                  router.push(`/home/${target}`)
+                } else {
+                  toast.error("This post deleted by user.")
+                }
+              })
               break;
             case 'post':
-              router.push(`/home/${target}`)
+              api.get(`/posts/${target}`).then(post => {
+                if (post) {
+                  router.push(`/home/${target}`)
+                } else {
+                  toast.error("This post deleted by user.")
+                }
+              })
               break;
             case 'reply':
-              router.push(`/home/${target}`)
+              api.get(`/posts/${target}`).then(post => {
+                if (post) {
+                  router.push(`/home/${target}`)
+                } else {
+                  toast.error("This post deleted by user.")
+                }
+              })
               break
           }
         }).catch(err => {
