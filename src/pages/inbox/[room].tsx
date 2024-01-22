@@ -297,8 +297,8 @@ const ChatInbox = () => {
                 </div>
               </div>
             </div>
-            <div className={`px-6 pt-4 pb-4 max-md:pb-8 border-l-0 border-r-0 border-t-0 border-border-color overflow-y-auto`} ref={messagesEndRef} style={{height: `calc(100vh - ${chatbarHeight + 170}px)`}}>
-              <div className='flex flex-col gap-4 text-[14px] text-grey-5'>
+            <div className={`px-6 py-4 border-l-0 border-r-0 border-t-0 border-border-color overflow-y-auto`} ref={messagesEndRef} style={{height: `calc(100vh - ${chatbarHeight + 170}px)`}}>
+              <div className='flex flex-col gap-4 text-[14px] text-grey-5 max-md:pb-[70px]'>
                 {messageList.length != 0 ? messageList.map((chat: any, index) => {
                   if (chat.sender == myProfile.username) {
                     return (
@@ -367,7 +367,7 @@ const ChatInbox = () => {
               </div>
               {/* <Picker data={data} onEmojiSelect={console.log} set='facebook' /> */}
             </div>
-            <div className='px-6 py-4 max-md:pb-8 border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary dark:text-white leading-[24px] max-sm:px-2 max-[770px]:fixed max-[770px]:bottom-0 max-[770px]:w-full max-[770px]:dark:bg-dark-header-bg' ref={chatBarRef}>
+            <div className='px-6 py-4 border-l-0 border-r-0 border-t-0 border-border-color dark:border-dark-border flex flex-col gap-2 font-base text-primary dark:text-white leading-[24px] max-sm:px-2 max-[770px]:fixed max-[770px]:bottom-0 max-[770px]:w-full max-[770px]:dark:bg-dark-header-bg' ref={chatBarRef}>
             {/* <div className='min-h-[18px]'>.
                 {
                   otherTyping && (
