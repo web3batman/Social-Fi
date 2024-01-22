@@ -39,7 +39,7 @@ const CardGroup = (props: {tab: number}) => {
   useEffect(() => {
     switch (tab) {
       case 1:
-        setSort({price: -1});
+        setSort({price: -1,});
         break;
       case 2:
         setSort({created_at: -1});
