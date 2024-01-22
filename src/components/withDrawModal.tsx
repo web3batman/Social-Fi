@@ -21,7 +21,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   const [wallets, setWallets] = useState([Object]);
   const [mywallet, setWallet] = useState<object>();
   const [ballance, setBallance] = useState<number>();
-  const [myaddress, setAddress] = useState<string>();
+  const [myaddress, setAddress] = useState<string>('');
 
   const router = useRouter()
 
@@ -86,19 +86,22 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     if (total < 0) {
       toast.error("You don't have enough balance.")
     } else {
-      api.post('/users/withdraw', {address: myaddress, mount: withdrawAmount, totalBalance: total}).then(
-        res => {
-          toast.success("Withdraw succeed")
-          closeModal()
-          setMyProfile(res.data)
-          setwithdrawAmount(2)
-          router.reload();
-        }
-      ).catch(err => {
-        toast.error('Transaction failed!')
-      })
+      if (myaddress != '') {
+        api.post('/users/withdraw', {address: myaddress, mount: withdrawAmount, totalBalance: total}).then(
+          res => {
+            toast.success("Withdraw succeed")
+            closeModal()
+            setMyProfile(res.data)
+            setwithdrawAmount(2)
+            router.reload();
+          }
+        ).catch(err => {
+          toast.error('Transaction failed!')
+        })
+      } else {
+        toast.error("Please confirm your wallet!")
+      }
     }
-
   }
 
   useEffect(() => {
@@ -171,7 +174,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                               leaveFrom="opacity-100"
                               leaveTo="opacity-0"
                             >
-                              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-dark-body-bg py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                              <Listbox.Options className="absolute mt-1 w-full overflow-auto rounded-md bg-white dark:bg-dark-body-bg py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                 {wallets.map((wallet, walletIdx) => (
                                   <Listbox.Option
                                     key={walletIdx}
@@ -232,6 +235,9 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                           1 ADA
                         </span>
                       </h1>
+                    </div>
+                    <div className='h-[100px]'>
+
                     </div>
                     <button className='px-8 py-2 rounded-lg bg-secondary w-full mt-6' onClick={withdraw}>
                       <div className='flex gap-4 items-center justify-center'>
