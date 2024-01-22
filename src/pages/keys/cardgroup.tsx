@@ -18,8 +18,15 @@ const CardGroup = (props: {customer: number}) => {
   return (
     <div className='flex flex-col gap-4 w-full'>
       {
-        keys && keys.map((item, index) => 
-          <Card key={index} item={item} />
+        keys && keys.map((item: any, index) => 
+          {
+            //@ts-ignore
+            if (item.seller && item.customer) {
+              return(
+                <Card key={index} item={item} />
+              )
+            }
+          }
         )
       }
     </div>
