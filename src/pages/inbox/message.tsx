@@ -24,7 +24,7 @@ const Message = () => {
       <MessageCard user={myProfile} roomname='My Room' />
       {
         cards && cards.map((card, index) => {
-          if (card.userid._id != myProfile._id) {
+          if (card.userid && card.userid._id && card.userid._id != myProfile._id ) {
             return <MessageCard user={card.userid} key={index} />
           }
         

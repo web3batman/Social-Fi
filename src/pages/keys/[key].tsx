@@ -313,23 +313,31 @@ const Key = () => {
             }
             <div className='flex flex-col gap-4 w-full'>
               {
-                currentTab == 2 && holder?.length != 0 && holder?.map((user, index) => {
-                  return <Keycard key={index} id={user.userid._id} avatar={user.userid.avatar} username={user.userid.username} screen_name={user.userid.screen_name} price={user.userid.price} count={user.count} />
+                currentTab == 2 && holder?.length != 0 && holder?.map((user: any, index) => {
+                  if (user && user.userid._id) {
+                    return <Keycard key={index} id={user.userid._id} avatar={user.userid.avatar} username={user.userid.username} screen_name={user.userid.screen_name} price={user.userid.price} count={user.count} />
+                  }
                 })
               }
               {
-                currentTab == 1 && holding?.length != 0 && holding?.map((user, index) => {
-                  return <Keycard key={index} id={user.userid._id} avatar={user.userid.avatar} username={user.userid.username} screen_name={user.userid.screen_name} price={user.userid.price} count={user.count} />
+                currentTab == 1 && holding?.length != 0 && holding?.map((user: any, index) => {
+                  if (user && user.userid._id) {
+                    return <Keycard key={index} id={user.userid._id} avatar={user.userid.avatar} username={user.userid.username} screen_name={user.userid.screen_name} price={user.userid.price} count={user.count} />
+                  }
                 })
               }
               {
-                currentTab == 3 && holder?.length != 0 && holder?.map((user, index) => {
+                currentTab == 3 && holder?.length != 0 && holder?.map((user: any, index) => {
+                  if (user && user.userid._id) {
                   return <Keycard key={index} id={user.userid._id} avatar={user.userid.avatar} username={user.userid.username} screen_name={user.userid.screen_name} price={user.userid.price} />
+                  }
                 })
               }
               {
-                currentTab == 4 && holding?.length != 0 && holding?.map((user, index) => {
-                  return <Keycard key={index} id={user.userid._id} avatar={user.userid.avatar} username={user.userid.username} screen_name={user.userid.screen_name} price={user.userid.price} />
+                currentTab == 4 && holding?.length != 0 && holding?.map((user: any, index) => {
+                  if (user && user.userid._id) {
+                    return <Keycard key={index} id={user.userid._id} avatar={user.userid.avatar} username={user.userid.username} screen_name={user.userid.screen_name} price={user.userid.price} />
+                  }
                 })
               }
             </div>
