@@ -23,8 +23,8 @@ const people = [
   { id: 5, name: 'Katelyn Rohan', unavailable: false },
 ]
 
-export default function Modal(props: { show: boolean; closeModal: any; confirm?: boolean }) {
-  const { show, closeModal, confirm } = props;
+export default function Modal(props: { show: boolean; closeModal: any; confirm?: boolean, verify?:boolean }) {
+  const { show, closeModal, confirm, verify } = props;
   const router = useRouter();
   const [wallets, setWallets] = useState([Object]);
   const [mywallet, setWallet] = useState<object>();
@@ -280,8 +280,8 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
                         </span>
                       </h1>
                     </div> */}
-                    <div className='h-[120px]'>
-
+                    <div className='h-[120px] text-lg text-[24px] text-center font-semibold leading-8 text-primary dark:text-white p-5'>
+                      {verify && 'You have to deposit 20 Ada for verification.'}
                     </div>
                     <button className='px-8 py-2 rounded-lg bg-secondary w-full mt-6' onClick={depositFunc}>
                       <div className='flex gap-4 items-center justify-center'>
