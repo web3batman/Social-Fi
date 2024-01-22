@@ -5,6 +5,7 @@ import api from '@/constants/auth';
 import toast from 'react-hot-toast';
 import { UserContext } from '@/contexts/UserProvider';
 import Link from 'next/link';
+import ConfirmModal from '@/components/confirmModal';
 
 interface Post {
   _id: string,
@@ -36,6 +37,8 @@ const PostCard = (props: {
   const [post1, setPost] = useState<Post>();
   const [likeit, setLikeIt] = useState(false);
   const [replyCount, setReplyCount] = useState(0);
+
+  const [confirm, setConfirm] = useState(false);
 
   //@ts-ignore
   const { myProfile } = useContext(UserContext);
@@ -122,8 +125,8 @@ const PostCard = (props: {
     }
   }
 
-  const removePost = (postid: any) => {
-    api.delete(`/posts/${postid}`).then(
+  const removePost = () => {
+    api.delete(`/posts/${post._id}`).then(
       res => {
         toast.success(res.data.msg)
         router.reload();
@@ -196,7 +199,7 @@ const PostCard = (props: {
                 post.poster_id._id == myProfile._id && (
                   <div className='flex gap-1 items-center cursor-pointer'>
                     {/* <h3 className='text-grey-2 font-normal text-[13px] leading-[20px]'>{price}</h3> */}
-                    <Image quality={100} src={'/icons/trash.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' onClick={() => { removePost(post._id) }} />
+                    <Image quality={100} src={'/icons/trash.svg'} width={100} height={100} alt='Default avatar' className='w-6 h-6 opacity-90' onClick={() => setConfirm(true)} />
                   </div>
                 )
               }
@@ -210,6 +213,7 @@ const PostCard = (props: {
           </div>
         )
       }
+      <ConfirmModal show={confirm} closeModal={() => setConfirm(false)} buykey={removePost} />
     </div>
   )
 }

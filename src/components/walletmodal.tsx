@@ -197,7 +197,7 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
                               leaveFrom="opacity-100"
                               leaveTo="opacity-0"
                             >
-                              <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-dark-body-bg py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                              <Listbox.Options className="absolute mt-1 w-full overflow-auto rounded-md bg-white dark:bg-dark-body-bg py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                                 {wallets.map((wallet, walletIdx) => (
                                   <Listbox.Option
                                     key={walletIdx}
@@ -248,7 +248,7 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
                       !confirm && (
                         <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color dark:bg-dark-body-bg rounded-lg mt-2'>
                           <input type="number" value={depositAmount} min={1} max={ballance - 1} className='dark:bg-dark-body-bg border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
-                          <span className={`px-2 py-1 text-primary text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
+                          <span className={`px-2 py-1 text-primary dark:text-white text-[12px] font-medium leading-[14px] border-border-color border ${ballance && (depositAmount >= ballance) ? 'opacity-100' : 'opacity-0'}`}>
                             MAX
                           </span>
                         </div>
@@ -280,6 +280,9 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
                         </span>
                       </h1>
                     </div> */}
+                    <div className='h-[120px]'>
+
+                    </div>
                     <button className='px-8 py-2 rounded-lg bg-secondary w-full mt-6' onClick={depositFunc}>
                       <div className='flex gap-4 items-center justify-center'>
                         <h1 className='text-white font-medium leading-[24px] text-center text-base'>
