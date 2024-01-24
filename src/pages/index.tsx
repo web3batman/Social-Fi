@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 
 export default function Home() {
-  
+
   //@ts-ignore
   const { myProfile } = useContext(UserContext)
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function Home() {
     if (invite) {
       //@ts-ignore
       window.localStorage.setItem('inviter', invite)
-      signIn('twitter', {callbackUrl: '/'})
+      signIn('twitter', { callbackUrl: '/' })
     }
     if (myProfile) {
       if (myProfile.verified) {
@@ -37,23 +37,23 @@ export default function Home() {
             <h1 className='text-[56px] sm:text-7xl font-bold leading-[64px] sm:leading-[81px] capitalize text-primary dark:text-white'>
               Your digital oasis
             </h1>
-            <h2 className='text-primary-1 text-[24px] font-normal leading-8 dark:text-white'>
-              It&apos;s easier to connect with the world of Web3 with The Sahara
-            </h2>
+            <div className='flex w-full max-sm:mb-[56px] text-secondary text-[24px]'>
+              The Sahara is undergoing maintenance we will be live again soon
+            </div>
           </div>
           {
             loginBtn ? (
               <div className='flex w-full max-sm:mb-[56px]'>
-                <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full' onClick={() => signIn('twitter')}>
+                {/* <button className='px-8 py-4 rounded-lg bg-secondary max-sm:w-full' onClick={() => signIn('twitter')}>
                   <div className='flex gap-4 items-center justify-center sm:justify-start'>
                     <Image quality={100} src={'/icons/x_logo.svg'} width={100} height={100} alt='Twitter logo' className='w-[32px] h-[32px]' />
                     <h1 className='text-white font-medium leading-[32px] text-center text-[24px]'>
                       Login with X
                     </h1>
                   </div>
-                </button>
+                </button> */}
               </div>
-            ):(
+            ) : (
               <div className='flex w-full max-sm:mb-[36px]'>
                 <h2 className='text-primary-1 text-[24px] font-medium leading-8 dark:text-white'>
                   You have to deposit 10 Ada for verification

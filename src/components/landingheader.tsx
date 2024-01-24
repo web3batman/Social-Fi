@@ -76,15 +76,16 @@ const LandingHeader = () => {
               </button>
             </div>
           ) : (
-            <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { signIn('twitter') }}>
-              {/* <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { router.push('/home') }}> */}
-              <div className='flex gap-2 items-center'>
-                <Image quality={100} src={'/icons/x_logo.svg'} width={100} height={100} alt='Twitter logo' className='w-[12px] sm:w-[24px] h-[12px] sm:h-[24px]' />
-                <h1 className='text-white font-medium leading-6 text-center text-[12px] sm:text-base'>
-                  Login with X
-                </h1>
-              </div>
-            </button>
+            // <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { signIn('twitter') }}>
+            //   {/* <button className='px-2 sm:px-6 py-1 sm:py-3 rounded-lg bg-secondary' onClick={() => { router.push('/home') }}> */}
+            //   <div className='flex gap-2 items-center'>
+            //     <Image quality={100} src={'/icons/x_logo.svg'} width={100} height={100} alt='Twitter logo' className='w-[12px] sm:w-[24px] h-[12px] sm:h-[24px]' />
+            //     <h1 className='text-white font-medium leading-6 text-center text-[12px] sm:text-base'>
+            //       Login with X
+            //     </h1>
+            //   </div>
+            // </button>
+            <></>
           )
         }
         <Switcher size='18px' setDarkMode={settheme} />
