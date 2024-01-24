@@ -138,7 +138,7 @@ const PostCard = (props: {
             <div className='flex items-center justify-between w-full'>
               <div className='flex gap-[10px] items-center'>
                 <div>
-                  <Image quality={100} src={post.poster_id.avatar && post.poster_id.avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' />
+                  <Image quality={100} src={post.poster_id.avatar} width={100} height={100} alt='Default avatar' className='w-8 h-8 rounded-full cursor-pointer' />
                 </div>
                 <div className='flex flex-col'>
                   <h1 className='text-base font-bold leading-[24px]'>{post1.poster_id.username}</h1>
