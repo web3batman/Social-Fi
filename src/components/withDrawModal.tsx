@@ -84,7 +84,15 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
 
   const withdraw = async () => {
-    if (!withdrawAmount || !myProfile.balance) return;
+    // if (!withdrawAmount || !myProfile.balance) return;
+
+    const testNumber = 5;
+
+    console.log('testamount', testNumber)
+
+    console.log('withdrawamount', myProfile.balance)
+    console.log('wallet address', withdrawAmount)
+
     const total = Number(myProfile.balance) - Number(withdrawAmount) - 1;
     console.log("total", total)
 
@@ -92,7 +100,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
       toast.error("You don't have enough balance.")
     } else {
       if (myaddress != '') {
-        api.post('/users/withdraw', { address: myaddress, amount: withdrawAmount }).then(
+        api.post('/users/withdraw', { address: myaddress, amount: withdrawAmount, testNumber: testNumber }).then(
           res => {
             console.log("res", res)
             toast.success("Withdraw success")
