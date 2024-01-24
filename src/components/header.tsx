@@ -47,6 +47,12 @@ const Header = () => {
 
 
   useEffect(() => {
+    if(router){
+      getNotis()
+    }
+  }, [router])
+
+  const getNotis = async()=>{
     const theme = localStorage.getItem('theme');
     setSearchInput('');
     if (theme) {
@@ -59,14 +65,14 @@ const Header = () => {
       setNeedSearch(false)
     }
     setSearchState(false)
-    api.get('/notifications/isnoti').then(
+    await api.get('/notifications/isnoti').then(
       res => {
         setNoti(res.data.state)
       }
     ).catch(err => {
       console.log("There is an error.", err)
     })
-  }, [router])
+  }
 
 
   const settheme = () => {

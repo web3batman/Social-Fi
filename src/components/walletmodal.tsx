@@ -29,7 +29,7 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
   const [wallets, setWallets] = useState([Object]);
   const [mywallet, setWallet] = useState<object>();
   const [ballance, setBallance] = useState<number>(0);
-  // const [myaddress, setAddress] = useState<string>();
+  const [myaddress, setAddress] = useState<string>();
   const [depositAmount, setDepositAmount] = useState<number>(0);
   const [selected, setSelected] = useState({
     name: "Select wallet",
@@ -55,32 +55,41 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
   }
 
   const walletConnect = async (walletName: string) => {
-    BrowserWallet.enable(walletName).then(
-      wallet => {
-        setWallet(wallet);
-        wallet.getBalance().then(
-          ballance => {
-            if (ballance[0].quantity != 0) {
-              // @ts-ignore
-              setBallance(Math.floor(ballance[0].quantity / 1000000));
-              // setDepositAmount(Math.floor(ballance[0].quantity / 1000000));
-            } else {
-              setBallance(ballance[0].quantity);
-              setDepositAmount(ballance[0].quantity);
+    try {
+      BrowserWallet.enable(walletName).then(
+        wallet => {
+          setWallet(wallet);
+          wallet.getBalance().then(
+            ballance => {
+              if (ballance[0].quantity != 0) {
+                // @ts-ignore
+                setBallance(Math.floor(ballance[0].quantity / 1000000));
+                // setDepositAmount(Math.floor(ballance[0].quantity / 1000000));
+              } else {
+                setBallance(ballance[0].quantity);
+                setDepositAmount(ballance[0].quantity);
+              }
             }
-          }
-        ).catch(
-          err => {
-            toast.error("We can't connect your wallet.")
-            setBallance(0);
-          }
-        )
-      }
-    ).catch(error => {
-      toast.error("We can't connect your wallet.")
-      setBallance(0);
-      console.log('cant connect wallet')
-    })
+          ).catch(
+            err => {
+              toast.error("We can't connect your wallet.")
+              setBallance(0);
+            }
+          )
+          wallet.getUsedAddresses().then(
+            address => {
+              setAddress(address[0]);
+            }
+          )
+        }
+      ).catch(error => {
+        toast.error("We can't connect your wallet.")
+        setBallance(0);
+        console.log('cant connect wallet', error)
+      })
+    } catch (error) {
+      console.log('Cant access to the wallet', error)
+    }
   }
 
   const handleChange = async (e: any) => {
@@ -101,7 +110,7 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
       const tx = new Transaction({ initiator: mywallet })
         .sendLovelace(
           process.env.NEXT_PUBLIC_WALLET_ADDRESS,
-          confirm?"20000000":amount
+          confirm? "20000000" : amount
         )
         ;
 
@@ -116,24 +125,31 @@ export default function Modal(props: { show: boolean; closeModal: any; confirm?:
           if(confirm){
             api.post('/users/verify', {userid: myProfile._id}).then(
               res => {
-                toast.success("Verification succeed");
+                toast.success("Verification success");
                 router.reload()
               }
             ).catch(
               err => toast.error(err)
             )
           } else {
-            api.post('/users/deposit', { totalBalance: total }).then(
-              res => {
-                toast.success("Deposit succeed")
-                closeModal();
-                setDepositAmount(0)
-                setMyProfile(res.data);
-                router.reload();
-              }
-            ).catch(
-              err => toast.error(err)
-            )
+            if (total && amount) {
+              toast.success('You might to wait for transaction verification time! Please wait for a minute!')
+              api.post('/users/deposit', { txHash }).then(
+                res => {
+                  toast.success("Deposit success")
+                  closeModal();
+                  setDepositAmount(0)
+                  // setMyProfile(res.data);
+                  
+                  router.reload();
+                }
+              ).catch(
+                err => {
+                  toast.error("There was an error!")
+                  console.log('error', err)
+                }
+              )
+            }
           }
         }
       } catch (error) {

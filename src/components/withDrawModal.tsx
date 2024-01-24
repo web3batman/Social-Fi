@@ -87,13 +87,15 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
       toast.error("You don't have enough balance.")
     } else {
       if (myaddress != '') {
-        api.post('/users/withdraw', {address: myaddress, mount: withdrawAmount, totalBalance: total}).then(
+        api.post('/users/withdraw', {address: myaddress, mount: withdrawAmount}).then(
           res => {
-            toast.success("Withdraw succeed")
+            toast.success("Withdraw success")
             closeModal()
-            setMyProfile(res.data)
-            setwithdrawAmount(2)
-            router.reload();
+            // setMyProfile(res.data)
+            setTimeout(() => {
+
+              router.reload();
+            }, 2000)
           }
         ).catch(err => {
           toast.error('Transaction failed!')
