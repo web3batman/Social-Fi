@@ -10,6 +10,7 @@ import {useRouter} from 'next/router'
 
 import api from '@/constants/auth';
 import toast from 'react-hot-toast';
+import { error } from 'console';
 
 const saira = Saira({
   weight: '400',
@@ -80,7 +81,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   }
 
 
-  
+
 
   const withdraw = async () => {
 
@@ -101,7 +102,8 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
             }, 2000)
           }
         ).catch(err => {
-          toast.error('Transaction failed!')
+            toast.error('Transaction failed!')
+            console.log('Response error', err.response)
         })
       } else {
         toast.error("Please confirm your wallet!")
