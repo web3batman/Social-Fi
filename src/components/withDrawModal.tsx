@@ -6,7 +6,7 @@ import { Saira, Aclonica } from 'next/font/google';
 import { BrowserWallet, Transaction } from '@meshsdk/core';
 import { UserContext } from '@/contexts/UserProvider';
 
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 
 import api from '@/constants/auth';
 import toast from 'react-hot-toast';
@@ -84,26 +84,27 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
 
 
   const withdraw = async () => {
-
+    if (!withdrawAmount || !myProfile.balance) return;
     const total = Number(myProfile.balance) - Number(withdrawAmount) - 1;
+    console.log("total", total)
 
     if (total < 0) {
       toast.error("You don't have enough balance.")
     } else {
       if (myaddress != '') {
-        api.post('/users/withdraw', {address: myaddress, amount: withdrawAmount}).then(
+        api.post('/users/withdraw', { address: myaddress, amount: withdrawAmount }).then(
           res => {
+            console.log("res", res)
             toast.success("Withdraw success")
             closeModal()
             // setMyProfile(res.data)
-            setTimeout(() => {
-
-              router.reload();
-            }, 2000)
+            // setTimeout(() => {
+            //   router.reload();
+            // }, 2000)
           }
         ).catch(err => {
-            toast.error('Transaction failed!')
-            console.log('Response error', err.response)
+          toast.error('Transaction failed!')
+          console.log('Response error', err.response)
         })
       } else {
         toast.error("Please confirm your wallet!")
@@ -119,7 +120,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
   //   setSelected(wallets[0]);
   // }, [wallets])
 
-  
+
   useEffect(() => {
     if (selected.name != 'Select wallet' && selected) {
       walletConnect(selected.name);
@@ -163,7 +164,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                   <hr />
                   <div className="p-5">
                     {
-                      wallets.length != 0?(
+                      wallets.length != 0 ? (
                         <Listbox value={selected} onChange={setSelected}>
                           <div className="relative mt-1">
                             <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white dark:bg-dark-body-bg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -213,7 +214,7 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                             </Transition>
                           </div>
                         </Listbox>
-                      ):(
+                      ) : (
                         <h1 className='text-gray-900 font-medium dark:text-white'>No wallet. Please install any wallet.</h1>
                       )
                     }
@@ -230,8 +231,8 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
                     </div>
                     <div className='flex justify-between items-center py-3 px-4 border border-border-color bg-main-bg-color dark:bg-dark-body-bg rounded-lg mt-2'>
                       <input type="number" value={withdrawAmount} min={1} max={myProfile.balance - 1} className='dark:bg-dark-body-bg border-0 font-medium truncate w-full text-right ...' onChange={handleChange} />
-                      
-                      <span className={`px-2 py-1 text-primary dark:text-white text-[12px] font-medium leading-[14px] border-border-color dark:border-dark-border border ${withdrawAmount >= myProfile.balance?'opacity-100':'opacity-0'}`}>
+
+                      <span className={`px-2 py-1 text-primary dark:text-white text-[12px] font-medium leading-[14px] border-border-color dark:border-dark-border border ${withdrawAmount >= myProfile.balance ? 'opacity-100' : 'opacity-0'}`}>
                         MAX
                       </span>
                     </div>
