@@ -79,6 +79,9 @@ export default function Modal(props: { show: boolean; closeModal: any; openModal
     setwithdrawAmount(mount);
   }
 
+
+  
+
   const withdraw = async () => {
 
     const total = Number(myProfile.balance) - Number(withdrawAmount) - 1;
